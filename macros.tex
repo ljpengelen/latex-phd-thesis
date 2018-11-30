@@ -1,0 +1,413 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Environments to mark text that needs to be addressed
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{duplicate}{\color{red}}{}
+\newenvironment{address}{\color{blue}}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Command for hiding a numbered section in the table of contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\hiddenappendixsection}[1]{\stepcounter{section}\section*{\Alph{chapter}.\arabic{section}\hspace{1em}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Research Questions
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\RQ}[1]{\ensuremath{\text{RQ}_{#1}}}
+\newcommand{\RQdef}[2]{
+\begin{quote}
+\textbf{\RQ{#1}:} {\it #2}
+\end{quote}}
+\newcommand{\RQMain}[0]{\RQdef{}{%
+How can we improve the reliability of software that is automatically generated from high-level descriptions?}}
+\newcommand{\RQOne}[0]{\RQdef{1}{%
+How can large models for existing modeling languages be created efficiently using existing tools?}}
+\newcommand{\RQTwo}[0]{\RQdef{2}{%
+How does the size and complexity of model transformations affect the verifiability of intermediate models produced by sequences of refining model transformations?}}
+\newcommand{\RQThree}[0]{\RQdef{3}{%
+What are the advantages and disadvantages of implementing an executable prototype of the semantics of a domain-specific modeling language using \ASFSDF?}}
+\newcommand{\RQFour}[0]{\RQdef{4}{%
+Can we show that the model transformations that we implemented to refine \SLCO models preserve certain desirable properties of such models?}}
+\newcommand{\RQFive}[0]{\RQdef{5}{%
+What are the main influences on the design of a DSML and the corresponding model transformations?}}
+\newcommand{\RQSix}[0]{\RQdef{6}{%
+Can we verify the correctness of model transformations automatically?}}
+
+%%%%%%%%%
+%% Tables
+%%%%%%%%%
+\newcommand{\mr}[2]{\multirow{#1}{*}{#2}}
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\newcommand{\bgc}[1]{\cellcolor[gray]{0.9}\textbf{#1}}
+\newcommand{\head}[1]{\mc{1}{c|}{\bgc{#1}}}
+\newcommand{\dhead}[1]{\mc{2}{c|}{\bgc{#1}}}
+\newcommand{\cat}[1]{\mc{1}{l|}{\cellcolor[gray]{0.9}\textit{#1}}}
+\newcommand{\catu}[2]{\mc{1}{l|}{\cellcolor[gray]{0.9}\textit{#1} (#2)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Environment for Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{abstract}{\begin{it}}{\end{it}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Command for Publications
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\publication}[6]{
+\begin{quote}
+\begin{tabular}{@{}r p{10.3cm}}
+#1 & #2. #3. {\it #4}, #5. \ifthenelse{\equal{#6}{}}{}{\texttt{\doi{#6}}.}
+\end{tabular}
+\end{quote}}
+
+\newcommand{\bpublication}[6]{
+\begin{quote}
+#2. #3. {\it #4}, #5. \ifthenelse{\equal{#6}{}}{}{\\\texttt{\doi{#6}}.}
+\end{quote}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Description of overview figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Transformation}[1]{\ensuremath{T_{\it{#1}}}}
+\newcommand{\NumberedTransformation}[2]{\ensuremath{T_{\it{#1}}^{\it{#2}}}}
+\newcommand{\Model}[1]{\ensuremath{M_{\it{#1}}}}
+\newcommand{\Implementation}[1]{\ensuremath{I_{\it{#1}}}}
+\newcommand{\Motor}[1]{\ensuremath{M_{\it{#1}}}}
+\newcommand{\Sensor}[2]{\ensuremath{S_{\it{#1}}^{\it{#2}}}}
+\newcommand{\SLCOModel}[1]{\ensuremath{M_{\it{SLCO}}^{#1}}}
+\newcommand{\NQCCode}[1]{\ensuremath{M_{\it{NQC}}^{#1}}}
+\newcommand{\Component}[1]{\ensuremath{\it{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Syntax Definitions
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\terminal}[1]{``\textbf{#1}"}
+\newcommand{\terminalsymbol}[1]{``#1"}
+\newcommand{\nonterminal}[1]{\ensuremath{\it{#1}}}
+
+%%%%%%%%%%%%%%%%%%%
+%% Languages, Tools
+%%%%%%%%%%%%%%%%%%%
+\newcommand{\Language}[1]{#1\xspace}
+\newcommand{\Tool}[1]{#1\xspace}
+\newcommand{\ATerms}[0]{\Tool{ATerms}}
+\newcommand{\UML}[0]{\Language{UML}}
+\newcommand{\PVS}[0]{\Tool{PVS}}
+\newcommand{\Eclipse}[0]{\Language{Eclipse}}
+\newcommand{\ASF}[0]{\Language{ASF}}
+\newcommand{\SDF}[0]{\Language{SDF}}
+\newcommand{\ASFSDF}[0]{\Language{ASF+SDF}}
+\newcommand{\ASFSDFME}[0]{\Language{ASF+SDF Meta-Environment}}
+\newcommand{\OAW}[0]{\Language{openArchitectureWare}}
+\newcommand{\OMG}[0]{\Language{OMG}}
+\newcommand{\Java}[0]{\Language{Java}}
+\newcommand{\Xpand}[0]{\Language{Xpand}}
+\newcommand{\Xtend}[0]{\Language{Xtend}}
+\newcommand{\Xtext}[0]{\Language{Xtext}}
+\newcommand{\ANTLR}[0]{\Language{ANTLR}}
+\newcommand{\OCL}[0]{\Language{OCL}}
+\newcommand{\SGLR}[0]{\Language{SGLR}}
+\newcommand{\JavaCC}[0]{\Language{JavaCC}}
+\newcommand{\YACC}[0]{\Language{YACC}}
+\newcommand{\TXL}[0]{\Language{TXL}}
+\newcommand{\TCS}[0]{\Language{TCS}}
+\newcommand{\QVT}[0]{\Language{QVT}}
+\newcommand{\Promela}[0]{\Language{Promela}}
+\newcommand{\Spin}[0]{\Tool{Spin}}
+\newcommand{\SLCO}[0]{\Language{SLCO}}
+\newcommand{\POOSL}[0]{\Language{POOSL}}
+\newcommand{\NQC}[0]{\Language{NQC}}
+\newcommand{\RCX}[0]{\Language{RCX}}
+\newcommand{\ATL}[0]{\Language{ATL}}
+\newcommand{\LTS}[0]{\Language{LTS}}
+\newcommand{\DOT}[0]{\Language{Dot}}
+\newcommand{\CS}[0]{\Language{CS}}
+\newcommand{\NXT}[0]{\Language{NXT}}
+\newcommand{\LTL}[0]{\Language{LTL}}
+\newcommand{\Maude}[0]{\Language{Maude}}
+\newcommand{\SHESim}[0]{\Tool{SHESim}}
+\newcommand{\Rotalumis}[0]{\Tool{Rotalumis}}
+\newcommand{\SLCOtoCS}[0]{\Tool{SLCO2CS}}
+\newcommand{\CStoLTS}[0]{\Tool{CS2LTS}}
+\newcommand{\CStoDot}[0]{\Tool{CS2Dot}}
+\newcommand{\ltsconvert}[0]{\Tool{ltsconvert}}
+\newcommand{\ltscompare}[0]{\Tool{ltscompare}}
+\newcommand{\mCRLTwo}{\Tool{mCRL2}}
+\newcommand{\CADP}{\Tool{CADP}}
+\newcommand{\graphviz}{\Tool{Graphviz}}
+\newcommand{\BCG}{\Language{BCG}}
+\newcommand{\AUT}{\Language{AUT}}
+\newcommand{\EXPOPEN}{\Tool{Exp.Open}}
+\newcommand{\bcgio}{\Tool{bcg\_io}}
+\newcommand{\StrategoXT}{\Tool{Stratego/XT}}
+
+%%%%%%%
+%% UML
+%%%%%%%
+\newcommand{\UMLConcept}[1]{#1}
+\newcommand{\Action}[0]{\UMLConcept{Action}\xspace}
+\newcommand{\Actions}[0]{\UMLConcept{Actions}\xspace}
+\newcommand{\Activity}[0]{\UMLConcept{Activity}\xspace}
+\newcommand{\Activities}[0]{\UMLConcept{Activities}\xspace}
+\newcommand{\ActivityNode}[0]{\UMLConcept{ActivityNode}\xspace}
+\newcommand{\ActivityEdge}[0]{\UMLConcept{ActivityEdge}\xspace}
+\newcommand{\ActivityNodes}[0]{\UMLConcept{ActivityNodes}\xspace}
+\newcommand{\ActivityEdges}[0]{\UMLConcept{ActivityEdges}\xspace}
+\newcommand{\Class}[0]{\UMLConcept{Class}\xspace}
+\newcommand{\Classifier}[0]{\UMLConcept{Classifier}\xspace}
+\newcommand{\ControlNodes}[0]{\UMLConcept{ControlNodes}\xspace}
+\newcommand{\ControlFlows}[0]{\UMLConcept{ControlFlows}\xspace}
+\newcommand{\ObjectFlow}[0]{\UMLConcept{ObjectFlow}\xspace}
+\newcommand{\ObjectFlows}[0]{\UMLConcept{ObjectFlows}\xspace}
+\newcommand{\InputPin}[0]{\UMLConcept{InputPin}\xspace}
+\newcommand{\InputPins}[0]{\UMLConcept{InputPins}\xspace}
+\newcommand{\OutputPin}[0]{\UMLConcept{OutputPin}\xspace}
+\newcommand{\OutputPins}[0]{\UMLConcept{OutputPins}\xspace}
+\newcommand{\OpaqueAction}[0]{\UMLConcept{OpaqueAction}\xspace}
+\newcommand{\OpaqueBehavior}[0]{\UMLConcept{OpaqueBehavior}\xspace}
+\newcommand{\OpaqueExpression}[0]{\UMLConcept{OpaqueExpression}\xspace}
+\newcommand{\ReadVariableAction}[0]{\UMLConcept{ReadVariableAction}\xspace}
+\newcommand{\Variable}[0]{\UMLConcept{Variable}\xspace}
+\newcommand{\Variables}[0]{\UMLConcept{Variables}\xspace}
+\newcommand{\InitialNode}[0]{\UMLConcept{InitialNode}\xspace}
+\newcommand{\ActivityFinalNode}[0]{\UMLConcept{ActivityFinalNode}\xspace}
+\newcommand{\AddVariableValueAction}[0]{\UMLConcept{AddVariableValueAction}\xspace}
+\newcommand{\AddVariableValueActions}[0]{\UMLConcept{AddVariableValueActions}\xspace}
+\newcommand{\CreateObjectAction}[0]{\UMLConcept{CreateObjectAction}\xspace}
+\newcommand{\CreateObjectActions}[0]{\UMLConcept{CreateObjectActions}\xspace}
+\newcommand{\UMLStateMachines}[0]{\UMLConcept{StateMachines}\xspace}
+\newcommand{\UMLStateMachine}[0]{\UMLConcept{StateMachine}\xspace}
+
+%%%%%%%%%
+%% ASFSDF
+%%%%%%%%%
+\newcommand{\ASFConstruct}[1]{\ensuremath{\it{#1}}}
+\newcommand{\ASFSort}[1]{\ASFConstruct{#1}}
+\newcommand{\ASFVariable}[1]{\ASFConstruct{#1}}
+\newcommand{\ASFFunction}[1]{\ASFConstruct{#1}}
+
+%%%%%%%
+%% SLCO
+%%%%%%%
+\newcommand{\SLCOConstruct}[1]{\ensuremath{\it{#1}}}
+\newcommand{\SLCOObject}[1]{\SLCOConstruct{#1}}
+\newcommand{\SLCOState}[1]{\SLCOConstruct{#1}}
+\newcommand{\SLCOStateMachine}[1]{\SLCOConstruct{#1}}
+\newcommand{\SLCOClass}[1]{\SLCOConstruct{#1}}
+\newcommand{\SLCOChannel}[1]{\SLCOConstruct{#1}}
+\newcommand{\SLCOSignal}[2]{\SLCOConstruct{#1}(#2)}
+\newcommand{\SLCOSignalName}[1]{\SLCOConstruct{#1}}
+\newcommand{\SLCOPort}[1]{\SLCOConstruct{#1}}
+\newcommand{\SLCOVariable}[1]{\SLCOConstruct{#1}}
+
+\newcommand{\SLCOSignalReception}[3]{\ensuremath{\mathbf{receive}~#1(#2)~\mathbf{from}~\it{#3}}}
+\newcommand{\SLCOConditionalSignalReception}[4]{\ensuremath{\mathbf{receive}~#1(#2~|~#3)~\mathbf{from}~\it{#4}}}
+\newcommand{\SLCOSendSignal}[3]{\ensuremath{\mathbf{send}~#1(#2)~\mathbf{to}~\it{#3}}}
+\newcommand{\SLCOTrue}[0]{\ensuremath{\mathbf{true}}\xspace}
+\newcommand{\SLCOFalse}[0]{\ensuremath{\mathbf{false}}\xspace}
+
+%%%%%%%
+% POOSL
+%%%%%%%
+\newcommand{\POOSLConstruct}[1]{\ensuremath{\it{#1}}}
+\newcommand{\POOSLVariable}[1]{\POOSLConstruct{#1}}
+
+%%%%%
+% NQC
+%%%%%
+\newcommand{\NQCConstruct}[1]{\ensuremath{\it{#1}}}
+\newcommand{\NQCVariable}[1]{\NQCConstruct{#1}}
+\newcommand{\NQCFunction}[1]{\NQCConstruct{#1}}
+\newcommand{\NQCPort}[1]{\NQCConstruct{#1}}
+
+%%%%%%%%%
+% Promela
+%%%%%%%%%
+\newcommand{\PromelaConstruct}[1]{\ensuremath{\it{#1}}}
+\newcommand{\PromelaReceive}[2]{\ensuremath{#1?#2}}
+\newcommand{\PromelaTrue}[0]{\ensuremath{\mathbf{true}}\xspace}
+\newcommand{\PromelaFalse}[0]{\ensuremath{\mathbf{false}}\xspace}
+\newcommand{\PromelaEval}[0]{\ensuremath{\mathbf{eval}}\xspace}
+
+%%%%%%%%%%%%
+%% Operators
+%%%%%%%%%%%%
+\DeclareMathOperator*{\neqop}{!\!=}
+\DeclareMathOperator*{\orop}{||}
+\DeclareMathOperator*{\andop}{\&\&}
+\DeclareMathOperator*{\leqop}{<=}
+\DeclareMathOperator*{\geqop}{>=}
+\DeclareMathOperator*{\assignop}{:=}
+
+%%%%%
+% SOS
+%%%%%
+\newcommand{\sosrule}[2]{%
+  \ensuremath{%
+    \frac{%
+      \begin{array}[c]{c}
+        #1
+      \end{array}
+    }{%
+      \begin{array}[c]{c}
+        #2
+      \end{array}
+    }%
+  }%
+}
+\newcommand{\evalfuncset}[1]{\ensuremath{#1}\xspace}
+\newcommand{\VVARS}{\evalfuncset{V_{\it{VARS}}}}
+\newcommand{\VGLOB}{\evalfuncset{V_{\it{GLOB}}}}
+\newcommand{\VSMS}{\evalfuncset{V_{\it{SMS}}}}
+\newcommand{\VLOC}{\evalfuncset{V_{\it{LOC}}}}
+\newcommand{\SSMS}{\evalfuncset{S_{\it{SMS}}}}
+\newcommand{\SOBJS}{\evalfuncset{S_{\it{OBJS}}}}
+\newcommand{\Buf}{\evalfuncset{B}}
+
+\newcommand{\evalfunc}[1]{\ensuremath{#1}\xspace}
+\newcommand{\vvars}{\evalfuncset{v_{\it{vars}}}}
+\newcommand{\vglob}{\evalfuncset{v_{\it{glob}}}}
+\newcommand{\vsms}{\evalfuncset{v_{\it{sms}}}}
+\newcommand{\vloc}{\evalfuncset{v_{\it{loc}}}}
+\newcommand{\ssms}{\evalfuncset{s_{\it{sms}}}}
+\newcommand{\sobjs}{\evalfuncset{s_{\it{objs}}}}
+\newcommand{\buf}{\evalfuncset{b}}
+
+\newcommand{\nil}{\ensuremath{\mathbf{nil}}\xspace}
+
+\newcommand{\syncat}[1]{\ensuremath{\it #1}\xspace}
+\newcommand{\Models}{\syncat{Models}}
+\newcommand{\Classes}{\syncat{Classes}}
+\newcommand{\Objects}{\syncat{Objects}}
+\newcommand{\Channels}{\syncat{Channels}}
+\newcommand{\Transitions}{\syncat{Transitions}}
+\newcommand{\StateMachines}{\syncat{StateMachines}}
+\newcommand{\Statements}{\syncat{Statements}}
+\newcommand{\Expressions}{\syncat{Expressions}}
+\newcommand{\ConstantExpressions}{\syncat{CE}}
+
+\newcommand{\ModelNames}{\syncat{MN}}
+\newcommand{\ClassNames}{\syncat{CN}}
+\newcommand{\ObjectNames}{\syncat{ON}}
+\newcommand{\ChannelNames}{\syncat{CHN}}
+\newcommand{\PortNames}{\syncat{PN}}
+\newcommand{\VariableNames}{\syncat{VN}}
+\newcommand{\StateMachineNames}{\syncat{SMN}}
+\newcommand{\StateNames}{\syncat{SN}}
+\newcommand{\TransitionNames}{\syncat{TN}}
+\newcommand{\SignalNames}{\syncat{SGN}}
+
+\newcommand{\SmallStepRelation}[2]{\ensuremath{\xrightarrow{\it{#1}}_{\it{#2}}}}
+\newcommand{\TransitionsRelation}[1]{\SmallStepRelation{#1}{TRANS}}
+\newcommand{\StateMachineRelation}[1]{\SmallStepRelation{#1}{SM}}
+\newcommand{\ClassRelation}[1]{\SmallStepRelation{#1}{CLASS}}
+\newcommand{\ObjectsRelation}[1]{\SmallStepRelation{#1}{OBJS}}
+\newcommand{\ModelRelation}[1]{\SmallStepRelation{#1}{MODEL}}
+
+\newcommand{\TextSmallStepRelation}[2]{\ensuremath{\,\smash{\xrightarrow{\raisebox{-1pt}[0pt][0pt]{\mbox{\tiny\ensuremath{\it{#1}}}}}_{\it{#2}}}\,}}
+\newcommand{\TextModelRelation}[1]{\TextSmallStepRelation{#1}{MODEL}}
+
+\newcommand{\BigStepRelation}[2]{\ensuremath{\xRightarrow{\it{#1}}_{\it{#2}}}}
+\newcommand{\ExpressionRelation}[1]{\BigStepRelation{#1}{EXP}}
+\newcommand{\ExpressionsRelation}[1]{\BigStepRelation{#1}{EXPS}}
+\newcommand{\AssignmentRelation}[1]{\BigStepRelation{#1}{ASSIGN}}
+\newcommand{\MultipleSubstitutionRelation}[1]{\BigStepRelation{#1}{SUB}}
+
+\newcommand{\TransitionLabels}{\syncat{TL}}
+
+%%%%%%%%%%%%%%%%%%%%
+%% Partial Functions
+%%%%%%%%%%%%%%%%%%%%
+\newcommand\pfun{\mathrel{\ooalign{\hfil$\mapstochar\mkern5mu$\hfil\cr$\to$\cr}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Model transformations
+%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\TSim}{\ensuremath{T^S_{\it{as}}}\xspace}
+\newcommand{\TGen}{\ensuremath{T^G_{\it{as}}}\xspace}
+
+%%%%%
+%% CS
+%%%%%
+\newcommand{\ActiveState}[3]{\ensuremath{\langle#1, #2, #3\rangle}}
+\newcommand{\ActiveStateTimeStamp}[4]{\ensuremath{\langle#1, #2, #3, #4\rangle}}
+\newcommand{\TSPassed}[0]{\ensuremath{\mathbf{passed}}\xspace}
+\newcommand{\Valuation}[1]{\ensuremath{[#1]}}
+\newcommand{\ValGlobal}[3]{\ensuremath{\langle\langle#1, #2\rangle, #3\rangle}}
+\newcommand{\ValLocal}[4]{\ensuremath{\langle\langle#1, #2, #3\rangle, #4\rangle}}
+\newcommand{\CSStatus}[1]{\ensuremath{\mathbf{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Special characters
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\accept}{\ding{51}\xspace}
+\newcommand{\reject}{\ding{55}\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%
+% LTS transformations
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Sf}{\ensuremath{\varphi}\xspace}
+\newcommand{\smodel}{\ensuremath{\mathcal{M}}\xspace}
+
+%%-----------
+%% Background
+%%-----------
+\newcommand{\graph}{\ensuremath{\mathcal{G}}\xspace}
+\newcommand{\ltstuple}[1]{\ensuremath{\langle \states{#1}, \actions{#1}, \transitions{#1}, \initialstates{#1} \rangle}\xspace}
+\newcommand{\networktuple}{\ensuremath{\langle \Pi, \synchrules \rangle}\xspace}
+\newcommand{\syncruletuple}{\ensuremath{\langle \vectornot{t},a \rangle}\xspace}
+\newcommand{\transruletuple}[1]{\ensuremath{\langle \Llts^{#1}, \Rlts^{#1} \rangle}\xspace}
+\newcommand{\rulesystemtuple}{\ensuremath{\langle R,\hat\synchrules \rangle}\xspace}
+
+\newcommand{\states}[1]{\ensuremath{{\mathcal{S}_{#1}}}\xspace}
+\newcommand{\transitions}[1]{\ensuremath{{\mathcal{T}_{#1}}}\xspace}
+\newcommand{\actions}[1]{\ensuremath{{\mathcal{A}_{#1}}}\xspace}
+\newcommand{\initialstates}[1]{\ensuremath{\mathcal{I}_{#1}}\xspace}
+
+\newcommand{\synchrules}{\ensuremath{{\mathcal{V}}}\xspace}
+
+\newcommand{\tstates}[2]{\ensuremath{{\mathcal{S}_{#1}^{#2}}}\xspace}
+\newcommand{\ttransitions}[2]{\ensuremath{{\mathcal{T}_{#1}^{#2}}}\xspace}
+\newcommand{\tactions}[2]{\ensuremath{{\mathcal{A}_{#1}^{#2}}}\xspace}
+\newcommand{\tinitialstates}[2]{\ensuremath{\mathcal{I}_{#1}^{#2}}\xspace}
+
+\newcommand{\dsbrLmu}{\ensuremath{\smash{L_\mu^{\it dsbr}}}\xspace}
+\newcommand{\diverge}{\ensuremath{\uparrow}}
+\newcommand{\bdsbb}{\mbox{\textbf{\textsc{Dsbb}}}}
+\newcommand{\Af}{\alpha}
+\newcommand{\Sp}{\psi}
+\newcommand{\mond}{\right>}
+\newcommand{\brac}{\left[}
+\newcommand{\ket}{\right]}
+\newcommand{\sem}{\left[\!\left[}
+\newcommand{\antic}{\right]\!\right]}
+\newcommand{\FALSE}{{\sf false}}
+\newcommand{\tausteps}{\ensuremath{\hspace{.6mm}\mbox{$=\hspace{-2mm}\Rightarrow$}\hspace{.6mm}}}
+\newcommand{\maxabstr}{\ensuremath{\tilde\tau_\varphi}}
+\newcommand{\abstrset}[1]{\ensuremath{\tau_{#1}}}
+\newcommand{\vectornot}[1]{\bS*{#1}}
+\newcommand{\abstr}{\ensuremath{\tau_H}}
+\newcommand{\dsbbis}{\bisimilar_{b}^{\Delta}}
+\newcommand{\bisimilar}[1][]{%
+  \setbox0=\hbox{\kern-.1ex{$\leftrightarrow$}\kern-.1ex}
+  \setbox1=\vbox{\hbox{\raise .1ex \box0}\hrule}%
+  \ensuremath{\mathrel{\hbox{\kern.1ex\box1\kern.1ex}_{#1}}}
+}
+
+%--------------------
+%% lts-transformation
+%--------------------
+\newcommand{\Llts} {\ensuremath{\mathcal{L}}}
+\newcommand{\Rlts} {\ensuremath{\mathcal{R}}}
+
+%% ---------------------
+%% Property preservation
+%% ---------------------
+\newcommand{\ri}{\ensuremath{{r_i}}}
+\newcommand{\rj}{\ensuremath{{r_j}}}
+\newcommand{\dep}{\ensuremath{A_{\it dep}}}
+\newcommand{\inv}{\ensuremath{{\it dep}}}
+\newcommand{\syncactions}{\ensuremath{\mathcal{A}_{s}}}
+
+%% -------------------------------
+%% Cases for property preservation
+%% -------------------------------
+\newcommand{\action}[1]{\ensuremath{#1}} 

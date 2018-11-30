@@ -1,0 +1,33 @@
+\section{Introduction}
+\label{sec:grammars-and-metamodels:Introduction}
+
+Many popular \Eclipse-based modeling formalisms focus on notations that are either mainly textual or mainly graphical.
+Although tools exist that transform models written in a textual language to representations of those models that can be manipulated and depicted using graphical notations, the construction and manipulation of models written using a combination of both languages is not well facilitated.
+
+The popular modeling language \UML offers graphical diagrams for the construction of models.
+Research has shown, however, that graphical languages are not inherently superior to textual languages \cite{looking-seeing} and that both types of languages have their benefits.
+Therefore, we investigate the integration of textual and graphical languages to be able to exploit the benefits of both types of languages.
+In particular, this integration facilitates the creation of large \UML models and addresses research question~\RQ{1}.
+
+\RQOne
+
+One of the problems that arise when using two or more languages to construct one model is that parts of the model written in one language can refer to elements contained in parts written in another language.
+Transforming a model written in multiple languages to a model written in one language involves introducing correct references between various parts of the model.
+
+Existing tools are aimed at converting textual models conforming to grammars into models conforming to metamodels and vice versa \cite{TCS, Efftinge2006xText}.
+These tools can not transform models that consist of parts that conform to grammars as well as parts that conform to metamodels.
+
+We use a textual alternative for activity diagrams, a textual surface language, as a case study and have implemented two versions of this language.
+One alternative uses tools and techniques related to grammars, and the other uses tools and techniques related to models and metamodels.
+The approach related to grammars transforms \UML models containing fragments of behavior modeled using our surface language to plain \UML models by rewriting the XMI representation of the model provided as input.
+We used the \ASFSDFME~\cite{Brand:2001:ASF} to implement this approach.
+The approach related to models and metamodels extracts the fragments of surface language, converts them to metamodel based equivalents, transforms these equivalents to Activities, and uses these to replace the fragments in the original model.
+We used the \OAW platform~\cite{Haase2007OAW, Voelter2006OAW} to implement this approach.
+
+The remainder of this chapter is organized as follows: Section~\ref{sec:grammars-and-metamodels:Preliminaries} introduces a number of relevant concepts.
+A specification of the surface language we implemented, a description of its embedding in the \UML, and the transformation from surface language to Activities is given in Section~\ref{sec:grammars-and-metamodels:SL-specification}.
+The approach based on grammars is described in Section~\ref{sec:grammars-and-metamodels:Grammarware}, and the approach based on models and metamodels is described in Section~\ref{sec:grammars-and-metamodels:Modelware}.
+A number of other applications involving the integration of textual and graphical languages, and the transformation of models constructed using multiple languages are discussed in Section~\ref{sec:grammars-and-metamodels:Other-Applications-of}.
+Section~\ref{sec:grammars-and-metamodels:Case-Study} provides a short description of a case study concerning the application of our surface language.
+Section~\ref{sec:grammars-and-metamodels:Related-Work} discusses how our work relates to earlier work.
+We draw conclusions and discuss future work in Section~\ref{sec:grammars-and-metamodels:Conclusions-and-Future}.

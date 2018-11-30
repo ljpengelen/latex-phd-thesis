@@ -1,0 +1,26 @@
+\section{Conclusions and Future Work}
+\label{sec:grammars-and-metamodels:Conclusions-and-Future}
+
+In this chapter, we addressed research question~\RQ{1} by investigating two approaches for the integration of textual and graphical modeling languages.
+To create large, detailed \UML models efficiently, we implemented a textual surface language as an alternative for activity diagrams.
+We described this surface language, the two approaches, the implementations that follow these approaches, and a number of related applications.
+The approach using grammarware transforms models containing fragments of surface language to plain models by rewriting the XMI representations of these models.
+The approach using modelware extracts fragments of surface language from a model, converts these fragments to a representation based on metamodels, transforms them to equivalent \Activities, and replaces the original fragments with the equivalent \Activities.
+The approaches we presented are not limited to the transformation of models to equivalent models.
+We also implemented a transformation that transforms models containing fragments of surface language into a list of error messages, thus providing a simple form of checking.
+
+The research presented in this chapter did not focus on studying the suitability of textual surface languages as a method for the efficient creation of large, detailed models.
+However, experiments with a case study related to the Ideals project~\cite{Ideals2007} showed that the surface language described in this chapter does provide a convenient way of creating such models for the \UML.
+By replacing activity diagrams with fragments of surface language, the number of diagrams could be significantly reduced, without reducing the understandability of the model of the case study.
+
+Both approaches and the corresponding implementations have their advantages and disadvantages when applied to integrate a textual language into an existing modeling language.
+The main advantages of the approach that uses grammarware are the flexibility offered by the syntax definition formalism and the ease of use provided by the maturity of the tools and their documentation.
+A downside of this approach is that dealing with the XMI representation of models lowers the level of abstraction of the transformations related to the approach.
+An advantage of the approach that uses modelware is that all of the aforementioned operations related to this approach can be performed from within one modeling environment.
+A disadvantage of the current implementation of this approach is that the available tools pose more restrictions on the grammar of the language we embed, in comparison to the approach using grammarware.
+Our approaches provide advantages over the approaches described in Section~\ref{sec:grammars-and-metamodels:Related-Work} because they both offer a more complex mapping from textual representations to metamodel elements, which can be used to obtain simpler textual representations.
+The fact that the implementation using grammarware poses less restrictions on the syntax of the textual language is also an advantage over these approaches.
+
+
+The current implementation that uses grammarware can parse only one variant of XMI, but a future extension that introduces an intermediate language could pose a solution for this shortcoming.
+Investigating the use of more advanced parsing technology as a basis for the modelware tools is another promising direction for future research. 

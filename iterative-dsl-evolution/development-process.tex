@@ -1,0 +1,34 @@
+\section{Development Process}
+\label{sec:iterative-dsl-evolution:Development_Process}
+%%%%\begin{address}
+%%%%In Section~\ref{sec:iterative-dsl-evolution:Languages}, we explained that the language characteristics of the various platforms differ.
+%%%%To enable simulation, verification, and execution, these semantic platform gaps need to be bridged~\cite{Amstel2008}.
+%%%%Therefore, we defined a number of transformations that transform an \SLCO model to a different \SLCO model with equivalent observable behavior.
+%%%%An \SLCO model that uses synchronous communication only, for example, can be transformed to an equivalent \SLCO model that uses asynchronous communication only.
+%%%%We also defined transformations from \SLCO to \POOSL, \Promela, and \NQC.
+%%%%These transformations can only be performed if the characteristics of the \SLCO model that is to be transformed match the characteristics of the target platform.
+%%%%To transform \emph{any} \SLCO model, the possible platform gaps should be bridged by first performing the necessary transformations to replace all the constructs used in the \SLCO model that do not exist on the target platform.
+%%%%After this alignment of the platform characteristics of \SLCO and the target language, the transformations to the different formalisms merely transform syntax.
+%%%%In the remainder of this section, the transformations that bridge platform gaps as well as the transformations to the different platforms will be explained in detail.
+%\end{address}
+
+The language and the sequences of model transformations described in Chapter~\ref{chap:SLCO} originate from research aimed at performance analysis of \UML models.
+The goal of this research was to be able to simulate and analyze \UML models, developed using an intuitive, graphical syntax, without the need for modelers to learn the syntax and semantics of a formal language for simulation.
+Because only a small subset of the \UML was used, and some additions and other changes were needed, we decided to create a new DSML once the original research project was finished.
+This way, we no longer had to deal with \UML's very large metamodel.
+The new DSML was named the Simple Language of Communicating Objects (\SLCO).
+Once it was defined, a model transformation was implemented to enable simulation of its models using \POOSL~\cite{Theelen2007}, which is described in Section~\ref{sec:slco:transformation-to-poosl}.
+By means of this transformation, \SLCO models could be simulated, and the performance of the systems they describe could be analyzed.
+Second, a model transformation was implemented to enable execution of the models on the Lego Mindstorms platform\footnote{\url{http://mindstorms.lego.com/}}, which is described in Section~\ref{sec:slco:transformation-to-nqc}.
+Executing the code generated from certain models revealed bugs in these models that originated from unforeseen interleavings of concurrent objects.
+These bugs were not encountered during simulation.
+To detect this kind of problems, a third model transformation was implemented to enable verification of the models using \Spin~\cite{Holzmann2003}, which is described in Section~\ref{subsubsec:slco:transformation-to-promela}.
+
+At first, the transformation from \SLCO to \POOSL, a language whose semantics is formally defined, served as a transformational definition of \SLCO's semantics.
+However, to reason about the correctness of the model transformations related to \SLCO, a formal and more concise definition of its semantics was needed.
+Thus, as a starting point for a formal operational semantics for \SLCO, an executable prototype of the semantics was implemented, which is described in Chapter~\ref{chap:prototype-semantics}.
+This prototype made it possible to experiment with various alternative design decisions.
+Once the prototype reached a stable state, we defined the formal semantics of \SLCO based on the prototype, which is described in Appendix~\ref{ap:sos-slco}.
+
+Adding new target platforms to an existing DSML and changing the way its semantics are defined led to changes in the DSML itself.
+In the remainder of this chapter, we describe these changes and indicate their causes. 

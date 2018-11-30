@@ -1,0 +1,23 @@
+\section{Related work}
+\label{sec:reusable-correct-transformations:related_work}
+Various aspects of the correctness of model transformations have been considered, and different approaches have been proposed.
+Giese et al.\ relate input and output models during the specification of a transformation and then use a theorem prover to show semantic equivalence between the input and output of this transformation~\cite{Giese06towardsverified}.
+The source and target language discussed are relatively small, leading to a more straightforward transformation compared to the sequences of transformations we consider.
+However, the use of a theorem prover to automate parts of the correctness proofs has clear advantages over manual proofs.
+The approach of Sch{\"a}tz also uses a theorem prover for assistance with correctness proofs~\cite{Schatz10}.
+In this case, properties that are proved for the given model transformation are more of a structural nature.
+It is interesting that here the author advocates the advantages of having a single homogenous formalism for description of transformations, which we also see advantageous in our approach.
+The framework proposed by Varr{\'o} allows for defining a set of graph transformation rules to describe the operational semantics of a DSML, which is used, similar to our approach, to generate an LTS representation of models in the DSML, which then can be model checked~\cite{Varro04}.
+However, the translation framework works only on a particular given model instance of the language, while we aim at general results at the level of the entire language.
+
+Instance-based verification of model transformations is described also by Karsai and Narayanan~\cite{Karsai:2006:CMT:1785644.1785646}.
+Their approach entails generating a certificate for each model that is transformed.
+These certificates are used to show that the model transformation preserves certain properties for the given input model, but cannot be used to show that properties are preserved for arbitrary input models.
+
+The approaches described by Ehrig and Ermel~\cite{EhEr08}, and H{\"u}lsbusch et al.~\cite{Rensink2010} are most closely related to the work presented in this chapter.
+Ehrig and Ermel consider preservation of behavior by model transformations~\cite{EhEr08}.
+Besides the models in the source language, also the language semantics is transformed, and the result is compared with the semantics of the target language.
+The paper states conditions that input models and model transformations should fulfill to preserve the semantics.
+H{\"u}lsbusch et al.~\cite{Rensink2010} consider the correctness of model transformations stated in terms of a bisimulation relation.
+Here, the languages are first given operational semantics in terms of graph-transformation rules.
+Although our approach to the correctness of transformations is similar to this one, the two languages considered in their work are simpler than the language we used to demonstrate our approach.

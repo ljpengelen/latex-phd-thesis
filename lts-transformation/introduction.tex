@@ -1,0 +1,70 @@
+\section{Introduction}
+\label{sec:lts-transformation:intro}
+Model-driven software development (MDSD)~\cite{mdsd} entails creating implementations on a low level of abstraction from designs represented by models on a high level of abstraction.
+Implementation details are added to these abstract models by means of refining model transformations.
+By applying one or more of such transformations to a model that represents the high-level design of a software system, a model on a low level of abstraction can be generated that can be transformed to an implementation for this system straightforwardly.
+In case a sequence of transformations is applied, also a number of intermediate models is produced.
+Usually, an implementation must satisfy a number of requirements that can be expressed as properties of the model that forms its design.
+To ensure that the implementation satisfies its requirements, these properties should also hold for the models that result from model transformations.
+In other words, these transformations should preserve properties.
+In this chapter, we address research question~\RQ{6}, where a model transformation is considered to be correct if the desirable properties of the input model are preserved in the refined model.
+We present a technique to automatically verify the correctness of model transformations.
+
+\RQSix
+
+\noindent
+Here, we deal with a modeling formalism with a more restricted expressiveness in comparison to the formalism discussed in Chapter~\ref{chap:reusable-correct-transformations}.
+Additionally, the model transformations considered below are of a more abstract nature than those presented in Chapter~\ref{chap:reusable-correct-transformations}.
+
+Traditionally, model checking~\cite{Clarke1999} is applied to verify whether models satisfy certain properties.
+The models that form the design of a system are often relatively small, which means that properties of such models can easily be verified using traditional techniques such as explicit state-space exploration.
+Unfortunately, however, iteratively refining these models by adding implementation details quickly results in models that suffer from the state-space explosion problem.
+This makes it practically unfeasible to perform verification on the resulting refined models by traversing their complete state space.
+To overcome this problem, we introduce a model checking technique that can be used to determine whether a transformation preserves properties.
+Using this technique, the fact that the properties that hold for the initial model also hold for the refined model can be inferred from the fact that the transformation is property preserving.
+In this way, only the initial model needs to be model checked using the traditional technique.
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.6]{lts-transformation/figs/rechecking-overview}
+\caption{Avoiding rechecking intermediate models by checking transformations}
+\label{fig:lts-transformation:rechecking}
+\end{figure}
+
+The technique presented in this chapter can assert whether a transformation is property preserving for all possible models provided as input.
+However, if a transformation cannot be shown to preserve properties for all input models, it may still preserve some properties for particular input.
+In such cases, verification of refined models using traditional techniques may still show that the given properties hold for these models.
+Figure~\ref{fig:lts-transformation:rechecking} illustrates the application of our technique.
+It sketches the refinement of model~\Model{1}, which is transformed to model~\Model{n} through a sequence of refinement steps.
+When a property holds for a model, which is indicated by a black check mark, and this model is transformed using a transformation that preserves this property, which is also indicated by a black check mark, then the property is guaranteed to hold for the resulting model.
+A white check mark is used to indicate that this is established without rechecking the property for the new model.
+If a transformation is not guaranteed to preserve a property, the property needs to be rechecked.
+Transformation~\Transformation{m}, for example, does not preserve the property at hand.
+Therefore, the property needs to be checked again for model~\Model{m}.
+
+In this chapter, labeled transition systems~(LTSs) are used to represent individual processes.
+By combining these processes with synchronization rules, networks of LTSs~\cite{lang05} are obtained, which represent models.
+The synchronization rules define how the processes in a network synchronize with each other.
+A model is refined by transforming its processes using transformation rules and possibly adding additional synchronization rules.
+Each transformation rule defines how a part of the behavior of a process should be refined.
+To check whether a refinement step is property preserving, only the transformation rules, a subset of the synchronization rules of the model provided as input, and the newly introduced synchronization rules need to be examined.
+However, to be able to reason about property preservation of transformations, a number of reasonable conditions are formulated that must hold for the networks and transformations under consideration.
+The technique presented here is applicable to any modeling language whose semantics can be expressed in terms of networks of LTSs.
+
+Mateescu and Wijs~\cite{mateescu.wijs.propred} identified a fragment of the modal $\mu$-calculus~\cite{Kozen-83} that is compatible with divergence-sensitive branching bisimilarity (DSBB)~\cite{GlaLutTrc09}.
+Because of this compatibility, if a certain property expressed using this fragment of the modal $\mu$-calculus holds for a given model, it also holds for all bisimilar models.
+The identified fragment is sufficiently expressive to capture the vast majority of practical safety, liveness, and fairness properties.
+In the same paper, the technique of maximal hiding is introduced.
+Given a property, maximal hiding enables automatically abstracting away from all behavior that is not relevant for the property.
+We use both of these results for our preservation check as follows.
+First, networks of transformation rules are constructed based on the synchronization rules before and after the application of a transformation.
+Then, the LTSs corresponding to these networks of transformation rules are computed.
+Each of these networks leads to a pair of LTSs, where one LTS represents the relevant behavior before transformation and the other the behavior after transformation.
+Finally, property preservation is checked by applying maximal hiding to all the LTSs and checking whether each pair of LTSs is divergence-sensitive branching bisimilar.
+
+The remainder of this chapter is structured as follows.
+Section~\ref{sec:lts-transformation:background} introduces the preliminaries.
+In Section~\ref{sec:lts-transformation:transformations}, we formalize LTS transformation.
+Next, in Section~\ref{sec:lts-transformation:proppres}, we discuss our technique for determining whether transformations preserve properties.
+Experimental results are given in Section~\ref{sec:lts-transformation:experiments}.
+Section~\ref{sec:lts-transformation:related} discusses related work, and Section~\ref{sec:lts-transformation:conclusions} contains conclusions and pointers to future work. 

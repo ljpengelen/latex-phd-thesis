@@ -1,0 +1,42 @@
+\section{Syntax}
+
+In this section, we use a variant of EBNF to define the syntax of \SLCO.
+Although the use of quotation marks may suggest otherwise, the following syntax does not qualify as a concrete syntax for the language, because it does not assign a unique parse tree to each fragment of the language.
+Instead, the quotation marks are used to distinguish EBNF symbols from symbols of \SLCO.
+For each element~$e$ of a syntactic category, zero or more occurrences of~$e$ are denoted by~$e^*$, one or more occurrences are denoted by~$e^+$, and zero or one occurrence is denoted by~$[e]$.
+
+The syntax of models~$m \in \Models$, classes~$\it{class} \in \Classes$, objects~$\it{obj} \in \Objects$, channels~$\it{chan} \in \Channels$, and variables~$\it{var} \in \Variables$ is defined as follows.
+%
+\[
+\begin{array}{lcl}
+\it{m} & ::= & \it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*} \\
+\it{class} & ::= & \it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*} \\
+\it{obj} & ::= & \it{on}~``:"~\it{cn} \\
+\it{chan} & ::= & \it{chn}~``("~\it{type^*}~``)"~\it{chtype}~``\textbf{from}"~\it{on}~``."~\it{pn}~``\textbf{to}"~\it{on'}~``."~\it{pn'} \\
+& | & \it{chn}~``("~\it{type^*}~``)"~\it{chtype}~``\textbf{between}"~\it{on}~``."~\it{pn}~``\textbf{and}"~\it{on'}~``."~\it{pn'} \\
+\it{var} & ::= & \it{type}~\it{vn}~[``="~\it{ce}] \\
+\it{type} & ::= & ``\textbf{Boolean}" \quad | \quad ``\textbf{Integer}" \quad | \quad ``\textbf{String}" \\
+\it{chtype} & ::= & ``\textbf{sync}" \quad | \quad ``\textbf{async lossless}" \quad | \quad ``\textbf{async lossy}",
+\end{array}
+\]
+
+\noindent
+where the structure of model names~$\it{mn} \in \ModelNames$, class names~$\it{cn} \in \ClassNames$, object names~$\it{on} \in \ObjectNames$, channel names~$\it{chn} \in \ChannelNames$, port names~$\it{pn} \in \PortNames$, variable names~$\it{vn} \in \VariableNames$, and constant expressions $\it{ce} \in \ConstantExpressions$ is left unspecified.
+We use a standard syntax for these concepts.
+
+The syntax of state machines~$\it{sm} \in \StateMachines$, transitions~$\it{trans} \in \Transitions$, signal sending statements~$\it{send} \in \Statements$, signal reception statements~$\it{rec} \in \Statements$, and assignment statements~$\it{assign} \in \Statements$ is defined as follows.
+%
+\[
+\begin{array}{lcl}
+\it{sm} & ::= & \it{smn}~\it{var^*}~``\textbf{initial}"~\it{sn}~\it{sn^*}~\it{trans^*} \\
+\it{trans} & ::= & \it{tn}~``\textbf{from}"~\it{sn}~``\textbf{to}"~\it{sn'}~[\it{send} ~ | ~ \it{rec} ~ | ~ \it{assign} ~ | ~ \it{e}] \\
+\it{send} & ::= & ``\textbf{send}"~\it{sgn}~``("~\it{e^*}~``)"~``\textbf{to}"~\it{pn} \\
+\it{rec} & ::= & ``\textbf{receive}"~\it{sgn}~``("~\it{vn^*}~``|"~\it{e}~``)"~``\textbf{from}"~\it{pn} \\
+\it{assign} & ::= & \it{vn}~``\assignop"~\it{e},
+\end{array}
+\]
+
+\noindent
+where the structure of state machine names~$\it{smn} \in \StateMachineNames$, state names~$\it{sn} \in \StateNames$, transition names~$\it{tn} \in \TransitionNames$, signal names~$\it{sgn} \in \SignalNames$, and expressions~$\it{e} \in \Expressions$ is left unspecified.
+Again, we use a standard syntax for these concepts.
+Because we do not consider time and successful termination, the delay statement and the notion of final states are left out of this syntax definition. 

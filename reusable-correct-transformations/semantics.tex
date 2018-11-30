@@ -1,0 +1,231 @@
+\subsection{Operational Semantics of \SLCO}
+\label{sec:reusable-correct-transformations:operational_semantics}
+For an arbitrary model $m$, the SOS rules that define the semantics of \SLCO generate the complete behavior of the model in the form of an LTS.
+An LTS is a tuple $(S, \Lambda, \rightarrow, i)$, where $S$ is a set of configuration, $\Lambda$  is a set of labels, $ \rightarrow \subseteq S \times \Lambda \times S$ is a ternary relation of labeled transitions, and $i\in S$ is the initial configuration.
+In our case, for an \SLCO model~$m=\it{mn}~\it{obj^*}~\it{class^*}~\it{chan^*}$,
+with \VariableNames the set of all variable names occurring in $m$,
+\StateMachineNames the set of all state machine names of $m$,
+\StateNames the set of all state names of these state machines,
+and~\ConstantExpressions the set of all constant expressions,
+the configurations of the LTS generated for $m$ are tuples $\langle m, \ssms, \vglob, \vloc, \buf \rangle$, where
+%
+$\ssms : \ObjectNames \pfun (\StateMachineNames \pfun \StateNames)$ is a function that indicates current states of the state machines of the objects in $m$,
+%
+$\vglob : \ObjectNames \pfun (\VariableNames \pfun \ConstantExpressions)$ is an evaluation function that assigns values to the (global) variables of the objects in $m$,
+%
+$\vloc : \ObjectNames \pfun (\StateMachineNames \pfun (\VariableNames \pfun \ConstantExpressions))$ is an evaluation function that assigns concrete values to the (local) variables of the state machines of the objects of model $m$,
+%
+and $\buf : (\ChannelNames \times \ObjectNames \times \ObjectNames) \pfun (\SignalNames \times \it{SEQ}(\ConstantExpressions)) \cup \{\nil\}$ represents the content of the one-place buffers corresponding to the asynchronous channels in $m$.
+The content of a buffer can be  \nil, denoting an empty buffer, or a tuple consisting of a signal name and a sequence of constant expressions.
+Two buffers are associated to each bidirectional, asynchronous channel, one for each direction.
+
+For the LTS of $m$, $\it{LTS}(m)$ in short, the initial configuration conforms to the following constraints.
+First, all the buffers assigned to asynchronous channels are initialized to $\textbf{nil}$.
+Second, all the state machines are in their initial state.
+Third, all variables are initialized to values respecting their types.
+
+The transitions of $\it{LTS}(m)$ are obtained as the least relation deduced from the SOS rules.
+A transition can be labeled $\epsilon$, $\it{vn\assignop ce}$, $\it{sgn}(\it{ce^*})$, $\textbf{send}~\it{sgn}(\it{ce^*})$, $\textbf{receive}~\it{sgn}(\it{ce^*})$, or $\textbf{lost}~\it{sgn}(\it{ce^*})$, where $\it{vn}$ denotes a variable name, $\it{ce}$ a constant expression, $\it{sgn} \in \SignalNames$ a signal name, and $\it{ce^*}$ a sequence of constant expressions.
+Transitions labeled $\epsilon$ correspond to transitions in \SLCO models without a statement or transitions that have a blocking statement represented by a Boolean expression.
+Transitions labeled $\it{vn\assignop ce}$ represent assignments.
+The label $\it{sgn}(\it{ce^*})$ represents synchronous communication between two objects, whereas the labels $\textbf{send}~\it{sgn}(\it{ce^*})$, $\textbf{receive}~\it{sgn}(\it{ce^*})$, and $\textbf{lost}~\it{sgn}(\it{ce^*})$ denote sending, receiving, and losing signals during asynchronous communication.
+
+The overall behavior of a model is defined by the behavior of its composite elements, the objects and the channels.
+The statements that the objects can execute and the way they interact via the channels determine the dynamics of the model.
+The contributed activities of an object are deduced from the specification of its class, and the activities of a class are deduced from the specifications of its state machines.
+At the most elementary level of the structure, the behavior of each state machine is derived from its transitions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%      Transitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[hbt]
+\centering
+{\fontsize{7pt}{0pt}
+$
+\boxed{
+\begin{array}{c}
+\sosrule{
+\langle \it{e^*}, \vvars, \vvars' \rangle
+\ExpressionsRelation{}
+\it{ce^*}
+}{
+\langle \it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}~\textbf{send}~\it{sign}(\it{e^*})~\textbf{to}~\it{pn}, \it{sn}, \vvars, \vvars' \rangle \\
+\TransitionsRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn}}
+\langle \it{sn'}, \vvars, \vvars' \rangle
+} \\
+\\
+\sosrule{
+\langle \it{ce^*}, \it{vn^*}, \vvars, \vvars' \rangle
+\MultipleSubstitutionRelation{}
+\langle \vvars'', \vvars''' \rangle, \quad
+\langle \it{e}, \vvars'', \vvars''' \rangle
+\ExpressionRelation{}
+\textbf{true}
+}{
+\langle \it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}~\textbf{receive}~\it{sgn}(\it{vn^*}~|~\it{e})~\textbf{from}~\it{pn}, \it{sn}, \vvars, \vvars' \rangle \\
+\TransitionsRelation{\textbf{receive}~\it{sgn}(\it{ce^*})~\textbf{from}~\it{pn}}
+\langle \it{sn'}, \vvars'', \vvars''' \rangle
+}
+\end{array}
+}
+$
+}
+\caption{A subset of all deduction rules for transitions}
+\label{fig:reusable-correct-transformations:transitions}
+\end{figure}
+
+Figure~\ref{fig:reusable-correct-transformations:transitions} shows some of the SOS rules that relate a single transition in an \SLCO model to a transition on the LTS level.
+If an expression~$e$ evaluates to constant expression~$ce$ with respect to evaluation functions~$v_1$ and~$v_2$, we write $\langle e, v_1, v_2 \rangle \ExpressionRelation{} ce$.
+Similarly, we write $\langle e^*, v_1, v_2 \rangle \ExpressionsRelation{} ce^*$ for a sequence of expressions~$e^*$.
+Finally, we use~$\langle \it{ce^*}, \it{vn^*}, v_1, v_2 \rangle \MultipleSubstitutionRelation{} \langle v_1', v_2' \rangle$ to denote the update of evaluation functions~$v_1$ and~$v_2$ to~$v_1'$ and~$v_2'$, such that variables~$\it{vn^*}$ are mapped to the values~$\it{ce^*}$.
+The first rule in Figure~\ref{fig:reusable-correct-transformations:transitions} deals with statements that send signals.
+The evaluation functions~\vvars and~$\vvars'$ map values to variables and are used to evaluate the expressions that form the arguments of the signal.
+The second rule in Figure~\ref{fig:reusable-correct-transformations:transitions} deals with conditional signal reception.
+The rule specifies that the expression that forms the condition is evaluated using the possibly updated evaluation functions.
+If the condition evaluates to {\bf true}, the transition is enabled.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    State Machines
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[hbt]
+\centering
+\fontsize{7pt}{0pt}{
+$
+\boxed{
+\sosrule{
+\it{trans} \in \it{trans^*}, \\
+\langle \it{trans}, \ssms(\it{smn}), \vvars, \vsms(\it{smn}) \rangle
+\TransitionsRelation{l}
+\langle \it{sn}, \vvars', \vvars'' \rangle, \\
+\ssms' = \ssms[\it{sn}/\it{smn}], \quad
+\vsms' = \vsms[\vvars''/\it{smn}]
+}{
+\langle \it{smn}~\it{var^*}~\it{states}~\it{trans^*}, \ssms, \vvars, \vsms \rangle
+\StateMachineRelation{l}
+\langle \ssms', \vvars', \vsms' \rangle
+}
+}
+$
+}
+\caption{Deduction rule for state machines}
+\label{fig:reusable-correct-transformations:statemachine}
+\end{figure}
+
+The behavior of state machines is defined in terms of the behavior of their transitions, as shown in Figure~\ref{fig:reusable-correct-transformations:statemachine}.
+The rule defines that if one of the transitions of state machine~$\it{sm}$ can perform an action represented by~$l$, then the state machine can perform the same~action.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%         Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[hbt]
+\centering
+\fontsize{7pt}{0pt}{
+$
+\boxed{
+\sosrule{
+\it{sm} \in \it{sm^*}, \quad
+\langle \it{sm}, \ssms, \vvars, \vsms \rangle
+\xrightarrow{l}_{\it{SM}}
+\langle \ssms', \vvars', \vsms' \rangle
+}{
+\langle \it{cn}~\it{var^*}~\it{port^*}~\it{sm^*}, \ssms, \vvars, \vsms \rangle
+\xrightarrow{l}_{\it{CLASS}}
+\langle \ssms', \vvars', \vsms' \rangle
+}
+}
+$
+}
+\caption{Deduction rule for classes}
+\label{fig:reusable-correct-transformations:classes}
+\end{figure}
+
+The rule in Figure~\ref{fig:reusable-correct-transformations:classes} shows how the enabled transitions, derived from the SOS rules for state machines, are lifted up to the level of a class.
+It also shows implicitly that all state machines of a considered class are inspected.
+The symbolic function~\ssms keeps track of the current states of the state machines, while~\vsms maps (local) variables to their value for the state machines of each object, and~\vvars maps the (global) variables at the level of the objects to their values.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Lists of Objects
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[hbt]
+\centering
+\fontsize{7pt}{0pt}{
+$
+\boxed{
+\begin{array}{c}
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{async lossless}~\textbf{from}~\it{on_1}.\it{pn_1}~\textbf{to}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}], \quad
+\buf(\langle \it{chn}, \it{on_1}, \it{on_2} \rangle) = \textbf{nil}, \quad
+\buf' = \buf[\langle \it{sgn}, \it{ce^*} \rangle/\langle \it{chn}, \it{on_1}, \it{on_2} \rangle]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\textbf{send}~\it{sgn}(\it{ce^*})}
+\langle \sobjs', \vglob, \vloc, \buf' \rangle
+}\\
+\\
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{on_2}:\it{cn_2} \in \it{obj^*}, \\
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \quad
+\it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{sync}~\textbf{from}~\it{on_1}.\it{pn_1}~\textbf{to}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\langle \it{cn_2} \, \it{var^*_2} \, \it{pn^*_2} \, \it{sm^*_2}, \sobjs(\it{on_2}), \vglob(\it{on_2}), \vloc(\it{on_2}) \rangle
+\ClassRelation{\textbf{receive} \, \it{sgn}(\it{ce^*}) \, \textbf{from} \, \it{pn_2}}
+\langle \ssms', \vvars', \vsms' \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}][\ssms'/\it{on_2}], \quad
+\vglob' = \vglob[\vvars'/\it{on_2}], \quad
+\vloc' = \vloc[\vsms'/\it{on_2}]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\it{sn}(\it{ce^*})}
+\langle \sobjs', \vglob', \vloc', \buf \rangle
+}
+\end{array}
+}
+$
+}
+\caption{A subset of all deduction rules for compositions of objects}
+\label{fig:reusable-correct-transformations:objects}
+\end{figure}
+
+Objects behave as specified by their class.
+In a composition, objects participate and interact as described by the SOS rules for compositions of objects, some of which are given in Figure~\ref{fig:reusable-correct-transformations:objects}.
+Every non-synchronizing transition of one of the objects enabled for execution in the current configuration is executed by the composition of the objects, and the functions are updated accordingly.
+A non-synchronizing transition that receives signals over an asynchronous lossless channel is captured by the first rule in Figure~\ref{fig:reusable-correct-transformations:objects}.
+The second rule describes synchronization of two objects via a synchronous channel.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%         Models
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[hbt]
+\centering
+\fontsize{7pt}{0pt}{
+$
+\boxed{
+\sosrule{
+\it{m} \equiv \it{mn}~\it{obj^*}~\it{class^*}~\it{chan^*}, \\
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{l}
+\langle \sobjs', \vglob', \vloc', \buf' \rangle
+}{
+\langle \it{m}, \sobjs, \vglob, \vloc, \buf \rangle
+\ModelRelation{l}
+\langle \it{m}, \sobjs', \vglob', \vloc', \buf' \rangle
+}
+}
+$
+}
+\caption{Deduction rule for models}
+\label{fig:reusable-correct-transformations:models}
+\end{figure}
+
+Finally, the rule in Figure~\ref{fig:reusable-correct-transformations:models} defines the behavior of a model in terms of its objects, classes, and channels.
+Each transition from one configuration to another is derived from the rules discussed above. 

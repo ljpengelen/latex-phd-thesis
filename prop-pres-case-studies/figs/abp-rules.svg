@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="2986.7112"
+   height="725.60193"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="abp-rules.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path4840"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="1577.9544"
+     inkscape:cy="133.86804"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="998"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid5281"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(1039.4432,-84.01587)">
+    <path
+       inkscape:connector-curvature="0"
+       id="path4591"
+       d="M -413.1328,393.67629 -413.1328,426.80129 -573.1328,426.80129 -573.1328,466.80129 -413.1328,466.80129 -413.1328,499.95754 -360.0078,446.80129 -413.1328,393.67629 z"
+       style="fill:none;stroke:#000000;stroke-width:7;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <ellipse
+       cx="215.48801"
+       cy="-535.84998"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse12"
+       d="M 254.58471,-535.84998 C 254.58471,-513.9806 237.08052,-496.25198 215.48801,-496.25198 193.8955,-496.25198 176.39131,-513.9806 176.39131,-535.84998 176.39131,-557.71935 193.8955,-575.44798 215.48801,-575.44798 237.08052,-575.44798 254.58471,-557.71935 254.58471,-535.84998 z"
+       sodipodi:cx="215.48801"
+       sodipodi:cy="-535.84998"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-47.868969"
+       y="156.37967"
+       font-size="40.00"
+       id="text14"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial">i</text>
+    <ellipse
+       cx="78.4879"
+       cy="-371.85001"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse19"
+       d="M 117.5846,-371.85001 C 117.5846,-349.98063 100.08041,-332.25201 78.4879,-332.25201 56.895389,-332.25201 39.391201,-349.98063 39.391201,-371.85001 39.391201,-393.71938 56.895389,-411.44801 78.4879,-411.44801 100.08041,-411.44801 117.5846,-393.71938 117.5846,-371.85001 z"
+       sodipodi:cx="78.4879"
+       sodipodi:cy="-371.85001"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-220.57913"
+       y="361.22891"
+       font-size="40.00"
+       id="text21"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">iv</text>
+    <path
+       d="M -79.710277,174.38743 C -105.40387,205.1448 -141.97821,248.92634 -171.20796,283.91809"
+       id="path26"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="111.249,-421.986 121.993,-413.011 121.993,-413.011 103.799,-402.15 "
+       id="polygon28"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-69.031639"
+       y="253.75029"
+       font-size="40.00"
+       id="text30"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r1a'</text>
+    <ellipse
+       cx="354.48801"
+       cy="-371.85001"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse35"
+       d="M 393.58471,-371.85001 C 393.58471,-349.98063 376.08052,-332.25201 354.48801,-332.25201 332.8955,-332.25201 315.39131,-349.98063 315.39131,-371.85001 315.39131,-393.71938 332.8955,-411.44801 354.48801,-411.44801 376.08052,-411.44801 393.58471,-393.71938 393.58471,-371.85001 z"
+       sodipodi:cx="354.48801"
+       sodipodi:cy="-371.85001"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="125.67126"
+       y="355.70547"
+       font-size="40.00"
+       id="text37"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">v</text>
+    <path
+       d="M -16.078344,173.90903 C 10.0262,204.71012 47.398703,248.80268 77.219263,283.98679"
+       id="path42"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="310.648,-412.748 321.328,-421.8 321.328,-421.8 328.92,-402.017 "
+       id="polygon44"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="103.96604"
+       y="253.75029"
+       font-size="40.00"
+       id="text46"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r1b'</text>
+    <text
+       x="-108.25132"
+       y="356.17493"
+       font-size="40.00"
+       id="text55"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2f</text>
+    <path
+       d="M -187.7358,302.9366 C -137.56715,272.16174 -62.733043,284.91111 -62.733043,341.18596 -62.733043,388.44744 -123.24916,401.91703 -169.8757,387.77868"
+       id="path60"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="124.569,-338.496 118.279,-325.989 118.279,-325.989 103.556,-341.228 "
+       id="polygon62"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-2.317436"
+       y="356.17493"
+       font-size="40.00"
+       id="text64"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2at</text>
+    <ellipse
+       cx="187.48801"
+       cy="-207.85001"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse69"
+       d="M 226.58471,-207.85001 C 226.58471,-185.98063 209.08052,-168.25201 187.48801,-168.25201 165.8955,-168.25201 148.39131,-185.98063 148.39131,-207.85001 148.39131,-229.71938 165.8955,-247.44801 187.48801,-247.44801 209.08052,-247.44801 226.58471,-229.71938 226.58471,-207.85001 z"
+       sodipodi:cx="187.48801"
+       sodipodi:cy="-207.85001"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-81.339333"
+       y="566.07819"
+       font-size="40.00"
+       id="text71"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">vi</text>
+    <path
+       d="M -191.82279,382.14832 C -172.49951,411.22068 -146.20885,450.77908 -124.29747,483.74607"
+       id="path76"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="148.643,-253.649 160.303,-261.399 160.303,-261.399 165.543,-240.867 "
+       id="polygon78"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-97.886887"
+       y="458.59958"
+       font-size="40.00"
+       id="text80"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2t</text>
+    <path
+       d="M 173.61459,331.64173 C 192.31113,308.10389 210.39621,332.28405 196.89621,341.18596 196.74188,341.28772 196.88622,341.55194 196.86623,341.73181"
+       id="path85"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="408.975,-377.956 414.028,-364.9 414.028,-364.9 392.849,-364.209 "
+       id="polygon87"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="236.49503"
+       y="356.17493"
+       font-size="40.00"
+       id="text89"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2f</text>
+    <path
+       d="M 157.01058,302.9366 C 212.14497,272.16174 294.38622,284.91111 294.38622,341.18596 294.38622,388.44744 225.55237,405.01025 174.31069,390.8719"
+       id="path94"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="400.569,-338.496 394.279,-325.989 394.279,-325.989 379.556,-341.228 "
+       id="polygon96"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="355.05374"
+       y="356.17493"
+       font-size="40.00"
+       id="text98"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2bt</text>
+    <path
+       d="M 90.313379,375.93539 C 57.398846,408.25786 7.9127548,456.85586 -29.748286,493.84114"
+       id="path103"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="225.042,-254.54 234.851,-244.552 234.851,-244.552 215.677,-235.533 "
+       id="polygon105"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="81.980759"
+       y="458.59958"
+       font-size="40.00"
+       id="text107"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2t</text>
+    <ellipse
+       cx="46.4879"
+       cy="-43.849998"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse112"
+       d="M 85.584599,-43.849998 C 85.584599,-21.980627 68.08041,-4.2519989 46.4879,-4.2519989 24.895389,-4.2519989 7.391201,-21.980627 7.391201,-43.849998 7.391201,-65.71937 24.895389,-83.447998 46.4879,-83.447998 68.08041,-83.447998 85.584599,-65.71937 85.584599,-43.849998 z"
+       sodipodi:cx="46.4879"
+       sodipodi:cy="-43.849998"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-257.45987"
+       y="770.92749"
+       font-size="40.00"
+       id="text114"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">vii</text>
+    <path
+       d="M -115.20166,583.6076 C -141.88953,614.64976 -180.1851,659.19199 -210.54963,694.5095"
+       id="path119"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="79.9163,-93.4685 90.5321,-84.3414 90.5321,-84.3414 72.1855,-73.7394 "
+       id="polygon121"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-105.25499"
+       y="663.44885"
+       font-size="40.00"
+       id="text123"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r1a'</text>
+    <ellipse
+       cx="338.48801"
+       cy="-43.849998"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse128"
+       d="M 377.58471,-43.849998 C 377.58471,-21.980627 360.08052,-4.2519989 338.48801,-4.2519989 316.8955,-4.2519989 299.39131,-21.980627 299.39131,-43.849998 299.39131,-65.71937 316.8955,-83.447998 338.48801,-83.447998 360.08052,-83.447998 377.58471,-65.71937 377.58471,-43.849998 z"
+       sodipodi:cx="338.48801"
+       sodipodi:cy="-43.849998"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="107.2719"
+       y="770.92749"
+       font-size="40.00"
+       id="text130"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">viii</text>
+    <path
+       d="M -49.612422,582.18614 C -20.612508,613.68297 21.878729,659.83277 55.091793,695.9046"
+       id="path135"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="293.156,-82.7502 303.455,-92.2331 303.455,-92.2331 311.853,-72.7784 "
+       id="polygon137"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="77.735344"
+       y="663.44885"
+       font-size="40.00"
+       id="text139"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r1b'</text>
+    <path
+       d="M -275.58991,704.47967 C -303.62528,617.56262 -350.73037,426.78173 -279.00377,291.22272 -245.33554,227.59203 -172.53323,185.55047 -117.58241,161.52939"
+       id="path144"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="162.632,-509.311 157.304,-522.257 157.304,-522.257 178.463,-523.396 "
+       id="polygon146"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-278.37924"
+       y="458.59958"
+       font-size="40.00"
+       id="text148"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2f</text>
+    <text
+       x="-145.59737"
+       y="765.87354"
+       font-size="40.00"
+       id="text157"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2t</text>
+    <path
+       d="M -227.88275,712.8695 C -176.17064,681.79623 -98.361317,694.46791 -98.361317,750.88453 -98.361317,798.4861 -163.03399,813.39839 -211.40716,798.71467"
+       id="path162"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="92.4167,-10.6007 86.0775,1.88186 86.0775,1.88186 71.4148,-13.4155 "
+       id="polygon164"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="-38.288017"
+       y="765.87354"
+       font-size="40.00"
+       id="text166"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2af</text>
+    <path
+       d="M 147.38889,724.78248 C 255.31573,653.94835 527.65286,452.59899 411.73814,291.22272 365.89312,227.39718 142.58242,174.31248 24.932733,150.23145"
+       id="path171"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293" />
+    <polygon
+       points="274.98,-531.632 272.231,-517.905 272.231,-517.905 253.995,-528.696 "
+       id="polygon173"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="469.82037"
+       y="458.59958"
+       font-size="40.00"
+       id="text175"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2f</text>
+    <text
+       x="219.13426"
+       y="765.87354"
+       font-size="40.00"
+       id="text184"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2t</text>
+    <path
+       d="M 136.84914,712.8695 C 187.326,681.79623 263.27711,694.46791 263.27711,750.88453 263.27711,798.4861 201.47394,811.85178 154.25627,797.16806"
+       id="path189"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.7472434"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="384.417,-10.6007 378.077,1.88186 378.077,1.88186 363.415,-13.4155 "
+       id="polygon191"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-317.08563,805.65673)" />
+    <text
+       x="325.69263"
+       y="765.87354"
+       font-size="40.00"
+       id="text193"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2bf</text>
+    <ellipse
+       cx="142.75301"
+       cy="-204"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse12-1"
+       d="M 181.8497,-204 C 181.8497,-182.13063 164.34552,-164.402 142.75301,-164.402 121.1605,-164.402 103.65631,-182.13063 103.65631,-204 103.65631,-225.86937 121.1605,-243.598 142.75301,-243.598 164.34552,-243.598 181.8497,-225.86937 181.8497,-204 z"
+       sodipodi:cx="142.75301"
+       sodipodi:cy="-204"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       transform="matrix(1.25,0,0,1.25,-1037.8264,599.31692)" />
+    <text
+       x="-859.33044"
+       y="364.35989"
+       font-size="40.00"
+       id="text14-35"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial">i</text>
+    <ellipse
+       cx="49.7528"
+       cy="-40"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse19-2"
+       d="M 88.849499,-40 C 88.849499,-18.130629 71.34531,-0.40200043 49.7528,-0.40200043 28.160289,-0.40200043 10.656101,-18.130629 10.656101,-40 10.656101,-61.869371 28.160289,-79.598 49.7528,-79.598 71.34531,-79.598 88.849499,-61.869371 88.849499,-40 z"
+       sodipodi:cx="49.7528"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.25,0,0,1.25,-1037.8264,599.31692)" />
+    <text
+       x="-975.58069"
+       y="569.35986"
+       font-size="40.00"
+       id="text21-3"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">ii</text>
+    <path
+       d="M -907.84513,350.42192 C -947.97138,358.31442 -1002.59,376.25942 -1029.3853,416.81692 -1044.4718,439.65192 -1036.5948,467.39317 -1022.7353,491.58029"
+       id="path26-8"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75" />
+    <polygon
+       points="23.2112,-69.4132 6.31695,-82.2033 17.9803,-89.9471 17.9803,-89.9471 "
+       id="polygon28-5"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.25,0,0,1.25,-1037.8264,599.31692)" />
+    <text
+       x="-987.51038"
+       y="461.81693"
+       font-size="40.00"
+       id="text30-6"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r1a</text>
+    <ellipse
+       cx="234.75301"
+       cy="-40"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse35-0"
+       d="M 273.8497,-40 C 273.8497,-18.130629 256.34552,-0.40200043 234.75301,-0.40200043 213.1605,-0.40200043 195.65631,-18.130629 195.65631,-40 195.65631,-61.869371 213.1605,-79.598 234.75301,-79.598 256.34552,-79.598 273.8497,-61.869371 273.8497,-40 z"
+       sodipodi:cx="234.75301"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.25,0,0,1.25,-1037.8264,599.31692)" />
+    <text
+       x="-744.33044"
+       y="569.35986"
+       font-size="40.00"
+       id="text37-8"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">iii</text>
+    <path
+       d="M -839.53512,389.47067 C -823.99762,424.58942 -804.23013,468.68067 -799.38513,476.81692 -796.67012,481.37704 -793.72013,485.98879 -790.64387,490.56017"
+       id="path42-3"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75" />
+    <polygon
+       points="209.671,-70.4061 192.317,-82.5652 203.687,-90.7334 203.687,-90.7334 "
+       id="polygon44-5"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.25,0,0,1.25,-1037.8264,599.31692)" />
+    <text
+       x="-756.88513"
+       y="461.81693"
+       font-size="40.00"
+       id="text46-3"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r1b</text>
+    <path
+       d="M -956.701,503.58879 C -940.91625,465.48442 -920.94838,417.33067 -920.63538,416.81692 -917.09875,411.01567 -913.11238,405.20192 -908.91263,399.53067"
+       id="path51-6"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75" />
+    <polygon
+       points="115.707,-175.541 108.674,-155.552 97.7443,-164.301 97.7443,-164.301 "
+       id="polygon53-3"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.25,0,0,1.25,-1037.8264,599.31692)" />
+    <text
+       x="-876.26013"
+       y="461.81693"
+       font-size="40.00"
+       id="text55-6"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2a</text>
+    <path
+       d="M -719.39512,506.64904 C -706.90388,479.26817 -697.64512,443.90192 -714.38513,416.81692 -730.69388,390.42942 -759.83513,373.32567 -787.73887,362.40192"
+       id="path60-5"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75" />
+    <polygon
+       points="180.992,-196.002 202.181,-196.208 197.685,-182.95 197.685,-182.95 "
+       id="polygon62-3"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.25,0,0,1.25,-1037.8264,599.31692)" />
+    <text
+       x="-660.01013"
+       y="461.81693"
+       font-size="40.00"
+       id="text64-4"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2b</text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:7;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 1233.5756,393.67629 1233.5756,426.80129 1073.5755,426.80129 1073.5755,466.80129 1233.5756,466.80129 1233.5756,499.95754 1286.7006,446.80129 1233.5756,393.67629 z"
+       id="rect5283"
+       inkscape:connector-curvature="0" />
+    <ellipse
+       cx="153"
+       cy="-532"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse12-6"
+       d="M 192.0967,-532 C 192.0967,-510.13063 174.59251,-492.402 153,-492.402 131.40749,-492.402 113.9033,-510.13063 113.9033,-532 113.9033,-553.86937 131.40749,-571.598 153,-571.598 174.59251,-571.598 192.0967,-553.86937 192.0967,-532 z"
+       sodipodi:cx="153"
+       sodipodi:cy="-532"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1519.5959"
+       y="163.70871"
+       font-size="40.00"
+       id="text14-3"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial">ix</text>
+    <path
+       d="M 1569.8396,137.31975 C 1570.0407,137.326 1570.2418,137.331 1570.4404,137.33849"
+       id="path19"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <text
+       x="1636.5563"
+       y="158.65628"
+       font-size="40.00"
+       id="text23"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2f</text>
+    <path
+       d="M 1554.2669,110.02092 C 1638.0831,82.551025 1689.5071,94.763843 1689.5071,145.16057 1689.5071,187.6821 1631.896,192.25352 1581.2662,179.69654"
+       id="path28"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.66907072"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="194.819,-488.086 194.819,-488.086 179.43,-502.653 200.544,-500.862 "
+       id="polygon30"
+       style="fill:#000000;stroke:#000000;stroke-width:1"
+       transform="matrix(1.2444577,0.10887594,-0.10887594,1.2444577,1274.0824,786.92987)" />
+    <text
+       x="1741.2502"
+       y="158.65628"
+       font-size="40.00"
+       id="text32"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2af</text>
+    <path
+       d="M 1557.0089,109.31244 C 1644.9449,69.17278 1815.9326,80.6243 1815.9326,143.66575 1815.9326,200.55108 1663.5191,220.08616 1571.7199,192.95829"
+       id="path37"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74799991;stroke-miterlimit:4;stroke-dasharray:none"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="197.011,-489.93 181.625,-504.5 202.738,-502.705 197.011,-489.93 "
+       id="polygon39"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1333.2247,798.93471)" />
+    <text
+       x="1867.061"
+       y="158.65628"
+       font-size="40.00"
+       id="text41"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2bf</text>
+    <ellipse
+       cx="104"
+       cy="-368"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse46"
+       d="M 143.0967,-368 C 143.0967,-346.13063 125.59251,-328.402 104,-328.402 82.40749,-328.402 64.903301,-346.13063 64.903301,-368 64.903301,-389.86937 82.40749,-407.598 104,-407.598 125.59251,-407.598 143.0967,-389.86937 143.0967,-368 z"
+       sodipodi:cx="104"
+       sodipodi:cy="-368"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1461.7478"
+       y="368.57935"
+       font-size="40.00"
+       id="text48"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">xii</text>
+    <path
+       d="M 1484.0125,175.92538 C 1473.3767,187.41438 1463.1557,201.23065 1457.5405,216.12 1450.6406,234.41595 1448.6006,255.16909 1448.9531,274.72799"
+       id="path53"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <polygon
+       points="102.122,-427.374 102.122,-427.374 96.4727,-406.951 88.1532,-426.439 "
+       id="polygon55"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1508.7582"
+       y="261.09161"
+       font-size="40.00"
+       id="text57"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2at</text>
+    <ellipse
+       cx="202"
+       cy="-368"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse62"
+       d="M 241.0967,-368 C 241.0967,-346.13063 223.59251,-328.402 202,-328.402 180.40749,-328.402 162.9033,-346.13063 162.9033,-368 162.9033,-389.86937 180.40749,-407.598 202,-407.598 223.59251,-407.598 241.0967,-389.86937 241.0967,-368 z"
+       sodipodi:cx="202"
+       sodipodi:cy="-368"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1584.1705"
+       y="368.57935"
+       font-size="40.00"
+       id="text64-9"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">xiii</text>
+    <path
+       d="M 1546.7604,185.92782 C 1551.7572,195.58922 1556.5142,205.99889 1559.9758,216.12 1566.2881,234.57834 1570.8764,255.11413 1574.1931,274.3982"
+       id="path69"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <polygon
+       points="202.312,-428.332 202.312,-428.332 198.36,-407.514 188.467,-426.253 "
+       id="polygon71"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1626.184"
+       y="261.09161"
+       font-size="40.00"
+       id="text73"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2bt</text>
+    <ellipse
+       cx="91"
+       cy="-204"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse78"
+       d="M 130.0967,-204 C 130.0967,-182.13063 112.59251,-164.402 91,-164.402 69.40749,-164.402 51.903301,-182.13063 51.903301,-204 51.903301,-225.86937 69.40749,-243.598 91,-243.598 112.59251,-243.598 130.0967,-225.86937 130.0967,-204 z"
+       sodipodi:cx="91"
+       sodipodi:cy="-204"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1443.9221"
+       y="573.45001"
+       font-size="40.00"
+       id="text80-0"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">xiv</text>
+    <path
+       d="M 1456.1076,398.13008 C 1454.1898,422.32481 1451.8427,451.93486 1449.7142,478.78666"
+       id="path85-1"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <polygon
+       points="102.699,-263.002 102.699,-263.002 94.1405,-243.618 88.7429,-264.109 "
+       id="polygon87-2"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1506.1399"
+       y="465.96225"
+       font-size="40.00"
+       id="text89-6"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s3a'</text>
+    <path
+       d="M 1577.7246,397.92896 C 1573.2374,424.44222 1564.4992,456.58443 1547.4837,480.95279 1537.4313,495.3487 1523.5451,507.81958 1509.1991,518.1643"
+       id="path94-2"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <polygon
+       points="147.165,-226.341 147.165,-226.341 126.58,-221.317 139.539,-238.082 "
+       id="polygon96-3"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1620.8149"
+       y="465.96225"
+       font-size="40.00"
+       id="text98-8"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s3b'</text>
+    <path
+       d="M 1492.3885,547.06105 C 1492.5896,547.0673 1492.7907,547.0723 1492.9893,547.07979"
+       id="path103-6"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <text
+       x="1564.3544"
+       y="568.39758"
+       font-size="40.00"
+       id="text107-4"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s2t</text>
+    <path
+       d="M 1476.8033,516.96131 C 1530.868,488.54675 1612.3597,500.69533 1612.3597,553.40705 1612.3597,597.88272 1548.3093,611.28564 1497.7038,598.00653"
+       id="path112"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="132.84,-160.292 132.84,-160.292 117.42,-174.825 138.537,-173.081 "
+       id="polygon114"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1664.9222"
+       y="568.39758"
+       font-size="40.00"
+       id="text116"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2at</text>
+    <path
+       d="M 1479.3605,519.34231 C 1567.1841,478.85911 1740.0344,490.21445 1740.0344,553.40705 1740.0344,610.42855 1577.3484,636.21659 1485.3353,608.82264"
+       id="path121"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="119.467,-176.731 140.583,-174.962 134.871,-162.18 134.871,-162.18 "
+       id="polygon123"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1315.3065,818.24615)" />
+    <text
+       x="1790.6068"
+       y="568.39758"
+       font-size="40.00"
+       id="text125"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2bt</text>
+    <ellipse
+       cx="39"
+       cy="-40"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse130"
+       d="M 78.096699,-40 C 78.096699,-18.130629 60.59251,-0.40200043 39,-0.40200043 17.40749,-0.40200043 -0.09669876,-18.130629 -0.09669876,-40 -0.09669876,-61.869371 17.40749,-79.598 39,-79.598 60.59251,-79.598 78.096699,-61.869371 78.096699,-40 z"
+       sodipodi:cx="39"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1378.9631"
+       y="772.79724"
+       font-size="40.00"
+       id="text132"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">xv</text>
+    <path
+       d="M 1428.8962,600.40862 C 1420.7555,626.08366 1410.5064,658.40701 1401.4059,687.10863"
+       id="path137"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <polygon
+       points="63.6818,-94.6823 63.6818,-94.6823 50.9643,-77.7335 50.3366,-98.9138 "
+       id="polygon139"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1469.408"
+       y="670.83289"
+       font-size="40.00"
+       id="text141"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2af</text>
+    <ellipse
+       cx="349"
+       cy="-40"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse146"
+       d="M 388.0967,-40 C 388.0967,-18.130629 370.59251,-0.40200043 349,-0.40200043 327.40749,-0.40200043 309.9033,-18.130629 309.9033,-40 309.9033,-61.869371 327.40749,-79.598 349,-79.598 370.59251,-79.598 388.0967,-61.869371 388.0967,-40 z"
+       sodipodi:cx="349"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1767.8047"
+       y="778.32068"
+       font-size="40.00"
+       id="text148-8"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">xvi</text>
+    <path
+       d="M 1485.2742,579.7704 C 1540.6318,614.95944 1639.1546,677.5874 1703.5514,718.52118"
+       id="path153-8"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <polygon
+       points="302.803,-77.66 302.803,-77.66 315.927,-61.0234 295.293,-65.845 "
+       id="polygon155-5"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1693.6414"
+       y="670.83289"
+       font-size="40.00"
+       id="text157-7"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2bf</text>
+    <path
+       d="M 1368.0349,709.84978 C 1355.0162,643.98486 1319.0132,522.70893 1337.1052,420.99065 1354.4801,323.30358 1383.5033,294.91775 1443.7992,216.12 1450.1299,207.84648 1457.4455,199.69163 1465.0008,192.00523"
+       id="path162-0"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393"
+       sodipodi:nodetypes="cssc" />
+    <polygon
+       points="103.296,-498.517 103.296,-498.517 122.603,-507.248 112.955,-488.382 "
+       id="polygon164-1"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1387.4521"
+       y="465.96225"
+       font-size="40.00"
+       id="text166-3"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s3a'</text>
+    <path
+       d="M 1796.8562,719.54578 C 1818.4763,689.71949 1845.5555,646.43207 1857.2881,603.3755 1868.9657,560.52131 1869.2131,546.22408 1857.2881,503.4386 1817.2309,359.71059 1795.4846,314.88639 1683.6477,216.12 1657.5754,193.09454 1622.996,176.30264 1592.4478,164.71621"
+       id="path171-8"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74763393" />
+    <polygon
+       points="207.419,-508.633 207.419,-508.633 190.85,-521.843 212.04,-521.849 "
+       id="polygon173-3"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2492113,0,0,1.2492113,1330.1209,808.24615)" />
+    <text
+       x="1899.389"
+       y="465.96225"
+       font-size="40.00"
+       id="text175-0"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s3b'</text>
+    <ellipse
+       cx="142.75301"
+       cy="-204"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse12-2"
+       d="M 181.8497,-204 C 181.8497,-182.13063 164.34552,-164.402 142.75301,-164.402 121.1605,-164.402 103.65631,-182.13063 103.65631,-204 103.65631,-225.86937 121.1605,-243.598 142.75301,-243.598 164.34552,-243.598 181.8497,-225.86937 181.8497,-204 z"
+       sodipodi:cx="142.75301"
+       sodipodi:cy="-204"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2500001,0,0,1.2500001,612.17364,599.31693)" />
+    <text
+       x="788.96063"
+       y="364.35989"
+       font-size="40.00"
+       id="text14-5"
+       style="font-size:56.00000381px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial">ix</text>
+    <ellipse
+       cx="49.7528"
+       cy="-40"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse19-0"
+       d="M 88.849499,-40 C 88.849499,-18.130629 71.34531,-0.40200043 49.7528,-0.40200043 28.160289,-0.40200043 10.656101,-18.130629 10.656101,-40 10.656101,-61.869371 28.160289,-79.598 49.7528,-79.598 71.34531,-79.598 88.849499,-61.869371 88.849499,-40 z"
+       sodipodi:cx="49.7528"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2500001,0,0,1.2500001,612.17364,599.31693)" />
+    <text
+       x="674.36462"
+       y="563.83649"
+       font-size="40.00"
+       id="text21-39"
+       style="font-size:56.00000381px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">x</text>
+    <path
+       d="M 742.15489,350.42191 C 702.02864,358.31442 647.41002,376.25942 620.61468,416.81692 605.5282,439.65192 613.40523,467.39317 627.26476,491.5803"
+       id="path26-6"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75000024" />
+    <polygon
+       points="23.2112,-69.4132 6.31695,-82.2033 17.9803,-89.9471 17.9803,-89.9471 "
+       id="polygon28-4"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2500001,0,0,1.2500001,612.17364,599.31693)" />
+    <text
+       x="662.48962"
+       y="461.81693"
+       font-size="40.00"
+       id="text30-4"
+       style="font-size:56.00000381px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2a</text>
+    <ellipse
+       cx="234.75301"
+       cy="-40"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse35-00"
+       d="M 273.8497,-40 C 273.8497,-18.130629 256.34552,-0.40200043 234.75301,-0.40200043 213.1605,-0.40200043 195.65631,-18.130629 195.65631,-40 195.65631,-61.869371 213.1605,-79.598 234.75301,-79.598 256.34552,-79.598 273.8497,-61.869371 273.8497,-40 z"
+       sodipodi:cx="234.75301"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       transform="matrix(1.2500001,0,0,1.2500001,612.17364,599.31693)" />
+    <text
+       x="907.32391"
+       y="569.35992"
+       font-size="40.00"
+       id="text37-0"
+       style="font-size:56.00000381px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">xi</text>
+    <path
+       d="M 810.4649,389.47067 C 826.78251,422.44992 839.39525,460.84068 859.35615,490.56018"
+       id="path42-6"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75000024"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       points="209.671,-70.4061 192.317,-82.5652 203.687,-90.7334 203.687,-90.7334 "
+       id="polygon44-4"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2500001,0,0,1.2500001,612.17364,599.31693)" />
+    <text
+       x="893.11493"
+       y="461.81693"
+       font-size="40.00"
+       id="text46-5"
+       style="font-size:56.00000381px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">r2b</text>
+    <path
+       d="M 693.29902,503.5888 C 709.46535,469.43915 719.37979,428.93034 741.08739,399.53067"
+       id="path51-8"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75000024"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       points="115.707,-175.541 108.674,-155.552 97.7443,-164.301 97.7443,-164.301 "
+       id="polygon53-6"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2500001,0,0,1.2500001,612.17364,599.31693)" />
+    <text
+       x="773.73993"
+       y="461.81693"
+       font-size="40.00"
+       id="text55-68"
+       style="font-size:56.00000381px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s3a</text>
+    <path
+       d="M 930.60491,506.64905 C 943.09616,479.26817 952.35491,443.90192 935.61491,416.81692 919.30616,390.42942 890.1649,373.32567 862.26115,362.40192"
+       id="path60-6"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75000024" />
+    <polygon
+       points="180.992,-196.002 202.181,-196.208 197.685,-182.95 197.685,-182.95 "
+       id="polygon62-31"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.2500001,0,0,1.2500001,612.17364,599.31693)" />
+    <text
+       x="989.98993"
+       y="461.81693"
+       font-size="40.00"
+       id="text64-1"
+       style="font-size:56.00000381px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial">s3b</text>
+    <path
+       sodipodi:nodetypes="csc"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       inkscape:connector-curvature="0"
+       id="path4225"
+       d="M -170.38541,333.14173 C -151.68887,309.60389 -133.60379,333.78405 -147.10379,342.68596 -147.25812,342.78772 -147.11378,343.05194 -147.13377,343.23181" />
+    <polygon
+       transform="matrix(1.249081,0,0,1.249081,-661.08563,807.15673)"
+       style="fill:#000000;stroke:#000000"
+       id="polygon4227"
+       points="414.028,-364.9 392.849,-364.209 408.975,-377.956 414.028,-364.9 " />
+    <path
+       sodipodi:nodetypes="csc"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       inkscape:connector-curvature="0"
+       id="path4229"
+       d="M 154.16915,743.17788 C 172.86569,719.64004 190.95077,743.8202 177.45077,752.72211 177.29644,752.82387 177.44078,753.08809 177.42079,753.26796" />
+    <polygon
+       transform="matrix(1.249081,0,0,1.249081,-336.53107,1217.1929)"
+       style="fill:#000000;stroke:#000000"
+       id="polygon4231"
+       points="414.028,-364.9 392.849,-364.209 408.975,-377.956 414.028,-364.9 " />
+    <path
+       d="M -211.0515,740.34945 C -192.35496,716.81161 -174.26988,740.99177 -187.76988,749.89368 -187.92421,749.99544 -187.77987,750.25966 -187.79986,750.43953"
+       id="path4233"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="408.975,-377.956 414.028,-364.9 414.028,-364.9 392.849,-364.209 "
+       id="polygon4235"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,-701.75172,1214.3645)" />
+    <path
+       d="M 1567.6146,125.14173 C 1586.3111,101.60389 1604.3962,125.78405 1590.8962,134.68596 1590.7419,134.78772 1590.8862,135.05194 1590.8662,135.23181"
+       id="path4237"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.74799991;stroke-miterlimit:4;stroke-dasharray:none"
+       sodipodi:nodetypes="csc" />
+    <polygon
+       points="414.028,-364.9 414.028,-364.9 392.849,-364.209 408.975,-377.956 "
+       id="polygon4239"
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.249081,0,0,1.249081,1076.9144,599.15673)" />
+    <path
+       sodipodi:nodetypes="csc"
+       style="fill:none;stroke:#000000;stroke-width:3.74724293"
+       inkscape:connector-curvature="0"
+       id="path4241"
+       d="M 1493.1146,548.14173 C 1511.8111,524.60389 1529.8962,548.78405 1516.3962,557.68596 1516.2419,557.78772 1516.3862,558.05194 1516.3662,558.23181" />
+    <polygon
+       transform="matrix(1.249081,0,0,1.249081,1002.4144,1022.1567)"
+       style="fill:#000000;stroke:#000000"
+       id="polygon4243"
+       points="392.849,-364.209 408.975,-377.956 414.028,-364.9 414.028,-364.9 " />
+  </g>
+</svg>

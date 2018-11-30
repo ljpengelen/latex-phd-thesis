@@ -1,0 +1,9 @@
+\begin{abstract}
+Correctness of model transformations is a prerequisite for generating correct implementations from models.
+Given refining model transformations that preserve desirable properties, models can be transformed into correct-by-construction implementations.
+However, proving that model transformations preserve properties is far from trivial.
+Therefore, we aim for simple correctness proofs by designing sequences of model transformations for automated code generation that are as fine-grained as possible.
+Furthermore, we advocate the reuse of model transformations to reduce the number of proofs.
+For a simple domain-specific modeling language, \SLCO, we define a formal framework to reason about the correctness, reusability, and composition of the model transformations used to transform a given model to three target languages: \NQC, \Promela, and \POOSL.
+The correctness criterion induces that the systems specified by the original model and the resulting model obtained after a proper sequence of transformations have the same observable behavior.
+\end{abstract} 

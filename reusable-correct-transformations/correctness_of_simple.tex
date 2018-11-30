@@ -1,0 +1,144 @@
+\subsection{Correctness of the \TSim transformation}
+\label{subsec:reusable-correct-transformations:correctness_of_simple}
+
+The operational semantics of \SLCO generates an LTS representation of the model dynamics, for a given model and its initialization.
+Thus, to reason about the correctness of and property preservation by a model transformation, we need to compare the behaviors of two models, one before and one after the transformation, represented as LTSs.
+
+A wide range of equivalence relations on LTSs have been proposed~\cite{spectrum2}.
+Some of them, such as strong bisimilarity, are appropriate for concrete behavior, when every action of the system is observable.
+For some of the defined \SLCO transformations, this is indeed sufficient.
+However, these relations are often too fine when part of the behavior is preferred to be abstracted away and considered unobservable.
+Some of the \SLCO model transformations, as explained in the previous sections, add more detail to the behavior and therefore, some parts of the behavior introduced by the transformation need to be  abstracted away to mimic the behavior before the transformation.
+In view thereof, we choose branching bisimilarity~\cite{GlabWeijBisim96} as the equivalence relation we use for the correctness criterion.
+Branching bisimilarity is a relation between configurations of LTSs for which some transitions are considered internal (or unobservable), which is represented by labeling them with $\tau$ ($\tau\notin \Lambda)$.
+Intuitively, two configurations are branching bisimilar if every transition step that can be executed in one configuration can be mimicked in the other, possibly after a finite number of internal steps.
+Branching bisimilarity can be formally defined as follows.
+
+\clearpage
+
+\begin{definition}
+ \label{branching_bisimulation}
+For two LTSs $L_1 = (S_1, \Lambda_1, \rightarrow_1, i_1)$, $L_2 = (S_2, \Lambda_2, \rightarrow_2, i_2)$ a relation $R \subseteq S_1 \times S_2$ is called a branching bisimulation relation if the following conditions are met, for all $s \in S_1$ and $t \in S_2$ such that $R(s,t)$.
+  \begin{itemize}
+  \item[1.] If $s \xrightarrow{a} s'$ in~$L_1$, then either
+    \begin{itemize}
+    \item [--] $a = \tau$ and $R(s',t)$, or
+    \item [--] for some $n \geq 0$, there exist $t_1, \ldots, t_n$ and~$t'$ in~$S_2$ such that \\
+     $t \xrightarrow{\tau} t_1 \xrightarrow{\tau} \ldots \xrightarrow{\tau} t_{n}
+      \xrightarrow{a} t'$ in~$L_2$, $R(s,t_n)$ and~$R(s',t')$;
+    \end{itemize}
+  \item[2.] If $t \xrightarrow{a} t'$ in~$L_2$, then either
+    \begin{itemize}
+    \item [--] $a = \tau$ and $R(s,t')$, or
+    \item [--] for some $n \geq 0$, there exist $s_1, \ldots, s_n$
+      and~$s'$ in~$S_2$ such that \\
+      $s \xrightarrow{\tau} s_1
+      \xrightarrow{\tau} \ldots \xrightarrow{\tau} s_{n}
+      \xrightarrow{a} s'$ in~$L_1$, $R(s_n,t)$ and~$R(s',t')$.
+    \end{itemize}
+  \end{itemize}
+LTSs~$L_1$ and~$L_2$ are branching bisimilar if there exists a branching bisimulation relation~$R$ for~$L_1$ and~$L_2$ such that~$R(i_1,i_2)$.
+\end{definition}
+
+Branching bisimilarity possesses many useful properties, one of which is that related models possess the same properties that can be expressed in the temporal logic CTL$^*$ without the next state modality~\cite{DV95}.
+In our case, this means that if a certain property has been established for the source model, which is usually much smaller than its implementations and thus easier to analyze, and if we apply a (well-composed) sequence of model transformations for which our correctness criterion hold, then the generated model inherits the property by construction.
+The same holds for all intermediate models.
+Thus, our correctness criterion for model transformation provides effective and efficient generation of implementations that are correct-by-construction.
+
+\begin{definition}
+Let $T$ be an \SLCO model transformation such that for any \SLCO model $m$ to which $T$ applies and for a given initialization of $m$, there is a renaming $\rho$ of the labels of the $\it{LTS}(T(m))$ such that $\it{LTS}(m)$ and $\rho(\it{LTS}(T(m)))$ are branching bisimilar.
+Then, $T$ is a correct model transformation.
+\end{definition}
+
+The renaming function~$\rho$ in the definition above is needed to rename some labels into~$\tau$, but also to unify, if needed, the labels of transitions that are supposed to mimic each other.
+For example, when replacing a synchronous channel with an asynchronous one, a small protocol is employed.
+On the LTS level, one of the labels that represent the steps performed as part of this protocol corresponds to the label that represents the synchronization in the original situation.
+The renaming function is used to ensure that these labels are the same and to hide the labels that represent the other steps.
+
+In the remainder of this section, we discuss the main lines of the correctness proof for the simple variant of the \emph{Synchronous to Asynchronous} transformation, \TSim.
+We chose this transformation because its proof has all the important aspects that need to be taken into account, yet the established relation between configurations is simple enough to be given completely.
+Besides transformation~\TSim, there are four more transformations that require a substantial amount of cases to be considered for their correctness proof.
+The fourth column of Table~\ref{tab:endogenous_model_transformations} in Section~\ref{sec:reusable-correct-transformations:model_transformations} lists the number of proof obligations for each transformation.
+The last row lists two numbers, one for each version of the \emph{Synchronous to Asynchronous} transformation.
+Fortunately, the correctness proofs of the majority of transformations involve a single proof obligation only, relating each configuration for input models to exactly one equivalent configuration for output models.
+This is a clear benefit of designing sequences of transformations that are as fine-grained as possible.
+
+Referring back to the definition of \TSim in Section~\ref{subsec:reusable-correct-transformations:sync_to_async}, let $\it{Sgn}$ be the set of all signal names used in the sending and receiving statements of all $\it{tr_s}$ and $tr_r$-like transitions.
+We define a label-renaming function $\rho$ as follows, for every~$\it{ssgn} \equiv ``s\_" + \it{sgn}$ and~$\it{asgn} \equiv ``a\_" + \it{sgn}$ such that~$\it{sgn}\in \it{Sgn}$.
+%
+\begin{itemize*}
+\item [--] $\rho(\textbf{send}~\it{ssgn()}) = \tau$
+\item [--] $\rho(\textbf{receive}~\it{ssgn()}) = \it{sgn()}$
+\item [--] $\rho(\textbf{send}~\it{asgn()}) = \tau$
+\item [--] $\rho(\textbf{receive}~\it{asgn()}) = \tau$
+%\item [--] $\rho(\epsilon) = \tau$
+\end{itemize*}
+
+\noindent
+Renaming $\rho$ is straightforwardly extended on $\it{LTS}(\TSim(m, \it{chn}))$.
+By renaming the label $\textbf{receive}~\it{ssgn()}$ to $\it{sgn()}$, we indicate that these two labels represent successful communication.
+The other labels are renamed to $\tau$ because they represent the implicit synchronization in the source model and should result in unobservable behavior of the target model.
+
+\begin{theorem}
+For a given \SLCO model $m=\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}$ and a channel $\it{ch_s} = \it{chn}()~\textbf{sync from}~\it{on_1}.\it{pn_1} ~\textbf{to}~\it{on_2}.\it{pn_2}~\in~\it{chan^*}$, $\TSim(m, \it{chn})$ is a correct model transformation.
+\end{theorem}
+
+\begin{proof}
+We need to show that $\it{LTS}(m)$ and~$\rho(\it{LTS}(\TSim(m, \it{chn})))$ are branching bisimilar.
+As usual, the main difficulty of the proof lies in properly relating the configurations from $\it{LTS}(m)$ and those from $\rho(\it{LTS}(\TSim(m, \it{chn})))$.
+Before we define the relation, it is worth noticing that each configuration of $\it{LTS}(m)$ is also a configuration of $\rho(\it{LTS}(\TSim(m, \it{chn})))$, but for the latter the buffer function is extended over the triples $\langle \it{chn}, \it{on_1}, \it{on_2} \rangle$ and $\langle \it{chn}, \it{on_2}, \it{on_1} \rangle$.
+
+Let configuration~$\it{cf} = \langle m, \sobjs, \vglob, \vloc, \buf \rangle$ be a configuration of $\it{LTS}(m)$ and let~$\it{cf'} = \langle \TSim(m, \it{chn}), \sobjs', \vglob', \vloc', \buf' \rangle$ be a configuration of $\rho(LTS(\TSim(m, \it{chn})))$.
+We define a relation~$R$ between the configurations as follows: $(\it{cf}, \it{cf'})\in R$ if and only if $\vglob = \vglob'$, $\vloc = \vloc'$ and
+%
+\begin{enumerate}
+\item[1.]
+$\sobjs = \sobjs'$,
+$\buf'(\langle \it{chn}, \it{on_1}, \it{on_2} \rangle) = \nil$, $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1} \rangle) = \nil$, and $\buf' = \buf$ otherwise, or
+
+\item[2.]
+$\sobjs(\it{on_1})(\it{smn_1}) = \it{ss_1}$,
+$\sobjs'(\it{on_1})(\it{smn_1}) = \it{ss_{nw}}$,
+$\sobjs = \sobjs'$ otherwise, \\
+$\buf'(\langle \it{chn}, \it{on_1}, \it{on_2}\rangle) = (\it{ssgn}, \varepsilon)$,
+$\buf'(\langle \it{chn}, \it{on_2}, \it{on_1}\rangle) = \nil$,
+and $\buf' = \buf$ otherwise,
+only if there is a $\it{tr_s}$-like transition from $\it{ss_1}$ with signal name $\it{sgn()}$, \ or
+
+\item[3.]
+ $\sobjs(\it{on_1})(\it{smn_1}) = \it{ss_2}$,
+ $\sobjs(\it{on_2})(\it{smn_2}) = \it{sr_2}$,
+ $\sobjs'(\it{on_1})(\it{smn_1}) = \it{ss_{nw}}$, \\
+ $\sobjs'(\it{on_2})(\it{smn_2}) = \it{sr_{nw}}$,
+ $\sobjs = \sobjs'$ otherwise,
+ $\buf'(\langle \it{chn}, \it{on_1}, \it{on_2}\rangle) = \nil$, \\
+ $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1}\rangle) = \nil$,
+ and $\buf' = \buf$ otherwise,
+ only if there is a $\it{tr_s}$-like transition in $\it{sm_1}$ to $ss_2$, and there is a $\it{tr_r}$-like transition in $sm_2$ to $sr_2$, \ or
+
+\item[4.]
+ $\sobjs(\it{on_1})(\it{smn_1}) = \it{ss_2}$,
+ $\sobjs'(\it{on_1})(\it{smn_1}) = \it{ss_{nw}}$,
+ $\sobjs = \sobjs'$ otherwise, \\
+ $\buf'(\langle \it{chn}, \it{on_1}, \it{on_2}\rangle) = \nil$,
+ $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1}\rangle) = (\it{asgn}, \varepsilon)$,
+ and $\buf' = \buf$ otherwise,
+ if there is a $\it{tr_s}$-like transition to $ss_2$  with signal~$sgn()$.
+\end{enumerate}
+%
+Next, for each pair of configurations, we have to show that they can mimic each other, using the SOS rules.
+For example, let us consider case {\bf 2.} If $\it{cf} \TextModelRelation{l} \it{cf_1}$, for some label $l$ and a configuration $\it{cf_1}$ of $\it{LTS}(m)$, then either $l\not\equiv \it{sgn}()$ or $l\equiv \it{sgn}()$.
+In the first case, this transition certainly does not involve state machine~$\it{sm_1}$ of object~$\it{o_1}$, since it can only synchronize in this configuration.
+In this case, the same state machine(s) of the same object(s) can induce the same transition $\it{cf'} \TextModelRelation{l} \it{cf'_1}$, and since the updates of the functions do not change $\sobjs(\it{o_1})(\it{sm_1})$ and $\sobjs'(\it{o_1})(\it{sm_1})$, it follows that $(\it{cf_1}, \it{cf'_1}) \in R$.
+
+If $l\equiv \it{sgn}()$, then $\it{sm_2}$ has to be in a state $\it{sr_1}$ for some $\it{tr_r}$-like transition, according to the SOS rule concerning synchronous communication in Figure~\ref{fig:reusable-correct-transformations:objects}.
+According to the SOS rule for an asynchronous signal reception in the same figure, $\it{cf'} \TextModelRelation{\it{sgn}()} \it{cf'_1}$, where the label $\it{sgn}()$ in $\rho(\it{LTS}(\TSim(m, \it{chn})))$ is the result of renaming the label ${\bf receive}~\it{ssgn()}$ of $\it{LTS}(\TSim(m, \it{chn}))$.
+Furthermore, in $\it{cf_1}$, $\it{sm_1}$ is in state $\it{ss_2}$ and $\it{sm_2}$ is in state $\it{sr_2}$.
+In $\it{cf_1'}$, $\it{sm_1}$ is in state $\it{ss_{nw}}$ and $\it{sm_2}$ is in state $\it{sr_{nw}}$.
+According to {\bf 3.}, $(\it{cf_1}, \it{cf_1'})\in R$.
+Lifting the constraint on $\it{sm_1}$ and allowing it to have other transitions besides the one that sends a synchronous signal in state $\it{ss_1}$ breaks bisimilarity of $R$.
+
+For each transition~$\it{cf'} \TextModelRelation{l} \it{cf'_1}$ that is enabled in configuration~$\it{cf'}$ we can show in a similar way that it is either also enabled in configuration~$\it{cf}$ or that it is mimicked by a transition~$\it{cf} \TextModelRelation{\it{sgn()}} \it{cf_1}$.
+By a careful inspection of transitions generated by the SOS rules for the other three cases of pairs of $R$-related configurations, we can prove that $R$ is indeed a branching bisimulation that relates $\it{LTS}(m)$ and $\rho(\it{LTS}(\TSim(m, \it{chn})))$.
+\end{proof}
+A more detailed description of this proof is given in Appendix~\ref{ap:proof}. 

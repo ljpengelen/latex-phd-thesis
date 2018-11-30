@@ -1,0 +1,130 @@
+\section{Simple Transformation}
+\label{sec:transformations-slco:simple}
+The transformation~\TSim takes a model and a channel name as input.
+If the channel is used for synchronous communication, it is replaced by an asynchronous channel, and the classes of the objects that are connected by the channel are adapted.
+It is defined as
+%
+\[
+\begin{array}{l}
+\TSim(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}, \it{chn}) = \\
+\quad \it{mn} ~
+T^S_{\it{CS}}(\it{class^*}, \it{cn_1}, \it{pn_1}, \it{cn_2}, \it{pn_2}) ~
+\it{obj^*} \\
+\quad \it{chan_1^*}~\it{chn}(\it{type^*})~\textbf{async lossless between}~\it{on_1}.~\it{pn_1}~\textbf{and}~\it{on_2}.~\it{pn_2}~\it{chan_2^*},
+\end{array}
+\]
+if~$\it{chan^*} \equiv \it{chan_1^*}~\it{chn}(\it{type^*})~\textbf{sync}~\textbf{from}~\it{on_1}.~\it{pn_1}~\textbf{to}~\it{on_2}.~\it{pn_2}~\it{chan_2^*}$, $\it{obj^*} \equiv \it{obj_1^*}~\it{on_1}:\it{cn_1}~\it{obj_2^*}$,
+and~$\it{obj^*} \equiv \it{obj_3^*}~\it{on_2}:\it{cn_2}~\it{obj_4^*}$,
+and it is defined as
+\[
+\TSim(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}, \it{chn}) = \it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}
+\]
+otherwise.
+
+The transformation~$T^S_{\it{CS}}$ defined below takes a sequence of classes, two class names, and two port names as input.
+It returns a sequence of classes.
+The classes with the names provided as input are modified, and all other classes remain intact.
+There are two cases for this transformation.
+In one case, the class with name $\it{cn_1}$ is first in the sequence of classes.
+In the other case, the class with name $\it{cn_2}$ is first.
+
+\[
+\begin{array}{l}
+T^S_{\it{CS}}(\it{class^*}, \it{cn_1}, \it{pn_1}, \it{cn_2}, \it{pn_2}) =\\
+\quad \it{class_1^*}~T^S_{\it{C}}(\it{class_1}, \it{pn_1})~\it{class_2^*}~T^S_{\it{C}}(\it{class_2}, \it{pn_2})~\it{class_3^*},
+\end{array}
+\]
+if~$\it{class^*} \equiv \it{class_1^*}~\it{class_1}~\it{class_2^*}~\it{class_2}~\it{class_3^*}$, $\it{class_1} \equiv \it{cn_1}~\it{pn_1^*}~\it{var_1^*}~\it{sm_1^*}$, and $\it{class_2} \equiv \it{cn_2}~\it{pn_2^*}~\it{var_2^*}~\it{sm_2^*}$, and
+\[
+\begin{array}{l}
+T^S_{\it{CS}}(\it{class^*}, \it{cn_1}, \it{pn_1}, \it{cn_2}, \it{pn_2}) = \\
+\quad \it{class_1^*}~T^S_{\it{C}}(\it{class_2}, \it{pn_2})~\it{class_2^*}~T^S_{\it{C}}(\it{class_1}, \it{pn_1})~\it{class_3^*},
+\end{array}
+\]
+if~$\it{class^*} \equiv \it{class_1^*}~\it{class_2}~\it{class_2^*}~\it{class_1}~\it{class_3^*}$, $\it{class_1} \equiv \it{cn_1}~\it{pn_1^*}~\it{var_1^*}~\it{sm_1^*}$, and~$\it{class_2} \equiv \it{cn_2}~\it{pn_2^*}~\it{var_2^*}~\it{sm_2^*}$.
+
+The transformation~$T^S_{\it{C}}$ defined below takes a class and a port name as input and returns a class with modified state machines.
+Only the state machines that send or receive signals over the given port are modified.
+%
+\[
+T^S_{\it{C}}(\it{cn}~\it{pn^*}~\it{var^*}~\it{sm^*}, \it{pn}) = \it{cn}~\it{pn^*}~\it{var^*}~T^S_{\it{SMS}}(\it{sm^*}, \it{pn})
+\]
+
+The transformation~$T^S_{\it{SMS}}$ defined below takes a sequence of state machines and a port name as input, and returns a modified sequence of state machines.
+Only the state machines that send or receive signals over the given port are modified.
+There are two cases for this transformation.
+One case deals with empty sequences of state machines and one case with non-empty sequences of state machines.
+%
+\begin{align*}
+T^S_{\it{SMS}}(\epsilon, \it{pn}) & = \epsilon \\
+T^S_{\it{SMS}}(\it{sm}~\it{sm^*}, \it{pn}) & = T^S_{\it{SM}}(\it{sm}, \it{pn})~T^S_{\it{SMS}}(\it{sm^*}, \it{pn})
+\end{align*}
+
+The transformation~$T^S_{\it{SM}}$ defined below takes a state machine and a port name as input, and returns a state machine with modified transitions and a number of additional states.
+Only the transitions that send or receive signals over the given port are modified.
+There are two cases for this transformation.
+One case deals with state machines without final states, and the other with state machines with final states.
+%
+\[
+T^S_{\it{SM}}(\it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\it{trans^*}, \it{pn}) =  \it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\it{sn^*_1}~\it{trans^*_1},
+\]
+where~$\langle \it{sn^*_1}, \it{trans^*_1} \rangle = T^S_{\it{TS}}(\it{trans^*}, \it{pn})$, and
+\[
+\begin{array}{l}
+T^S_{\it{SM}}(\it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\textbf{final}~\it{sn^+}~\it{trans^*}, \it{pn}) = \\
+\quad \it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\it{sn^*_1}~\textbf{final}~\it{sn^+}~\it{trans^*_1},
+\end{array}
+\]
+where~$\langle \it{sn^*_1}, \it{trans^*_1} \rangle = T^S_{\it{TS}}(\it{trans^*}, \it{pn})$.
+The syntax definition given in Appendix~\ref{ap:sos-slco} is extended as follows to accommodate final states.
+%
+\[
+\it{sm} ::= \it{smn}~\it{var^*}~``\textbf{initial}"~\it{sn}~\it{sn^*}~[``\textbf{final}"~\it{sn^+}]~\it{trans^*}
+\]
+
+
+The transformation~$T^S_{\it{TS}}$ defined below takes a sequence of transitions and a port name as input, and returns a modified sequence of transitions and a set of new states.
+Only the transitions that send or receive signals over the given port are modified.
+There are two cases for this transformation.
+One case deals with empty sequences of transitions and the other with non-empty sequences.
+%
+\begin{align*}
+T^S_{\it{TS}}(\epsilon, \it{pn}) & = \langle \epsilon, \epsilon \rangle \\
+T^S_{\it{TS}}(\it{trans}~\it{trans^*}, \it{pn}) & = \langle \it{sn^*_1}~\it{sn^*_2}, \it{trans^*_1}~\it{trans^*_2} \rangle,
+\end{align*}
+where~$\langle \it{sn^*_1}, \it{trans^*_1} \rangle = T^S_{\it{T}}(\it{trans}, \it{pn})$ and~$\langle \it{sn^*_2}, \it{trans^*_2} \rangle = T^S_{\it{TS}}(\it{trans^*}, \it{pn})$.
+
+The transformation~$T^S_{\it{T}}$ defined below takes a transition and a port name as input, and returns a set of states and a set of transitions.
+Only transitions that have a signal reception trigger or a send signal statement are replaced by new transitions.
+All other transitions are left unaltered.
+There are three cases for this transformation.
+One case deals with transitions that send a signal, one case deals with transitions that receive signals, and one case deals with all other transitions.
+%
+\[
+\begin{array}{l}
+T^S_{\it{T}}(\it{tn}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_2}~\textbf{send}~\it{sgn}()~\textbf{to}~\it{pn}, \it{pn}) =
+\langle \\
+\quad \it{sn_3}, \\
+\quad \it{tn_1}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_3}~\textbf{send}~\it{sgn_1}()~\textbf{to}~\it{pn} \\
+\quad \it{tn_2}~\textbf{from}~\it{sn_3}~\textbf{to}~\it{sn_2}~\textbf{receive}~\it{sgn_2}()~\textbf{from}~\it{pn} \\
+\rangle,
+\end{array}
+\]
+where~$\it{sn_3}$ is a fresh state name, $\it{tn_1}$ and~$\it{tn_2}$ are fresh transition names, $\it{sgn_1}~\equiv~``s\_"+\it{sgn}$, and $\it{sgn_2}~\equiv~``a\_"+\it{sgn}$,
+\[
+\begin{array}{l}
+T^S_{\it{T}}(\it{tn}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_2}~\textbf{receive}~\it{sgn}()~\textbf{from}~\it{pn}, \it{pn}) =
+\langle \\
+\quad \it{sn_3}, \\
+\quad \it{tn_1}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_3}~\textbf{receive}~\it{sgn_1}()~\textbf{from}~\it{pn} \\
+\quad \it{tn_2}~\textbf{from}~\it{sn_3}~\textbf{to}~\it{sn_2}~\textbf{send}~\it{sgn_2}()~\textbf{to}~\it{pn} \\
+\rangle,
+\end{array}
+\]
+where~$\it{sn_3}$ is a fresh state name, $\it{tn_1}$ and~$\it{tn_2}$ are fresh transition names, $\it{sgn_1}~\equiv~``s\_"+\it{sgn}$, and~$\it{sgn_2}~\equiv~``a\_"+\it{sgn}$, and
+\[
+\begin{array}{l}
+T^S_{\it{T}}(\it{trans}, \it{pn}) = \langle \epsilon, \it{trans} \rangle,
+\end{array}
+\]
+for all other transitions. 

@@ -1,0 +1,24 @@
+\section{Experimental Results}
+\label{sec:case_studies:exp}
+
+Table~XXX shows experimental results for five case studies with various rule systems\footnote{The rule system definitions can be found in Appendix~\ref{sec:appendix}.}, some preserving a relevant property (noted by \accept) and some not (noted by \reject).
+The number of explored states and the runtime for full exploration are given for the {\it initial} model and the {\it trans}formed model.
+The applied rule systems have been analysed separately ($\Sf$-{\it pres}.), and for these checks, the maximum number of states of the two LTSs involved in a check is given in the form ``(size left pattern)$+$(size right pattern)''.
+Furthermore, the number of required checks, and the total runtime are reported.
+The experiments have been performed on a machine with two dual-core \textsc{amd opteron} (tm) processors 885 2.6 GHz, 126 GB RAM, running \textsc{Red Hat} 4.3.2-7.
+For divergence-sensitive branching bisimilarity checking, we used the {\it ltsconvert} tool of the \mCRLTwo toolset~\cite{mcrl2}.
+The first three models are part of the distribution of \mCRLTwo.
+We generated their LTSs with the \mCRLTwo tools, and manually transformed them to incorporate refined information concerning internal steps.
+In the other two cases, synchronising behaviour was transformed, and the network LTSs have been constructed from sets of process LTSs using \EXPOPEN~\cite{lang05};
+{\it brdcst} is a system of fifteen processes communicating via broadcast, i.e.\ three processes at a time synchronise simultaneously.
+A practical transformation is to break this down into a series of two-party synchronisations, e.g.\ due to restrictions imposed for the eventual implementation.
+We defined two rule systems for this, and they could be applied fifty times using a prototype tool developed by us.
+The first of these rule systems does not preserve properties, whereas it can be shown that the second one does, using divergency information of the input models.
+The {\it c.syst.} case is a communication system, where in five different places, communication between two processes is refined to use the ABP protocol, representing an adaptation to the use of lossy channels.
+The different rule networks for the various checks were produced by our prototype, and we again used divergency information of the input models.
+We analysed two versions of the rule system, one containing a subtle error (the receiver of messages does not expect messages with the wrong bit).
+In this case, we expect that it is possible to define a $\Sf$-preserving rule system formalising the desired transformation, i.e.\ replacing one way of communicating by another should not affect the truth-value of properties not stating anything about the used communication mechanism.
+Therefore, the negative outcome of a check is a strong indication that transformation of the network LTS results in a violation of the property.
+
+The gain in speed is obvious, as is the gain in memory use, since it is linear to the number of analysed states.
+In the future, we wish to look at larger, practical case studies to further validate the applicability of our techniques. 

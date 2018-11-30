@@ -1,0 +1,55 @@
+\section{Semantic Gaps and Platform Gaps}
+\label{sec:slco:language-gaps}
+
+There are a number of differences between \SLCO, \POOSL, \NQC, and \Promela in terms of the language constructs they offer.
+These differences are often referred to as semantic gaps~\cite{Amstel2008}.
+Furthermore, the Lego Mindstorms execution platform has practical limitations that poses restrictions to implementations in \NQC.
+These restrictions form platform gaps because they do not hold for models specified using the other languages.
+We identified a number of gaps between \SLCO and the target languages and platforms, which are shown in Table~\ref{tab:LanguageGaps}.
+To successfully transform an \SLCO model into an equivalent model or implementation in one of the other languages, these gaps have to be bridged.
+
+\begin{table*}[hbt]
+\centering
+\small
+\begin{tabular}{|l|c|c|c|c|}
+\hhline{~|----}
+\rowcolor[gray]{.9}
+\multicolumn{1}{l|}{}    & \textbf{\NQC}        & \textbf{\POOSL}     & \textbf{\Promela} & \textbf{\SLCO} \\
+\hline
+\bgc{(A)synchronous}     & \mr{2}{asynchronous} & \mr{2}{synchronous} & \mr{2}{both}      & \mr{2}{both} \\
+\bgc{communication}      &                      &                     &                   & \\
+\hline
+\bgc{Reliability of}     & \mr{2}{unreliable}   & \mr{2}{reliable}   & \mr{2}{reliable}   & \mr{2}{both} \\
+\bgc{communication}      &                      &                    &                    & \\
+\hline
+\bgc{Support for string} & \mr{2}{no}           & \mr{2}{yes}        & symbolic names for & \mr{2}{yes} \\
+\bgc{constants}          &                      &                    & integer constants  & \\
+\hline
+\bgc{Connectivity for}   &                      &                    &                    & \\
+\bgc{communication}      & \mr{-2}{broadcast}   & \mr{-2}{point-to-point} & \mr{-2}{point-to-point} & \mr{-2}{point-to-point} \\
+\hline
+\bgc{Number of objects}  & limited              & $\infty$           & $\infty$           & $\infty$ \\
+\hline
+\end{tabular}
+\caption{Language and platform characteristics}
+\label{tab:LanguageGaps}
+\end{table*}
+
+Each column lists the characteristics of one of the four languages and the corresponding platform.
+The first row indicates whether communication is synchronous or asynchronous.
+In case communication is synchronous, both the sender and receiver of a signal need to be available before a signal can be sent.
+In this way, sender and receiver synchronize on communication.
+In case communication is asynchronous, a sender can send a signal and proceed with its execution even though the receiver is not yet ready to receive the signal.
+The second row indicates whether communication over channels is reliable.
+In case a channel is reliable, which is also referred to as lossless, a signal that is sent will always arrive at the receiving end.
+In case a channel is unreliable, which is also referred to as lossy, a signal that is sent may get lost.
+The third row indicates whether a language supports string constants.
+%Because \NQC does not support strings, each string constant present in an \SLCO model must be replaced by a unique integer constant.
+Although \Promela has no support for strings, it offers an enumerated type that allows representing numeric constants using symbolic names, which can be regarded as a restricted form of string constants.
+The fourth row shows whether signals are broadcasted or sent using point-to-point communication.
+When signals are broadcasted, each signal can be received by multiple objects.
+In the case of point-to-point communication, however, signals are sent from one object to exactly one other object.
+The fifth row lists the amount of objects that can be instantiated simultaneously.
+In \POOSL, \Promela, and \SLCO, this amount is unlimited.
+For Lego Mindstorms, however, this number is limited in practice.
+Because every object should be deployed on an RCX, the amount of concurrent objects is bounded by the available number of RCX controllers.

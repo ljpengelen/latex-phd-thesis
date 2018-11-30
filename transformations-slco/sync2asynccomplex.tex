@@ -1,0 +1,216 @@
+\section{General Transformation}
+The transformation~\TGen takes a model and a channel name as input and returns a modified model.
+If the channel name refers to a synchronous channel, it is replaced by an asynchronous channel in the resulting model, and the classes of the objects that communicate over this channel are modified accordingly.
+It is defined as
+%
+\[
+\begin{array}{l}
+\TGen(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}, \it{chn}) = \\
+\quad \it{mn}
+~ T^G_{\it{CS}}(\it{class^*}, \it{cn_1}, \it{pn_1}, \it{cn_2}, \it{pn_2})
+~ \it{obj^*} \\
+\quad \it{chan_1^*}~\it{chn}(\it{type^*})~\textbf{async lossless between}~\it{on_1}.~\it{pn_1}~\textbf{and}~\it{on_2}.~\it{pn_2}~\it{chan_2^*}, \\
+\end{array}
+\]
+if~$\it{chan^*} \equiv \it{chan_1^*}~\it{chn}(\it{type^*})~\textbf{sync}~\textbf{from}~\it{on_1}.~\it{pn_1}~\textbf{to}~\it{on_2}.~\it{pn_2}~\it{chan_2^*}$,
+$\it{obj^*} \equiv \it{obj_1^*}~\it{on_1}:\it{cn_1}~\it{obj_2^*}$, and~$\it{obj^*} \equiv \it{obj_3^*}~\it{on_2}:\it{cn_2}~\it{obj_4^*}$,
+and it is defined as
+%
+\[
+\TGen(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}, \it{chn}) = \it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}
+\]
+%
+otherwise.
+
+The transformation~$T^G_{\it{CS}}$ defined below takes a sequence of classes, two class names~$\it{cn_1}$ and~$\it{cn_2}$, and two port names as input and returns a sequence of modified classes.
+Only the classes named~$\it{cn_1}$ and~$\it{cn_2}$ are modified.
+This transformation has two cases.
+One case is concerned with sequences of classes in which the sending class is first in the sequence, and the other case is concerned with sequences of classes in which the other class is first.
+%
+\[
+\begin{array}{l}
+T^G_{\it{CS}}(\it{class^*}, \it{cn_1}, \it{pn_1}, \it{cn_2}, \it{pn_2}) = \\
+\quad \it{class_1^*}~T_{\it{C}}^{\it{SEND}}(\it{class_1}, \it{pn_1})~\it{class_2^*}~T_{\it{C}}^{\it{REC}}(\it{class_2}, \it{pn_2})~\it{class_3^*},
+\end{array}
+\]
+if~$\it{class^*} \equiv \it{class_1^*}~\it{class_1}~\it{class_2^*}~\it{class_2}~\it{class_3^*}$,
+$\it{class_1} \equiv \it{cn_1}~\it{pn_1^*}~\it{var_1^*}~\it{sm_1^*}$,
+and~$\it{class_2} \equiv \it{cn_2}~\it{pn_2^*}~\it{var_2^*}~\it{sm_2^*}$, and
+%
+\[
+\begin{array}{l}
+T^G_{\it{CS}}(\it{class^*}, \it{cn_1}, \it{pn_1}, \it{cn_2}, \it{pn_2}) = \\
+\quad \it{class_1^*}~T_{\it{C}}^{\it{REC}}(\it{class_2}, \it{pn_2})~\it{class_2^*}~T_{\it{C}}^{\it{SEND}}(\it{class_1}, \it{pn_1})~\it{class_3^*},
+\end{array}
+\]
+if~$\it{class^*} \equiv \it{class_1^*}~\it{class_2}~\it{class_2^*}~\it{class_1}~\it{class_3^*}$,
+$\it{class_1} \equiv \it{cn_1}~\it{pn_1^*}~\it{var_1^*}~\it{sm_1^*}$,
+and~$\it{class_2} \equiv \it{cn_2}~\it{pn_2^*}~\it{var_2^*}~\it{sm_2^*}$.
+
+The transformation~$T_{\it{C}}^{\it{SEND}}$ defined below takes a class and a port name~$\it{pn}$ as input and returns a modified class.
+The modified class has an extra integer variable and an extra state machine.
+The state machines that send signals via port~$\it{pn}$ are modified, and the others are left intact.
+%
+\[
+\begin{array}{l}
+T_{\it{C}}^{\it{SEND}}(\it{cn}~\it{pn^*}~\it{var^*}~\it{sm^*}, \it{pn}) = \\
+\quad \it{cn}
+~ \it{pn^*}
+~ \it{var^*}~\textbf{Integer}~\it{vn}=0
+~ T_{\it{SMS}}^{\it{SEND}}(\it{sm^*}, \it{pn}, \it{vn})~T_{\it{SM}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn^*}),
+\end{array}
+\]
+where~$\it{vn}$ is a fresh variable name and~$\it{sgn^*}~\equiv~T_{\it{SMS}}^{\it{NAMES}}(\it{sm^*})$.
+
+The transformation~$T_{\it{SMS}}^{\it{SEND}}$ defined below takes a sequence of state machines, a port name~$\it{pn}$, and a variable name as input and modifies the state machines that send signals over port~$\it{pn}$.
+%
+\begin{align*}
+T_{\it{SMS}}^{\it{SEND}}(\epsilon, \it{pn}, \it{vn}) & = \epsilon \\
+T_{\it{SMS}}^{\it{SEND}}(\it{sm}~\it{sm^*}, \it{pn}, \it{vn}) & = T_{\it{SM}}^{\it{SEND}}(\it{sm}, \it{pn}, \it{vn})~T_{\it{SMS}}^{\it{SEND}}(\it{sm^*}, \it{pn}, \it{vn})
+\end{align*}
+
+The transformation~$T_{\it{SM}}^{\it{SEND}}$ defined below takes a state machine, a port name, and a variable name as input and returns a modified state machine.
+This transformation has two cases.
+One case is concerned with state machines with final states, and the other case is concerned with state machines without final states.
+%
+\[
+\begin{array}{l}
+T_{\it{SM}}^{\it{SEND}}(\it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\textbf{final}~\it{sn^+}~\it{trans^*}, \it{pn}, \it{vn}) = \\
+\quad \it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\it{sn^*_1}~\textbf{final}~\it{sn^+}~\it{trans^*_1},
+\end{array}
+\]
+where~$\langle \it{sn^*_1}, \it{trans^*_1} \rangle = T_{\it{TS}}^{\it{SEND}}(\it{trans^*}, \it{pn}, \it{vn})$, and
+%
+\[
+\begin{array}{l}
+T_{\it{SM}}^{\it{SEND}}(\it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\it{trans^*}, \it{pn}, \it{vn}) = \\
+\quad \it{smn}~\it{var^*}~\textbf{initial}~\it{sn}~\it{sn^*}~\it{sn^*_1}~\it{trans^*_1},
+\end{array}
+\]
+where~$\langle \it{sn^*_1}, \it{trans^*_1} \rangle = T_{\it{TS}}^{\it{SEND}}(\it{trans^*}, \it{pn}, \it{vn})$.
+
+The transformation~$T_{\it{TS}}^{\it{SEND}}$ defined below takes a sequence of transitions, a port name, and a variable name as input and returns a set of states and transitions.
+The resulting transitions are used to replace the transitions provided as input.
+%
+\begin{align*}
+T_{\it{TS}}^{\it{SEND}}(\epsilon, \it{pn}, \it{vn}) & = \langle \epsilon, \epsilon \rangle \\
+T_{\it{TS}}^{\it{SEND}}(\it{trans}~\it{trans^*}, \it{pn}, \it{vn}) & = \langle \it{sn^*_1}~\it{sn^*_2}, \it{trans^*_1}~\it{trans^*_2} \rangle,
+\end{align*}
+where~$\langle \it{sn^*_1}, \it{trans^*_1} \rangle = T_{\it{T}}^{\it{SEND}}(\it{trans}, \it{pn}, \it{vn})$ and~$\langle \it{sn^*_2}, \it{trans^*_2} \rangle = T_{\it{TS}}^{\it{SEND}}(\it{trans^*, \it{pn}, \it{vn}})$.
+
+The transformation~$T_{\it{T}}^{\it{SEND}}$ defined below takes a transition, a port name, and a variable name as input and returns a set of states and transitions.
+%
+\[
+\begin{array}{l}
+T_{\it{T}}^{\it{SEND}}(\it{tn}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_2}~\textbf{send}~\it{sgn}()~\textbf{to}~\it{pn}, \it{pn}, \it{vn}) = \langle \\
+\quad \it{sn_3}~\it{sn_4}~\it{sn_5}~\it{sn_6}~\it{sn_7}, \\
+\quad \it{tn_1}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_3}~\it{vn}==0 \\
+\quad \it{tn_2}~\textbf{from}~\it{sn_3}~\textbf{to}~\it{sn_4}~\textbf{send}~\it{sgn}(1)~\textbf{to}~\it{pn} \\
+\quad \it{tn_3}~\textbf{from}~\it{sn_4}~\textbf{to}~\it{sn_5}~\it{vn}==2 \\
+\quad \it{tn_4}~\textbf{from}~\it{sn_5}~\textbf{to}~\it{sn_6}~\textbf{send}~\it{sgn}(3)~\textbf{to}~\it{pn} \\
+\quad \it{tn_5}~\textbf{from}~\it{sn_6}~\textbf{to}~\it{sn_2}~\it{vn}==0 \\
+\quad \it{tn_6}~\textbf{from}~\it{sn_4}~\textbf{to}~\it{sn_7}~\it{vn}:=2 \\
+\quad \it{tn_7}~\textbf{from}~\it{sn_7}~\textbf{to}~\it{sn_1}~\textbf{send}~\it{sgn}(4)~\textbf{to}~\it{pn} \\
+\rangle,
+\end{array}
+\]
+where~$\it{sn_3}$, $\it{sn_4}$, $\it{sn_5}$, $\it{sn_6}$, and~$\it{sn_7}$ are fresh state names and~$\it{tn_1}$, $\it{tn_2}$, $\it{tn_3}$, $\it{tn_4}$, $\it{tn_5}$, $\it{tn_6}$, and~$\it{tn_7}$ are fresh transition names, and
+%
+\[
+T_{\it{T}}^{\it{SEND}}(\it{trans}, \it{pn}, \it{vn}) = \langle \epsilon, \it{trans} \rangle
+\]
+otherwise.
+
+%% -- Receiver Transition -----------------------------------------------------------------------------------------------------------------------------------------
+
+Similar to the transformations defined above, transformations~$T_{\it{C}}^{\it{REC}}$, $T_{\it{SMS}}^{\it{REC}}$, $T_{\it{SM}}^{\it{REC}}$, $T_{\it{TS}}^{\it{REC}}$, and~$T_{\it{T}}^{\it{REC}}$ exists, which modify the classes, state machines, and transitions that receive signals from a given port.
+Transformation~$T_{\it{T}}^{\it{REC}}$ is defined as follows.
+%
+\[
+\begin{array}{l}
+T_{\it{T}}^{\it{REC}}(\it{tn}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_2}~\textbf{receive}~\it{sgn}()~\textbf{from}~\it{pn}, \it{pn}, \it{vn}) = \langle \\
+\quad \it{sn_3}~\it{sn_4}~\it{sn_5}~\it{sn_6}~\it{sn_7}, \\
+\quad \it{tn_1}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_3}~\it{vn}==1 \\
+\quad \it{tn_2}~\textbf{from}~\it{sn_3}~\textbf{to}~\it{sn_4}~\textbf{send}~\it{sgn}(2)~\textbf{to}~\it{pn} \\
+\quad \it{tn_3}~\textbf{from}~\it{sn_4}~\textbf{to}~\it{sn_5}~\it{vn}==3 \\
+\quad \it{tn_4}~\textbf{from}~\it{sn_5}~\textbf{to}~\it{sn_2}~\textbf{send}~\it{sgn}(0)~\textbf{to}~\it{pn} \\
+\quad \it{tn_5}~\textbf{from}~\it{sn_4}~\textbf{to}~\it{sn_1}~\it{vn}==4 \\
+\quad \it{tn_6}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_6}~\it{vn}==4 \\
+\quad \it{tn_7}~\textbf{from}~\it{sn_6}~\textbf{to}~\it{sn_7}~\it{vn}:=3 \\
+\quad \it{tn_8}~\textbf{from}~\it{sn_7}~\textbf{to}~\it{sn_1}~\textbf{send}~\it{sgn}(0)~\textbf{to}~\it{pn} \\
+\rangle,
+\end{array}
+\]
+where~$\it{sn_3}$, $\it{sn_4}$, $\it{sn_5}$, $\it{sn_6}$, and~$\it{sn_7}$ are fresh state names and~$\it{tn_1}$, $\it{tn_2}$, $\it{tn_3}$, $\it{tn_4}$, $\it{tn_5}$, $\it{tn_6}$, $\it{tn_7}$, and~$\it{tn_8}$ are fresh transition names, and
+%
+\[
+T_{\it{T}}^{\it{REC}}(\it{trans}, \it{pn}, \it{vn}) = \langle \epsilon, \it{trans} \rangle
+\]
+otherwise.
+
+\subsection{Auxiliary State Machine}
+The transformations~$T_{\it{C}}^{\it{SEND}}$ and~$T_{\it{C}}^{\it{REC}}$ introduce an auxiliary state machine, which is generated by the transformation~$T_{\it{SM}}^{\it{READER}}$ defined below.
+This transformation takes a port name, a variable name, and a sequence of signal names as input and returns a new state machine.
+This state machine has a transition for each of the signal names provided as input.
+%
+\[
+T_{\it{SM}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn^*}) =
+\it{smn}
+~ \textbf{initial}~\it{sn}
+~ T_{\it{TS}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn^*}, \it{sn}),
+\]
+where~$\it{smn}$ is a fresh state machine name and~$\it{sn}$ is a fresh state name.
+
+The transformation~$T_{\it{TS}}^{\it{READER}}$ defined below takes a port name, a variable name, a state name, and a sequence of signal names as input and returns a list of transitions.
+There are two cases for this transformation.
+One case deals with empty sequences of transitions and one with non-empty sequences.
+%
+\begin{align*}
+T_{\it{TS}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn^*}, \it{sn}) & = \epsilon\\
+T_{\it{TS}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn}~\it{sgn^*}, \it{sn}) & =
+T_{\it{T}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn}, \it{sn})~T_{\it{TS}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn^*}, \it{sn})\\
+\end{align*}
+
+The transformation~$T_{\it{T}}^{\it{READER}}$ defined below takes a port name, a variable name, a signal name, and a state name as input and returns a transition.
+This transition has the state~$\it{sn}$ as its source and target state, and receives signals named~$\it{sgn}$ via port~$\it{pn}$.
+%
+\[
+T_{\it{T}}^{\it{READER}}(\it{pn}, \it{vn}, \it{sgn}, \it{sn}) =
+\it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn}~\textbf{receive}~\it{sgn}(\it{vn})~\textbf{from}~\it{pn},
+\]
+where~$\it{tn}$ is a fresh transition name.
+
+\subsection{Signal Names}
+The state machine generated by transformation~$T_{\it{SM}}^{\it{READER}}$ contains a transition for each signal sent over the channel that is replaced by transformation~\TGen.
+The transformation~$T_{\it{SMS}}^{\it{NAMES}}$ defined below takes a sequence of state machines and a port name~$\it{pn}$ as input, and returns the signal names that are sent and received via port~$\it{pn}$.
+%
+\begin{align*}
+T_{\it{SMS}}^{\it{NAMES}}(\epsilon, \it{pn}) & = \epsilon\\
+T_{\it{SMS}}^{\it{NAMES}}(\it{sm}~\it{sm^*}, \it{pn}) & = T_{\it{SM}}^{\it{NAMES}}(\it{sm}, \it{pn},)~T_{\it{SMS}}^{\it{NAMES}}(\it{sm^*}, \it{pn})\\
+\end{align*}
+
+The transformation~$T_{\it{SM}}^{\it{NAMES}}$ defined below takes a state machine and a port name~$\it{pn}$ as input, and returns the signal names that are sent and received via port~$\it{pn}$.
+%
+\[
+T_{\it{SM}}^{\it{NAMES}}(\it{smn}~\it{var^*}~\it{states}~\it{trans^*}) = T_{\it{TS}}^{\it{NAMES}}(\it{trans^*}, \it{pn})
+\]
+
+The transformation~$T_{\it{TS}}^{\it{NAMES}}$ defined below takes a sequence of transitions and a port name~$\it{pn}$ as input, and returns the signal names that are sent and received via port~$\it{pn}$.
+%
+\begin{align*}
+T_{\it{TS}}^{\it{NAMES}}(\epsilon, \it{pn}) & = \epsilon \\
+T_{\it{TS}}^{\it{NAMES}}(\it{trans}~\it{trans^*}, \it{pn}) & = T_{\it{T}}^{\it{NAMES}}(\it{trans}, \it{pn})~T_{\it{TS}}^{\it{NAMES}}(\it{trans^*}, \it{pn})
+\end{align*}
+
+The function~$T_{\it{T}}^{\it{NAMES}}$ defined below takes a transition and a port name~$\it{pn}$ as input.
+If the transition sends or receive a signal via port~$\it{pn}$, the signal name is returned.
+%
+\begin{align*}
+T_{\it{T}}^{\it{NAMES}}(\it{tn}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_2}~\textbf{send}~\it{sgn}()~\textbf{to}~\it{pn}, \it{pn}) & = \it{sgn} \\
+T_{\it{T}}^{\it{NAMES}}(\it{tn}~\textbf{from}~\it{sn_1}~\textbf{to}~\it{sn_2}~\textbf{receive}~\it{sgn}()~\textbf{from}~\it{pn}, \it{pn}) & = \it{sgn}
+\end{align*}
+and
+\[
+T_{\it{T}}^{\it{NAMES}}(\it{trans}, \it{pn}) = \epsilon
+\]
+for all other transitions. 

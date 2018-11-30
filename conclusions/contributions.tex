@@ -1,0 +1,131 @@
+\section{Contributions}
+\label{sec:conclusions:contributions}
+
+The main research question covered in this thesis is formulated as follows.
+
+\RQMain
+
+\noindent
+This question is divided into six more specific research questions,
+and each of these questions is addressed in one of the chapters of this thesis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1) Grammars and metamodels
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The first of these questions deals with the efficient creation of models that form high-level descriptions of software systems and is formulated as follows.
+
+\RQOne
+
+\noindent
+To address this question, we investigated two approaches for the integration of textual and graphical modeling languages, as described in Chapter~\ref{chap:grammars-and-metamodels}.
+As a case study, we implemented a textual surface language as an alternative for the activity diagrams of the \UML.
+Tools that integrate this textual language with the \UML have been implemented using grammarware and modelware.
+The main advantage of the approach that uses grammarware is the flexibility it offers while defining the grammar of the surface language.
+However, because models containing fragments of surface language are transformed to plain models by rewriting the XMI representations of these models, the main disadvantage of this approach is its low level of abstraction.
+In contrast, the approach that uses modelware poses more restrictions on the grammar of the surface language, but deals with concepts related to models directly, instead of their XMI representations.
+A case study showed that this surface language provides a convenient way of creating large, detailed \UML models.
+By replacing activity diagrams with fragments of surface language, the number of diagrams used to describe all aspects of a given system could be significantly reduced, without hampering the understandability of the resulting model.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2) Exploring the boundaries of model checking
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Part of the work described in this thesis is aimed at generating software from models on a high level of abstraction by refining these models.
+Each refinement step adds implementation details to a given model, and after applying a sequence of such transformations, a model is obtained that is sufficiently detailed to be transformed to an implementation.
+This refinement leads to a number of intermediate models.
+Research question~\RQ{2} addresses the relation between the amount of detail added by model transformations and the verifiability of intermediate models using traditional model checking techniques.
+
+\RQTwo
+
+\noindent
+The research described in Chapter~\ref{chap:exploring-boundaries} compares iterative refinement of models using coarse-grained and fine-grained sequences of model transformations.
+In comparison to coarse-grained sequences of transformations, fine-grained sequences of transformations add less implementation details in each refinement step.
+Because the models that form the end result of such sequences must contain the same amount of detail to be able to transform them to an implementation, fine-grained sequences of transformations lead to a larger number of intermediate models.
+Therefore, the difference in abstraction level between each pair of intermediate models produced by a sequence of transformations is smaller if this sequence is fine-grained.
+Experiments showed that adding implementation details to models with sequences of transformations that are too coarse-grained often leads to models that suffer from state-space explosion, even when these sequences are applied to small source models.
+When iteratively refining models with such coarse-grained sequences of transformations, the intermediate models obtained after a few refinement steps are too complex to be verified using explicit state-space exploration.
+As a result, the models for which verification using traditional model checking techniques can be applied describe systems on a much higher level of abstraction than that of the implementation of these systems.
+With fine-grained sequences of transformations, it is possible to apply model checking to models that are closer to the implementation.
+Additional advantages of fine-grained sequences of transformations are that the transformations used to form such sequences are more reusable than those used to form coarse-grained sequences and that the size of these transformations makes it easier to locate defects.
+Their improved composability makes it possible to combine these transformations into multiple sequences leading to implementations with different characteristics based on the same input model.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3) Prototyping the semantics of a DSML using ASF+SDF
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To verify the correctness of the refining model transformations for \SLCO, a formal semantics of the language is required.
+Before defining the formal semantics, we implemented an executable prototype to experiment with various design decisions, which is described in Chapter~\ref{chap:prototype-semantics}.
+The following research question is related to this prototype.
+
+\RQThree
+
+\noindent
+We implemented a number of tools that together produce the state space of a given \SLCO model.
+Connecting these tools to existing tools for verification and visualization enabled experimenting with different variants of the semantics and facilitated the development of model transformations.
+The biggest advantage of using the \ASFSDFME for the implementation of these tools is its ability to automatically generate command-line tools that offer fast execution of rewrite rules and efficient use of memory.
+Because state spaces of models describing the behavior of concurrent systems are often very large, generating them quickly using as little memory as possible is important.
+Although the \ASFSDFME is still available and can be used without problems on computers with a 32-bit architecture, its development has stopped.
+The fact that 64-bit architectures are not supported precludes using over 4 GB of memory, which is a disadvantage for memory-intensive applications such as state-space generation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4) Reusability and correctness of endogenous model transformations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To produce reliable software from models by means of model transformations, these transformations must preserve certain desirable properties of the models.
+Research question~\RQ{4} addresses this issue.
+
+\RQFour
+
+\noindent
+In Chapter~\ref{chap:reusable-correct-transformations}, we describe a formal framework for reasoning about the correctness of the endogenous model transformations related to \SLCO.
+This framework relies on the formal semantics of \SLCO, based on the previously mentioned prototype, and branching bisimilarity.
+According to this framework, a transformation is considered to be correct if the observable behavior of any input model is equivalent to the observable behavior of the corresponding output model, after appropriate renaming and hiding of actions.
+By developing sequences of transformations that are as fine-grained as possible, the number of straightforward correctness proofs was increased, and the number of proof obligations for the correctness proofs of larger transformations was reduced.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 5) Iterative evolution of a DSML
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Research question~\RQ{5} is concerned with the evolution of \SLCO.
+Over time, various target platforms were added and the way of defining the semantics of the language changed.
+These changes in turn triggered other changes to the languages and its transformations.
+To learn from our experiences and to be able to apply the lessons learned while developing other DSMLs, Chapter~\ref{chap:iterative-dsl-evolution} addresses the following research question.
+
+\RQFive
+
+\noindent
+
+We identified four main influences on the evolution of our DSML: the problem domain, the target platforms, model quality, and model transformation quality.
+The language and its transformations continuously changed as a result of adding new target platforms and improving the quality of models and model transformations.
+In some cases, changes that improve certain aspects of the language have a negative influence on other aspects.
+To reduce the number of such conflicts, \SLCO has been divided into two parts.
+The core of the language facilitates the concise definition of its semantics, and the extended version, whose semantics can be expressed in terms of constructs of the core language, facilitates the creation of simple models and model transformations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 6) Automated verification of model transformations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Verifying the correctness of models transformations as described in Chapter~\ref{chap:reusable-correct-transformations} requires a significant amount of manual labor.
+Therefore, we formulated the following research question.
+
+\RQSix
+
+\noindent
+In Chapter~\ref{chap:lts-transformations}, a model transformation is considered to be correct if it preserves certain desirable properties for all models provided as input.
+To automatically verify whether a transformation is property preserving, we propose a technique that performs a number of divergence-sensitive branching bisimilarity checks on labeled transition systems created from the input and output patterns of transformation rules.
+Models are formalized as networks of labeled transition systems, and model transformations are formalized as rule systems containing the aforementioned transformation rules.
+If a rule system is property preserving, then each model generated by applying this rule system to a given input model satisfies the same properties as the input model.
+If a rule system does not preserve a certain property for all models in general, however, it may still produce a valid output model when applied to particular input models.
+In such cases, traditional techniques for model checking can be employed to check the resulting models.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Algemene conclusie
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The techniques and approaches discussed in this thesis enable the generation of reliable and correct software from concise, formal models specified on a high level of abstraction.
+We developed a DSML with an intuitive graphical syntax for the creation of such models, and a number of model transformations for the automated generation of executable code from these models.
+As stated in Chapter~\ref{chap:introduction}, early validation of model transformations is equally important as early validation of models when producing software using model transformations.
+For the validation of models, we presented transformations to existing formalisms for simulation and verification, and a custom tool for the generation of state spaces.
+For the validation of model transformations, we presented two approaches to determine whether these transformations are correct in the sense that they preserve certain properties.
+By combining these techniques and approaches, we showed that an implementation for a given system can be generated automatically from a design of this system in the form of a model that satisfies certain desirable properties by applying model transformations that preserve these properties. 

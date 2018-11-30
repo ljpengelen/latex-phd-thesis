@@ -1,0 +1,97 @@
+\section{Initialization}
+\label{sec:sos-slco:initialization}
+By specifying which configurations~$\langle \it{m}, \sobjs, \vglob, \vloc, \buf \rangle$ and $\langle \it{m}, \sobjs', \vglob', \vloc', \buf' \rangle$ are related, Rule~\eqref{eq:sos-slco:model} defines the steps that can be taken according to model~$m$.
+The initial configuration is defined by choosing appropriate functions~\sobjs, \vglob, \vloc, and~\buf.
+Below, we define a number of functions that map \SLCO models to the functions that define the initial configurations of these models.
+
+\subsection{Initial States}
+The function~$S^M_{\it{OBJS}} : \Models \to (\ObjectNames \pfun (\StateMachineNames \pfun \StateNames))$ is defined as follows.
+%
+\[
+\begin{array}{l}
+S^M_{\it{OBJS}}(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}) = \\
+\quad
+\{(\it{on}, S^C_{SMS}(\it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*})) ~ | ~ \it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*} \in \it{class^*} \wedge \it{on}:\it{cn} \in \it{obj^*} \}
+\end{array}
+\]
+
+\noindent
+It maps models to functions from~\SOBJS, such that each name of a state machine is mapped to its initial state as defined by the model.
+The definition refers to the function~$S^C_{\it{SMS}} : \Classes \to (\StateMachineNames \pfun \StateNames)$, which is defined as follows.
+%
+\[
+\begin{array}{l}
+S^C_{\it{SMS}}(\it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*}) =
+\{(\it{smn}, \it{sn}) ~ | ~ \it{smn}~\textbf{initial}~\it{sn}~\it{sn^*} \in \it{sm^*} \}
+\end{array}
+\]
+
+\noindent
+This function maps classes to functions from~\SSMS, such that each name of a state machine is mapped to its initial state as defined by the class.
+
+\subsection{Initial Values of Variables}
+The function~$V^M_{\it{GLOB}} : \Models \to (\ObjectNames \pfun (\VariableNames \pfun \ConstantExpressions))$ is defined as follows.
+%
+\[
+\begin{array}{l}
+V^M_{\it{GLOB}}(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}) = \\
+\quad \{(\it{on}, V^V(\it{var^*})) ~ | ~ \it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*} \in \it{class^*} \wedge \it{on}:\it{cn} \in \it{obj^*} \}
+\end{array}
+\]
+
+\noindent
+It maps models to functions from~\VGLOB, such that each global variable is mapped to its initial value as specified by the model.
+The definition refers to a function~$V^V : \it{SEQ}(\Variables) \to (\VariableNames \pfun \ConstantExpressions)$, which is defined as follows.
+%
+\[
+\begin{array}{l}
+V^V(\it{var^*}) = \\
+\quad \{(\it{vn}, \textbf{false}) ~ | ~ \textbf{Boolean}~\it{vn} \in \it{var^*} \} ~ \cup ~ \{(\it{vn}, \it{bc}) ~ | ~ \textbf{Boolean}~\it{vn}=\it{bc} \in \it{var^*} \}
+\ \cup \\
+\quad \{(\it{vn}, 0) ~ | ~ \textbf{Integer}~\it{vn} \in \it{var^*} \} ~ \cup ~ \{(\it{vn}, \it{ic}) ~ | ~ \textbf{Integer}~\it{vn}=\it{ic} \in \it{var^*} \}
+\ \cup \\
+\quad \{(\it{vn}, ``") ~ | ~ \textbf{String}~\it{vn} \in \it{var^*} \} ~ \cup ~ \{(\it{vn}, \it{sc}) ~ | ~ \textbf{String}~\it{vn}=\it{sc} \in \it{var^*} \}
+\end{array}
+\]
+
+\noindent
+This function maps sequences of variable declarations to functions that map variable names to the appropriate initial values as specified by the sequence of declarations.
+
+Similar functions~$V^M_{\it{LOC}} : \Models \to (\ObjectNames \pfun (\StateMachineNames \pfun (\VariableNames \pfun \ConstantExpressions)))$ and~$V^C : \Classes \to (\StateMachineNames \pfun (\VariableNames \pfun \ConstantExpressions))$ exist that are related to the initial values of local variables.
+These functions are defined as follows.
+%
+\[
+\begin{array}{l}
+V^M_{\it{LOC}}(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}) = \\
+\quad \{(\it{on}, V^C(\it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*})) ~ | ~ \it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*} \in \it{class^*} \wedge \it{on}:\it{cn} \in \it{obj^*} \} \\
+\\
+V^C(\it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*}) =
+\{(\it{smn}, V^V(\it{var^*}) ~ | ~ \it{smn}~\it{var^*}~\it{states}~\it{trans^*} \in \it{sm^*} \} \\
+\end{array}
+\]
+
+\subsection{Buffers}
+The function~$B^M : \Models \to ((\ChannelNames \times \ObjectNames \times \ObjectNames) \pfun (\SignalNames \times {\it SEQ}(\ConstantExpressions)) \cup \{\nil\})$ is defined as follows.
+%
+\[
+\begin{array}{l}
+B^M(\it{mn}~\it{class^*}~\it{obj^*}~\it{chan^*}) =
+\{(\langle \it{chn}, \it{on}_1, \it{on}_2 \rangle, \textbf{nil}) ~ | \\
+%\exists \it{pn}_1, \it{pn}_2, \it{type^*} ~ . ~\\
+\quad \it{chn}(\it{type^*})~\textbf{async lossless}~\textbf{from}~\it{on}_1.\it{pn}_1~\textbf{to}~\it{on}_2.\it{pn}_2 \in \it{chan^*}
+\ \vee \\
+\quad \it{chn}(\it{type^*})~\textbf{async lossless}~\textbf{between}~\it{on}_1.\it{pn}_1~\textbf{and}~\it{on}_2.\it{pn}_2 \in \it{chan^*}
+\ \vee \\
+\quad \it{chn}(\it{type^*})~\textbf{async lossless}~\textbf{between}~\it{on}_2.\it{pn}_2~\textbf{and}~\it{on}_1.\it{pn}_1 \in \it{chan^*}
+\ \vee \\
+\quad \it{chn}(\it{type^*})~\textbf{async lossy}~\textbf{from}~\it{on}_1.\it{pn}_1~\textbf{to}~\it{on}_2.\it{pn}_2 \in \it{chan^*}
+\ \vee \\
+\quad \it{chn}(\it{type^*})~\textbf{async lossy}~\textbf{between}~\it{on}_1.\it{pn}_1~\textbf{and}~\it{on}_2.\it{pn}_2 \in \it{chan^*}
+\ \vee \\
+\quad \it{chn}(\it{type^*})~\textbf{async lossy}~\textbf{between}~\it{on}_2.\it{pn}_2~\textbf{and}~\it{on}_1.\it{pn}_1 \in \it{chan^*} \\
+\}
+\end{array}
+\]
+
+\noindent
+It maps models to functions from~\Buf, such that each buffer corresponding to a channel in the model is empty.

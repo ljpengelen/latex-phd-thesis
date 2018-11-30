@@ -1,0 +1,149 @@
+\section{ASF+SDF and the Meta-Environment}
+\label{sec:tools:asfsdf}
+
+The language \ASFSDF~\cite{Deu96.asdf} is a combination of the two formalisms \ASF~\cite{AlgebraicSpecification1989} and \SDF~\cite{Vis97.thesis}.
+The Syntax Definition Formalism~(\SDF) is a formalism for the definition of the syntax of context-free languages.
+The Algebraic Specification Formalism~(\ASF) is a formalism for the definition of conditional rewrite rules.
+Given a syntax definition in \SDF of a source and target language, \ASF can be used to define a transformation from the source language to the target language.
+In ASF, conditional rewrite rules are specified using the concrete syntax of the input and output languages.
+
+Context-free languages are closed under union and, as a result of this, the \SDF definitions of two languages can be combined to form the definition of a new context-free language, without altering the existing definitions.
+However, because ambiguities may arise after combining syntax definitions, it might be necessary to add constructs for disambiguation to a definition that combines existing languages.
+Using \ASF in combination with \SDF to implement transformations guarantees syntax safety.
+A transformation is syntax safe if it only accepts input that adheres to the syntax definition of the input language and always produces output adhering to the definition of the output language.
+
+The \ASFSDFME~\cite{Brand:2001:ASF} is an integrated development environment (IDE) for \ASFSDF.
+It has a graphical user interface that offers syntax-highlighting for the specification of \SDF and \ASF definitions, and an interpreter and debugger for the execution and debugging of \ASF specifications.
+It can be used to create a command-line tool that parses and rewrites input adhering to the syntax definition of the input language and outputs the result.
+These command-line tools employ memoization, which ensures that the result of a rewrite rule applied to a given term is computed only once.
+Both the \ASFSDFME and the command-line tools it generates use Annotated Terms (ATerms)~\cite{Brand:2007:AME:1219180.1219600} to represent terms internally.
+Because ATerms offer maximal subterm sharing, the internal representation of terms uses as little space as possible.
+
+\begin{listing}
+  \lstset{
+    language=sdf,
+    label=lst:tools:asfsdf:SDF-definition,
+    caption=Part of an \SDF definition that defines simple Boolean expressions,
+    numbers=left
+  }
+  \begin{lstlisting}
+    sorts
+      BoolCon BoolExp
+    context-free syntax
+      "true" | "false" -> BoolCon
+      BoolCon -> BoolExp
+      BoolExp "xor" BoolExp -> BoolExp {right}
+      eval(BoolExp) -> BoolCon
+    variables
+      "$BoolCon"[0-9]* -> BoolCon
+      "$BoolExp"[0-9]* -> BoolExp
+  \end{lstlisting}
+\end{listing}
+
+Listing~\ref{lst:tools:asfsdf:SDF-definition} shows a part of an \SDF definition that defines a syntax for simple Boolean expressions.
+In \ASFSDF, each term conforms to a sort.
+On line~2, two such sorts are introduced, whose syntax is defined in lines~4 to~7.
+Line~4 states that a term of sort~\ASFSort{BoolCon} is of the form ``true'' or ``false''.
+A term of sort~\ASFSort{BoolCon} is also a valid term of sort~\ASFSort{BoolExp}, as defined in line~5.
+Furthermore, line~6 specifies that two terms of sort~\ASFSort{BoolCon} joined by the right-associative operator ``xor'' form a term of sort~\ASFSort{BoolExp}.
+The signature of an evaluation function for Boolean expressions is specified on line~7.
+On lines~9 and~10, variables that represent terms of the aforementioned sorts are~introduced.
+
+\begin{listing}
+  \lstset{
+    language=asf,
+    style=asf,
+    label=lst:tools:asfsdf:ASF-ex,
+    caption=\ASF rule for the evaluation of simple Boolean expressions,
+    numbers=left
+  }
+  \begin{lstlisting}
+    [rule0]
+      eval($BoolCon) = $BoolCon
+
+    [rule1]
+      eval($BoolCon xor $BoolCon) = false
+
+    [rule2]
+      $BoolCon1 != $BoolCon2
+      ====>
+      eval($BoolCon1 xor $BoolCon2) = true
+
+    [default-rule]
+      $BoolCon1 := eval($BoolExp1),
+      $BoolCon2 := eval($BoolExp2)
+      ====>
+      eval($BoolExp1 xor $BoolExp2) = eval($BoolCon1 xor $BoolCon2)
+  \end{lstlisting}
+\end{listing}
+
+Listing~\ref{lst:tools:asfsdf:ASF-ex} shows the (conditional) rewrite rules that define how the simple Boolean expressions of Listing~\ref{lst:tools:asfsdf:SDF-definition} are evaluated.
+The first part of an \ASF rule is optional and consists of the conditions of the rule, which are separated from the rest of the rule by an arrow~(\texttt{====>}).
+Next, the left-hand side and right-hand side of the rule follow, separated by an equality sign.
+If a rule has no conditions or all its conditions hold, its application to a term results in replacing the left-hand side by the right-hand side.
+The rules described in this thesis use two kinds of conditions: (in)equality conditions and matching conditions.
+An equality condition consists of a right-hand side and a left-hand side, separated by two equal signs~(\texttt{==}).
+The condition holds if both sides can be matched.
+The right-hand side and left-hand side of an inequality condition are separated by an exclamation mark and an equal sign~(\texttt{!=}), and it holds if both sides cannot be matched.
+Similarly, a matching condition consists of a right-hand side and a left-hand side, separated by a colon and an equal sign~(\texttt{:=}).
+Also this type of condition holds if both sides can be matched.
+In this case, however, if both sides can be matched, the variables occurring at the left-hand side are instantiated accordingly.
+In Listing~\ref{lst:tools:asfsdf:ASF-ex}, the first two rules have no conditions.
+The inequality condition of the third rule is shown on line~8, and the matching conditions of the last rule are shown on lines~13 and~14.
+On lines~1, 4, 7, and~12, the identifiers of the rules are shown.
+The last rule is only applied if non of the other rules are applicable, which is indicated by the fact that its identifier starts with ``default''.
+
+\section{openArchitectureWare}
+\label{sec:tools:xpandxtendxtext}
+
+The \OAW platform offers a number of tools related to model transformation: \Xpand is used for model-to-text transformations, \Xtext~\cite{Efftinge2006xText} is used for text-to-model transformations, and \Xtend is used for model-to-model transformations.
+Here, the term ``model'' refers to an instance of an explicit metamodel.
+Execution of model-to-text transformations implemented with \Xpand and model-to-model transformations implemented with \Xtend can be automated using scripts for the Modeling Workflow Engine for Eclipse.
+\Xpand and \Xtend are based on the same type system and expression language.
+The type system offers simple types, such as string, Boolean, and integer, collection types, such as list and set, and the possibility to import metamodels.
+The expression language offers a number of basic constructs that can be used to create expressions, such as literals, operators, quantifiers, and switch expressions.
+
+Currently, the platform no longer exists on its own and has become a part of the Eclipse Modeling Project\footnote{\url{http://www.eclipse.org/modeling/}} instead.
+It is implemented as a number of Eclipse plug-ins and is based on the Eclipse Modeling Framework (EMF)~\cite{Steinberg2008}.
+
+\subsection{\Xpand}
+
+\Xpand is a template-based language that generates text files given an EMF model.
+An \Xpand template takes a metaclass and a list of parameters as input and produces output by executing a list of statements.
+There are a number of different types of statements, including one that saves the output generated by its statements to a file and one that triggers the execution of another template.
+
+\subsection{\Xtext}
+\Xtext is a tool that parses text and converts it to an equivalent model, given a grammar describing the syntax of the input.
+\Xtext uses \ANTLR~\cite{ANTLR-LLK} to generate a parser that parses the textual representations of models.
+An \Xtext specification consists of rules that define both a metamodel and a mapping from concrete syntax to this metamodel.
+Given a grammar, \Xtext also generates an editor that provides features such as syntax highlighting and code completion.
+
+\subsection{\Xtend}
+\Xtend is a functional language for model transformation.
+It adds extensions to the basic expression language, which take a number of parameters as input and return the result of an expression.
+Because the extensions are not side-effect free, \Xtend is not a pure functional language.
+Transformations implemented in \Xtend are unidirectional, which means that they can only be used to transform models in a single direction.
+In other words, a transformation for given source and target metamodels can transform models conforming to the source metamodel into models conforming to the target metamodel, but not the other way around.
+The language can be used for in-place transformations, which modify a given model, as well as transformations that produce new models.
+\Xtend is an interpreted language.
+It is supported by an IDE offering syntax highlighting, debugging, and code completion.
+
+\section{\ATL Transformation Language}
+The \ATL Transformation Language (\ATL)~\cite{ATLqvt}, previously known as the ATLAS transformation language, is another EMF based language for model transformation.
+Similarly to \Xtend, \ATL is also a unidirectional transformations language that offers both in-place transformations and creation of new models.
+The language provides both declarative and imperative constructs for the definition of model transformations.
+In contrast to \Xtend, \ATL does not have a native syntax for expressions, but uses the Object Constraint Language (OCL)~\cite{OCLspec} instead.
+\ATL is supported by an IDE that offers debugging and syntax highlighting.
+A virtual machine is used to execute transformations after translating them to byte code.
+The execution of \ATL transformations can be automated using ant tasks, which are small scripts that make it possible, for example, to compose transformations with and without saving the intermediate models.
+
+\section{\DOT and \graphviz}
+\label{sec:tools:dot}
+\DOT is a language for graph visualization that is part of the \graphviz toolset~\cite{Ellson01graphviz—}.
+Given a description of a graph written in \DOT, \graphviz can visualize this graph as an image in various output formats.
+\graphviz employs layout algorithms to achieve optimal placement of nodes and edges.
+A graph description in \DOT is a list of nodes and edges from node to node, combined with attributes that specify how particular nodes and edges should be displayed.
+These attributes define, for example, the color, width, height, and the type of lines used to draw these nodes and edges.
+
+Although \DOT is not designed specifically for applications in MDSE, we use it extensively for the visualization of graphical diagrams representing models.
+Currently, EMF based alternatives for graphical modeling do not provide the functionality required to create such diagrams. 

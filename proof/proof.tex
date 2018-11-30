@@ -1,0 +1,247 @@
+\hiddenappendixsection{Correctness Proof}
+In this appendix, we reason about an \SLCO model~$m = \it{mn}\ \it{class^*}\ \it{obj^*}\ \it{chan^*}$ and a unidirectional, synchronous channel~$\it{chan} = \it{chn}()\ \textbf{sync from}\ \it{on_1}.\it{pn_1}\ \textbf{to}\ \it{on_2}.\it{pn_2}\ \in \ \it{chan^*}$.
+As discussed in Chapter~\ref{chap:reusable-correct-transformations}, transformation~\TSim is considered to be correct if~$\it{LTS}(m)$ and~$\rho(\it{LTS}(\TSim(m, \it{chn})))$ are branching bisimilar~\cite{GlabWeijBisim96} for some appropriate label-renaming function~$\rho$,
+where $\it{LTS}(m)$ refers to the labeled transition system~(LTS) of model~$\it{m}$ as defined by the operational semantics described in Appendix~\ref{ap:sos-slco}.
+First, we discuss the label-renaming function~$\rho$ that corresponds to transformation~\TSim.
+Second, we list the conditions for model~$\it{m}$ that must hold to ensure that~$\it{LTS}(m)$ and~$\rho(\it{LTS}(\TSim(m, \it{chn})))$ are branching bisimilar.
+Finally, we show that a branching bisimulation between~$\it{LTS}(m)$ and~$\rho(\it{LTS}(\TSim(m, \it{chn})))$ exists by defining a relation~$R$ and showing that~$R$ is a branching bisimulation according to the definition given in Section~\ref{subsec:reusable-correct-transformations:correctness_of_simple}.
+
+\subsection{Label-Renaming Function}
+The definition of transformation~\TSim given in Appendix~\ref{sec:transformations-slco:simple} defines that all transitions in model~$\it{m}$ that send or receive signals over channel~$\it{chan}$ are replaced by transitions that send or receive signals with a modified name.
+Let $\it{Sgn} \subseteq \SignalNames$ be the set of all signal names that are passed over channel~$\it{chan}$ in model~$\it{m}$.
+Without loss of generality, we assume that all other channels in model~$\it{m}$ are used to pass signals with names not in~$\it{Sgn}$.
+If this is not the case, the signals passed over these other channels can be renamed.
+After applying transformation~\TSim to model~$\it{m}$, the set of names of signals that are passed over the modified channel~$\it{chan'}$ is~$\it{Sgn'} \cup \it{Sgn''}$, where~$\it{Sgn'} = \{``s\_" + \it{sgn} \mid \it{sgn} \in \it{Sgn}\}$ and~$\it{Sgn''} = \{``a\_" + \it{sgn} \mid \it{sgn} \in \it{Sgn}\}$.
+The label-renaming function~$\rho$ that corresponds to transformation~\TSim is defined as follows, for every~$\it{sgn'} \equiv ``s\_" + \it{sgn}$ and~$\it{sgn''} \equiv ``a\_" + \it{sgn}$ such that~$\it{sgn}\in \it{Sgn}$.
+%
+\begin{itemize*}
+\item $\rho(\textbf{send}~\it{sgn'()}) = \tau$
+\item $\rho(\textbf{receive}~\it{sgn'()}) = \it{sgn()}$
+\item $\rho(\textbf{send}~\it{sgn''()}) = \tau$
+\item $\rho(\textbf{receive}~\it{sgn''()}) = \tau$
+\end{itemize*}
+
+\noindent
+Renaming~$\rho$ is straightforwardly extended on LTSs.
+By renaming the labels~$\textbf{receive}~\it{sgn'()}$ to $\it{sgn()}$, for every~$\it{sgn'} \equiv ``s\_" + \it{sgn}$ such that~$\it{sgn}\in \it{Sgn}$, we indicate that these labels represent successful communication.
+The other labels are renamed to $\tau$ because they represent the implicit synchronization in the source model and should result in unobservable behavior of the target model.
+
+\subsection{Applicability Conditions}
+To ensure that~$\it{LTS}(m)$ and~$\rho(\it{LTS}(\TSim(m, \it{chn})))$ are branching bisimilar, a number of conditions must hold for model~$\it{m}$.
+As mentioned above, the synchronous channel~$\it{chan}$ connects two objects~$\it{obj_1}$ and~$\it{obj_2}$.
+Each object~$\it{obj_i}$ is named~$\it{on_i}$ and is an instance of class~$\it{class_i}$ with name~$\it{cn_i}$, for $i = 1,2$.
+We require that the following conditions hold for~$\it{m}$.
+\begin{enumerate}
+\item Channel~$\it{chan}$ is unidirectional, as mentioned above.
+\item At most one state machine~$\it{sm_1}$ of object~$\it{obj_1}$ sends signals over channel~$\it{chan}$.
+\item At most one state machine~$\it{sm_2}$ of object~$\it{obj_2}$ receives signals over channel~$\it{chan}$.
+\item Object~$\it{obj_1}$ is the only instance of class~$\it{class_1}$.
+\item Object~$\it{obj_2}$ is the only instance of class~$\it{class_2}$.
+\end{enumerate}
+A model can be adapted with the model transformations described in Section~\ref{sec:slco:endogenous} if these conditions are not met.
+If the first condition does not hold, transformation~\Transformation{uni} can be applied to replace a bidirectional channel with two unidirectional channels.
+Furthermore, transformation~\Transformation{ex} can be applied if the second or third condition is not met.
+It ensures that each pair of state machines communicates over a channel that is used by these two state machines only.
+Finally, the transformation that clones classes can be applied if the last two conditions are not met.
+
+Since only the behavior of the instances of classes~$\it{class_1}$ and~$\it{class_2}$ are affected by transformation~\TSim and objects~$\it{obj_1}$ and~$\it{obj_2}$ are the only instances of these classes, the behavior of all other objects is unchanged.
+Furthermore, because state machines~$\it{sm_1}$ and~$\it{sm_2}$ are the only state machines that communicate over channel~$\it{chan}$, the behavior of all other state machines is also unchanged.
+Finally, because channel~$\it{chan}$ is unidirectional, state machine~$\it{sm_1}$ can only send signals over this channel, and state machine~$\it{sm_2}$ can only receive signals over this channel.
+
+\subsection{Bisimulation Relation}
+We use~$\it{cf} = \langle m, \sobjs, \vglob, \vloc, \buf \rangle$ to represent a configuration of~$\it{LTS}(m)$ and~$\it{cf'} = \langle \TSim(m), \sobjs', \vglob', \vloc', \buf' \rangle$ to represent a configuration of~$\rho(LTS(\TSim(m, \it{chn})))$.
+According to the definition of branching bisimilarity, $\it{LTS}(m)$ and $\rho(LTS(\TSim(m, \it{chn})))$ are branching bisimilar if their initial configurations are branching bisimilar.
+For each configuration~$\it{cf} = \langle m, \sobjs, \vglob, \vloc, \buf \rangle$, including the initial configuration, a counterpart~$\it{cf'} = \langle \TSim(m), \sobjs', \vglob', \vloc', \buf' \rangle$ exists such that~$\sobjs = \sobjs'$, $\vglob = \vglob'$, $\vloc = \vloc'$, $\buf'(\langle \it{chn}, \it{on_1}, \it{on_2} \rangle) = \nil$, $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1} \rangle) = \nil$, and~$\buf = \buf'$ otherwise.
+Transformation~\TSim does not modify the initial states and the variables of a model.
+It does, however, replace a unidirectional, synchronous channel with a bidirectional, asynchronous channel.
+Therefore, according to the definitions concerning initialization provided in Section~\ref{sec:sos-slco:initialization}, the initial configuration~$\it{cf'_i}$ of $\rho(LTS(\TSim(m, \it{chn})))$ is the counterpart of the initial configuration~$\it{cf_i}$ of $\it{LTS}(m)$ as discussed above.
+Thus, if we prove that a branching bisimulation exists between each configuration~$\it{cf}$ and its counterpart~$\it{cf'}$, we prove that $\it{LTS}(m)$ and $\rho(LTS(\TSim(m, \it{chn})))$ are branching bisimilar.
+
+For each~$\it{sgn} \in \it{Sgn}$,
+transformation~\TSim modifies state machine~$\it{sm_1}$ by replacing each transition
+%
+\[
+\it{trans^s_{sgn}} = \it{tn}\ \textbf{from}\ \it{sn^s_1}\ \textbf{to}\ \it{sn^s_2}\ \textbf{send}\ \it{sgn}()\ \textbf{to}\ \it{pn}
+\]
+%
+with two transitions
+%
+\begin{align*}
+& \it{tn_1}\ \textbf{from}\ \it{sn^s_1}\ \textbf{to}\ \it{sn^s_{sgn}}\ \textbf{send}\ \it{sgn_1}()\ \textbf{to}\ \it{pn}\ \text{and}\\
+& \it{tn_2}\ \textbf{from}\ \it{sn^s_{sgn}}\ \textbf{to}\ \it{sn^s_2}\ \textbf{receive}\ \it{sgn_2}()\ \textbf{from}\ \it{pn},
+\end{align*}
+%
+where~$\it{tn_1}$ and~$\it{tn_2}$ are fresh transition names, $\it{sn^s_{sgn}}$ is a fresh state name, $\it{sgn_1} \equiv ``s\_" + \it{sgn}$, and~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+Similarly, for each~$\it{sgn} \in \it{Sgn}$,
+each transition
+%
+\[
+\it{trans^r_{sgn}} = \it{tn}\ \textbf{from}\ \it{sn^r_1}\ \textbf{to}\ \it{sn^r_2}\ \textbf{receive}\ \it{sgn}()\ \textbf{from}\ \it{pn}
+\]
+%
+of state machine~$\it{sm_2}$ is replaced with two transitions
+%
+\[
+\begin{array}{l}
+\it{tn_1}\ \textbf{from}\ \it{sn^r_1}\ \textbf{to}\ \it{sn^r_{sgn}}\ \textbf{receive}\ \it{sgn_1}()\ \textbf{from}\ \it{pn}\ \text{and}\\
+\it{tn_2}\ \textbf{from}\ \it{sn^r_{sgn}}\ \textbf{to}\ \it{sn^r_2}\ \textbf{send}\ \it{sgn_2}()\ \textbf{to}\ \it{pn},
+\end{array}
+\]
+%
+where~$\it{tn_1}$ and~$\it{tn_2}$ are fresh transition names, $\it{sn^r_{sgn}}$ is a fresh state name, $\it{sgn_1} \equiv ``s\_" + \it{sgn}$, and~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+
+We define a relation~$R$ between configurations as follows: $(\it{cf}, \it{cf'})\in R$ if and only if $\vglob = \vglob'$, $\vloc = \vloc'$, and one of the following four conditions holds.
+%
+\begin{enumerate}
+\item
+  \begin{enumerate}
+    \item
+      $\sobjs = \sobjs'$,
+    \item
+      $\buf'(\langle \it{chn}, \it{on_1}, \it{on_2} \rangle) = \nil$,
+      $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1} \rangle) = \nil$,
+      and $\buf' = \buf$ otherwise;
+  \end{enumerate}
+
+\item
+  \begin{enumerate}
+    \item
+      $\sobjs(\it{on_1})(\it{smn_1}) = \it{sn^s_1}$,
+      $\sobjs'(\it{on_1})(\it{smn_1}) = \it{sn^s_{sgn}}$,
+      $\sobjs = \sobjs'$ otherwise,
+    \item
+      $\buf'(\langle \it{chn}, \it{on_1}, \it{on_2}\rangle) = (\it{sgn_1}, \varepsilon)$,
+      $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1}\rangle) = \nil$,
+      and $\buf' = \buf$ otherwise,
+  \end{enumerate}
+  if there is a transition~$\it{trans^s_{sgn}}$ from state~$\it{sn^s_1}$ and~$\it{sgn_1} \equiv ``s\_" + \it{sgn}$;
+
+\item
+  \begin{enumerate}
+    \item
+      $\sobjs(\it{on_1})(\it{smn_1}) = \it{sn^s_2}$,
+      $\sobjs(\it{on_2})(\it{smn_2}) = \it{sn^r_2}$,
+      $\sobjs'(\it{on_1})(\it{smn_1}) = \it{sn^s_{sgn}}$,
+      $\sobjs'(\it{on_2})(\it{smn_2}) = \it{sn^r_{sgn}}$,
+      $\sobjs = \sobjs'$ otherwise,
+    \item
+      $\buf'(\langle \it{chn}, \it{on_1}, \it{on_2}\rangle) = \nil$,
+      $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1}\rangle) = \nil$,
+      and $\buf' = \buf$ otherwise,
+  \end{enumerate}
+  if there is a transition~$\it{trans^s_{sgn}}$ to state~$\it{sn^s_2}$ and a transition~$\it{trans^r_{sgn}}$ to state~$\it{sn^r_2}$;
+
+\item
+  \begin{enumerate}
+    \item
+      $\sobjs(\it{on_1})(\it{smn_1}) = \it{sn^s_2}$,
+      $\sobjs'(\it{on_1})(\it{smn_1}) = \it{sn^s_{sgn}}$,
+      $\sobjs = \sobjs'$ otherwise,
+    \item
+      $\buf'(\langle \it{chn}, \it{on_1}, \it{on_2}\rangle) = \nil$,
+      $\buf'(\langle \it{chn}, \it{on_2}, \it{on_1}\rangle) = (\it{sgn_2}, \varepsilon)$,
+      and $\buf' = \buf$ otherwise,
+  \end{enumerate}
+  if there is a transition~$\it{trans^s_{sgn}}$ to state~$\it{sn^s_2}$ and~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+\end{enumerate}
+%
+We prove that $R$ is a branching bisimulation by distinguishing two cases.
+First, we consider the case in which $(\it{cf_1}, \it{cf_1'})\in R$ and $\it{cf_1} \TextModelRelation{l} \it{cf_2}$.
+We distinguish four cases.
+\begin{enumerate}
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the first condition stated above and distinguish between the cases~$l \not \equiv \it{sgn}()$ and~$l \equiv \it{sgn}()$, for any~$\it{sgn} \in \it{Sgn}$.
+\begin{itemize}
+\item
+In the first case, the transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ cannot be the result of synchronous communication between state machines~$\it{sm_1}$ and~$\it{sm_2}$.
+Thus, the transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ is the result of some of the transitions of these two state machines that are unaffected by the transformation or one or more transitions of some of the other state machines in the model, which are also unaffected by the transformation.
+Because transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ is the result of behavior that is unaffected by the transformation, a transition~$\it{cf'_1} \TextModelRelation{l} \it{cf'_2}$ can also be made from configuration~$\it{cf'_1}$, and~$(\it{cf_2}, \it{cf_2'})\in R$ according to the first condition.
+\item
+In the second case, the transition~$\it{cf_1} \TextModelRelation{\it{sgn}()} \it{cf_2}$ is the result of synchronous communication between state machines~$\it{sm_1}$ and~$\it{sm_2}$.
+According to the SOS rule for synchronous communication, state machine~$\it{sm_1}$ has to be in a state~$\it{sn^s_1}$ with an outgoing transition~$\it{trans^s_{sgn}}$, and state machine~$\it{sm_2}$ has to be in a state~$\it{sn^r_1}$ with an outgoing transition~$\it{trans^r_{sgn}}$.
+After transformation, according to the SOS rules for asynchronous communication, state machine~$\it{sm_1}$ can make a transition from such a state~$\it{sn^s_1}$ to a state~$\it{sn^s_{sgn}}$ and send a signal over channel~$\it{chan'}$.
+This results in a transition~$\it{cf'_1} \TextModelRelation{\tau} \it{cf'_2}$,
+where the label~$\tau$ is the result of renaming the label~$\textbf{send}\ \it{sgn_1}()$, and~$\it{sgn_1} \equiv ``s\_" + \it{sgn}$.
+Furthermore, $(\it{cf_1}, \it{cf'_2})\in R$ according to the second condition.
+Next, state machine~$\it{sm_2}$ can make a transition to a state~$\it{sn^r_{sgn}}$ and receive the signal sent by state machine~$\it{sm_1}$.
+This results in a transition~$\it{cf'_2} \TextModelRelation{\it{sgn}()} \it{cf'_3}$,
+where the label~$\it{sgn}()$ is the result of renaming the label~$\textbf{receive}\ \it{sgn_1}()$, and~$\it{sgn_1} \equiv ``s\_" + \it{sgn}$.
+In configuration~$\it{cf'_3}$, state machine~$\it{sm_1}$ is in state~$\it{sn^s_{sgn}}$ and state machine~$\it{sm_2}$ is in state~$\it{sn^r_{sgn}}$.
+Thus, $(\it{cf_2}, \it{cf_3'})\in R$ according to the third condition.
+\end{itemize}
+
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the second condition stated above and distinguish between the cases~$l \not \equiv \it{sgn}()$ and~$l \equiv \it{sgn}()$, for any~$\it{sgn} \in \it{Sgn}$.
+\begin{itemize}
+\item
+In the first case, the transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ cannot result from behavior of state machine~$\it{sm_1}$, because this state machine can only send a signal over the synchronous channel~$\it{chan}$ in a state~$\it{sn^s_1}$ with an outgoing transition~$\it{trans^s_{sgn}}$.
+Thus, the transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ must result from behavior of one or more other state machines.
+If the transition is the result of behavior of state machine~$\it{sm_2}$, then it must be the result of one of the transitions of this state machine that are unaffected by the transformation, because the affected transitions can only lead to synchronous communication.
+Furthermore, all other state machines are unaffected by the transformation.
+Thus, the same behavior can be performed in the transformed model, leading to a transition~$\it{cf'_1} \TextModelRelation{l} \it{cf'_2}$.
+Furthermore, since the values of~$\sobjs(\it{on_1})(\it{smn_1})$ and~$\sobjs'(\it{on_1})(\it{smn_1})$ remain the same, $(\it{cf_2}, \it{cf_2'})\in R$.
+\item
+In the second case, according to the SOS rule for synchronous communication, state machine~$\it{sm_2}$ has to be in a state~$\it{sn^r_1}$ with an outgoing transition~$\it{trans^r_{sgn}}$.
+After transformation, according to the SOS rules for asynchronous communication, state machine~$\it{sm_2}$ is able to receive the signal in the buffer that corresponds to channel~$\it{chan'}$.
+This leads to a transition~$\it{cf'_1} \TextModelRelation{\it{sgn}()} \it{cf'_2}$,
+where the label~$\it{sgn}()$ is the result of renaming the label~$\textbf{receive}\ \it{sgn_1}()$, and~$\it{sgn_1} \equiv ``s\_" + \it{sgn}$.
+In configuration~$\it{cf_2}$, state machine~$\it{sm_1}$ is in state~$\it{sn^s_2}$ and state machine~$\it{sm_2}$ is in state~$\it{sn^r_2}$.
+Furthermore, in configuration~$\it{cf'_2}$, state machine~$\it{sm_1}$ is in state~$\it{sn^s_{sgn}}$ and state machine~$\it{sm_2}$ is in state~$\it{sn^r_{sgn}}$.
+Thus, $(\it{cf_2}, \it{cf_2'})\in R$ according to the third condition.
+\end{itemize}
+
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the third condition stated above.
+If transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ is the result of behavior of state machines that are unaffected by the transformation, then $\it{cf'_1} \TextModelRelation{l} \it{cf'_2}$ and~$(\it{cf_2}, \it{cf_2'})\in R$.
+Otherwise, according to the SOS rules for asynchronous communication,
+state machine~$\it{sm_2}$ can make a transition from a state~$\it{sn^r_{sgn}}$ to a state~$\it{sn^r_2}$ and send a signal over channel~$\it{chan'}$, resulting in a transition~$\it{cf'_1} \TextModelRelation{\tau} \it{cf'_2}$,
+where the label~$\tau$ is the result of renaming the label~$\textbf{send}\ \it{sgn_2}()$, and~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+Furthermore, $(\it{cf_1}, \it{cf_2'})\in R$ according to the fourth condition.
+Next, state machine~$\it{sm_1}$ can make a transition from a state~$\it{sn^s_{sgn}}$ to a state~$\it{sn^s_2}$ and receive the signal sent over channel~$\it{chan'}$, resulting in a transition~$\it{cf'_2} \TextModelRelation{\tau} \it{cf'_3}$,
+where the label~$\tau$ is the result of renaming the label~$\textbf{receive}\ \it{sgn_2}()$, and~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+According to the first condition, $(\it{cf_1}, \it{cf_3'})\in R$.
+Following the reasoning for the first case, each transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ either corresponds to a transition~$\it{cf_3'} \TextModelRelation{l} \it{cf_4'}$ with~$(\it{cf_2}, \it{cf_4'})\in R$ or two transitions~$\it{cf_3'} \TextModelRelation{\tau} \it{cf_4'}$ and~$\it{cf_4'} \TextModelRelation{l} \it{cf_5'}$ with~$(\it{cf_1}, \it{cf_4'}) \in R$ and~$(\it{cf_2}, \it{cf_5'}) \in R$.
+
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the fourth condition stated above.
+If transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ is the result of behavior of state machine~$\it{sm_2}$ or state machines that are unaffected by the transformation, then $\it{cf'_1} \TextModelRelation{l} \it{cf'_2}$ and~$(\it{cf_2}, \it{cf_2'})\in R$.
+Otherwise, according to the SOS rules for asynchronous communication,
+state machine~$\it{sm_1}$ can make a transition from a state~$\it{sn^s_{sgn}}$ to a state~$\it{sn^s_2}$ and receive the signal sent over channel~$\it{chan'}$, resulting in a transition~$\it{cf'_1} \TextModelRelation{\tau} \it{cf'_2}$,
+where the label~$\tau$ is the result of renaming the label~$\textbf{receive}\ \it{sgn_2}()$, and~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+According to the first condition, $(\it{cf_1}, \it{cf_2'})\in R$.
+Following a similar reasoning as in the case discussed above, transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ can be mimicked from configuration~$\it{cf'_2}$.
+\end{enumerate}
+
+\noindent
+Second, we consider the case in which $(\it{cf_1}, \it{cf_1'})\in R$ and $\it{cf_1'} \TextModelRelation{l} \it{cf_2'}$.
+We distinguish four cases.
+\begin{enumerate}
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the first condition stated above.
+If~$\it{cf_1'} \TextModelRelation{\tau} \it{cf_2'}$, then this transition must be the result of a transition of state machine~$\it{sm_1}$ from a state~$\it{sn^s_1}$ to a state~$\it{sn^s_{sgn}}$, and the label~$\tau$ must be the result of renaming the label~$\textbf{send}\ \it{sgn_1}$, where~$\it{sgn_1} \equiv ``s\_" + \it{sgn}$.
+In that case, $(\it{cf_1}, \it{cf_2'})\in R$ according to the second condition.
+Otherwise, the transition~$\it{cf_1'} \TextModelRelation{\it{l}} \it{cf_2'}$ is the result of behavior of state machine~$\it{sm_2}$ or one of the state machines that are unaffected by the transformation.
+In that case, the corresponding transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ must also exist for the original model, and~$(\it{cf_2}, \it{cf_2'})\in R$ holds according to the first condition.
+
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the second condition stated above.
+If~$\it{cf_1'} \TextModelRelation{\it{sgn}()} \it{cf_2'}$, then this transition must be the result of a transition of state machine~$\it{sm_2}$ from a state~$\it{sn^r_1}$ to a state~$\it{sn^r_{sgn}}$, and the label~$\it{sgn}()$ must be the result of renaming the label~$\textbf{receive}\ \it{sgn_1}$, where~$\it{sgn_1} \equiv ``s\_" + \it{sgn}$.
+In that case, $\it{cf_1'} \TextModelRelation{\it{sgn}()} \it{cf_2'}$ and~$(\it{cf_2}, \it{cf_2'})\in R$ according to the third condition.
+If this is not the case, then the transition~$\it{cf_1'} \TextModelRelation{\it{l}} \it{cf_2'}$ is the result of behavior of state machine~$\it{sm_2}$ that is unaffected by the transformation or behavior of one of the state machines that are unaffected by the transformation.
+In that case, the corresponding transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ must also exist for the original model, and~$(\it{cf_2}, \it{cf_2'})\in R$ holds according to the second condition.
+
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the third condition stated above.
+If~$\it{cf_1'} \TextModelRelation{\tau} \it{cf_2'}$, then this transition must be the result of a transition of state machine~$\it{sm_2}$ from a state~$\it{sn^r_{sgn}}$ to a state~$\it{sn^r_2}$, and the label~$\tau$ must be the result of renaming the label~$\textbf{send}\ \it{sgn_2}$, where~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+In that case, $(\it{cf_1}, \it{cf_2'})\in R$ according to the fourth condition.
+Otherwise, the transition~$\it{cf_1'} \TextModelRelation{\it{l}} \it{cf_2'}$ is the result of behavior one of the state machines that are unaffected by the transformation.
+In that case, the corresponding transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ must also exist for the original model, and~$(\it{cf_2}, \it{cf_2'})\in R$ holds according to the third condition.
+
+\item
+We assume that $(\it{cf_1}, \it{cf_1'})\in R$ according to the fourth condition stated above.
+If~$\it{cf_1'} \TextModelRelation{\tau} \it{cf_2'}$, then this transition must be the result of a transition of state machine~$\it{sm_1}$ from a state~$\it{sn^s_{sgn}}$ to a state~$\it{sn^s_2}$, and the label~$\tau$ must be the result of renaming the label~$\textbf{receive}\ \it{sgn_2}$, where~$\it{sgn_2} \equiv ``a\_" + \it{sgn}$.
+In that case, $(\it{cf_1}, \it{cf_2'})\in R$ according to the first condition.
+Otherwise, the transition~$\it{cf_1'} \TextModelRelation{\it{l}} \it{cf_2'}$ is the result of behavior of state machine~$\it{sm_2}$ that is unaffected by the transformation or behavior of one of the state machines that are unaffected by the transformation.
+In that case, the corresponding transition~$\it{cf_1} \TextModelRelation{l} \it{cf_2}$ must also exist for the original model, and~$(\it{cf_2}, \it{cf_2'})\in R$ holds according to the fourth condition.
+
+\end{enumerate} 

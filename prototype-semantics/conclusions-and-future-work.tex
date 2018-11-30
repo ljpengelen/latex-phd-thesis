@@ -1,0 +1,22 @@
+\section{Conclusions and Future Work}
+\label{sec:prototype-semantics:Conclusions_and_Future_Work}
+
+In this chapter, we addressed research question~\RQ{3} by implementing an executable prototype of the semantics of \SLCO using \ASFSDF.
+We defined the semantics of \SLCO by implementing a number of tools that transform \SLCO models to representations of labeled transition systems, which has a number of advantages.
+First, various existing tools for visualization of state spaces and verification can be reused because labeled transition systems are commonly used as input by such tools.
+This provides the opportunity to apply these tools to verify and visualize \SLCO models, which aids the development of \SLCO itself as well as the related model transformations.
+Furthermore, based on the work described in this chapter, we defined a formal semantics of \SLCO, which is described in Appendix~\ref{ap:sos-slco}.
+The prototype of the semantics of \SLCO and its implementation as presented here provided a solid foundation for this work, as we got better understanding of the semantics of our DSML and were able to investigate a number of design decisions.
+
+We implemented the transformation tools presented in this chapter using the \ASFSDFME.
+In this way, we investigated its suitability for the purpose of implementing an executable prototype of the semantics of a DSML.
+The biggest advantages of using the \ASFSDFME for this implementation are \ATerms~\cite{Brand:2007:AME:1219180.1219600}, used for representing terms, and the command-line tools that can be automatically generated.
+The use of \ATerms guarantees efficient use of memory, and the command-line tools offer efficient execution of rewrite rules, without any additional effort during the implementation.
+Both execution speed and efficient use of memory are important in this case because the state spaces of models represented by labeled transition systems are typically very large.
+Unfortunately, active development of \ASFSDF has stopped.
+
+As mentioned above, a formal semantics of \SLCO has been developed, which is based on the prototype described in this chapter.
+However, the notion of time is not yet incorporated in the formal semantics of \SLCO as presented in Appendix~\ref{ap:sos-slco}.
+Extending the formal semantics by including time is left as future research.
+Additionally, we consider to apply the approach taken in this chapter to other DSMLs.
+The approach lends itself well for the creation of state-space generators based on the operational semantics of a given DSML and prototyping the semantics of languages with informal or incompletely defined operational semantics. 

@@ -1,0 +1,19 @@
+\section{Discussion}
+\label{sec:exploring-boundaries:Discussion}
+In Section~\ref{sec:exploring-boundaries:Experiments}, we used the model checker \Spin to illustrate the effect of both coarse-grained and fine-grained sequences of transformations on state spaces.
+However, our approach is not limited to one particular model checker.
+The refining transformations we implemented take \SLCO models as input and produce \SLCO models as output.
+Support for another model checker or a similar tool can be added by implementing a single transformation from \SLCO to the formalism supported by that tool.
+%In fact, we implemented such a transformation to a formalism for performance analysis and simulation~\cite{SLCOiterative2010}.
+
+To clearly show the influence of our refining transformations, we used no additional reduction or abstraction techniques.
+However, our approach can be combined with such techniques in practical situations.
+Using one of the standard state vector compression modes offered by \Spin~\cite{Holzmann1997}, for instance, it is possible to explore larger state spaces.
+Using this compression method and the configuration described in Section~\ref{sec:exploring-boundaries:Experiments}, the state space of the timed version of the model of the three conveyor belts can be explored using approximately $15\cdot10^3$ megabytes, instead of $31\cdot10^3$ megabytes.
+
+%%In the worst case, the complete state space has to be explored to verify the validity of a property.
+%%Therefore, the results of the experiments discussed in Section~\ref{sec:exploring-boundaries:Experiments}...
+Typically, model checking is used to verify whether a property holds for a model of a system.
+Because the refining transformations modify the model, properties under investigation may have to change as well.
+After adding communication via the ABP to a model, for example, there are unfair traces in the state space representing the behavior that all signals are discarded by the lossy channel.
+To consider only the fair traces, a fairness constraint has to be added to the property. 

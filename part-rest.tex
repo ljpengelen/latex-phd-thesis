@@ -1,0 +1,47 @@
+\input{preamble}
+
+\input{macros}
+
+\begin{document}
+
+ \frontmatter
+
+ \pagenumbering{alph}
+
+ \input{titlepages/titlepage}
+
+ \input{titlepages/titlepage-plain}
+
+ \input{bibinfo/bibinfo}
+
+ \input{acknowledgements/acknowledgements}
+
+ \renewcommand{\contentsname}{Table of Contents}
+
+ \tableofcontents
+
+ \cleardoublepage
+
+ \mainmatter
+
+%%%%%%%%%%%%
+\nocite{*}
+%%%%%%%%%%%%
+
+ \bibliography{bibliography/bibliography}
+
+ \backmatter
+
+ \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+
+ \input{summary/summary.tex}
+
+ \cleardoublepage
+
+ \input{curriculum-vitae/curriculum_vitae.tex}
+
+ \cleardoublepage
+
+ \input{ipa/IPA.tex}
+
+\end{document} 

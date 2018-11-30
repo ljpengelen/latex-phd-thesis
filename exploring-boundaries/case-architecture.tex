@@ -1,0 +1,98 @@
+\section{Comparison of Transformations}
+\label{sec:exploring-boundaries:comparison-of-transformations}
+In this section, we compare the transformations used to form coarse-grained and fine-grained sequences of model transformations.
+The transformations used to form fine-grained sequences, the transformation to \Promela, and the transformation to \NQC are discussed in Chapter~\ref{chap:SLCO}.
+For this reason, we only describe the transformations used to form coarse-grained sequences of transformations in this chapter.
+
+\subsection{Coarse-Grained Sequences of Model Transformations}
+\label{subsec:exploring-boundaries:cg_model_transformations}
+In Section~\ref{sec:exploring-boundaries:Introduction}, we explained that the characteristics of the platforms differ.
+To execute \SLCO models, the gaps between \SLCO and \NQC need to be bridged.
+Therefore, we defined a number of transformations that transform an \SLCO model to a refined \SLCO model with equivalent observable behavior.
+Each of these transformations eliminates one of the gaps between the languages and their platforms.
+An \SLCO model that uses synchronous communication only, for example, can be transformed to an equivalent \SLCO model that uses asynchronous communication only.
+
+\begin{table*}[hbt]
+\centering
+\small
+\begin{tabular}{|l|c|c|}
+\hhline{~|--}
+\rowcolor[gray]{.9}
+\multicolumn{1}{l|}{}                & \textbf{\SLCO}               & \textbf{\NQC} \\
+\hline
+\bgc{(A)synchronous communication}   & synchronous and asynchronous & asynchronous \\
+\hline
+\bgc{Reliability of communication}   & reliable and unreliable      & unreliable \\
+\hline
+\end{tabular}
+\caption{Language and platform characteristics for the coarse-grained sequences}
+\label{tab:exploring-boundaries:cg-gaps}
+\end{table*}
+
+When starting the development of the sequence of transformations from \SLCO to \NQC, we identified the gaps between the languages and their platforms shown in Table~\ref{tab:exploring-boundaries:cg-gaps}.
+This analysis showed that, to automatically generate an \NQC implementation from an \SLCO model, transformations are needed that mimic synchronous communication over an asynchronous channel and that facilitate reliable communication over an unreliable channel.
+At that point, these gaps seemed to be the most important, and we designed the sequence of transformations such that each of the transformations bridges at most one of the gaps.
+Two of the following model transformations are implemented to bridge the gaps between \SLCO and \NQC.
+The third transformation is used to ensure that models adhere to the precondition of one these two transformations.
+
+\subsubsection{Synchronized Communication over Asynchronous Channels}
+The transformation that replaces communication using synchronous signals by communication using asynchronous signals ensures that the behavior of the model is still as desired by adding acknowledgment signals for synchronization.
+Whenever a signal is sent, the receiving party sends an acknowledgement indicating that the signal has been received.
+The sending party waits until the acknowledgement has been received.
+In this way, synchronization is achieved.
+
+\subsubsection{Lossless Communication over Lossy Channels}
+Lossless communication over lossy channels is implemented using a variant of the alternating bit protocol (ABP)~\cite{Baeten2002,Bartlett1969}.
+This protocol ensures that each signal that is sent, is eventually received, assuming that not all signals get lost.
+This transformation adds the ABP to a model by adding new state machines implementing the protocol to objects that communicate over a lossy channel.
+These new state machines communicate with the existing state machines in these objects using shared variables.
+
+\subsubsection{Exclusive Access to Ports}
+To ensure that a model meets the precondition of the previous transformation, we use a third transformation.
+When multiple state machines communicate over the same port, the previous transformation may only be applied if at most one of the state machines sends a message over this port at the same time.
+The transformation that ensures exclusive access to ports adds a token server to ensure that this is the case.
+This token server is implemented as an additional state machine that is added to the objects directly.
+The token server and the existing state machines pass information using shared variables.
+
+\subsection{Fine-Grained Sequences of Model Transformations}
+\label{subsec:exploring-boundaries:fg_model_transformations}
+
+Experiments with sequences composed of the model transformations described above showed that these sequences were too coarse-grained.
+In particular, applying the transformation that adds a variant of the ABP to a model often led to models with a very large state space.
+Therefore, we reexamined the two languages and identified a number of additional gaps, which are shown in Table~\ref{tab:exploring-boundaries:fg-gaps}.
+
+\begin{table*}[hbt]
+\centering
+\small
+\begin{tabular}{|l|c|c|}
+\hhline{~|--}
+\rowcolor[gray]{.9}
+\multicolumn{1}{l|}{}                & \textbf{\SLCO}               & \textbf{\NQC} \\
+\hline
+\bgc{(A)synchronous communication}   & synchronous and asynchronous & asynchronous \\
+\hline
+\bgc{Reliability of communication}   & reliable and unreliable      & unreliable \\
+\hline
+\bgc{Support for string constants}   & yes                          & no \\
+\hline
+\bgc{Connectivity for communication} & point-to-point               & broadcast \\
+\hline
+\bgc{Number of objects}              & $\infty$                     & limited \\
+\hline
+\end{tabular}
+\caption{Language and platform characteristics for the fine-grained sequences}
+\label{tab:exploring-boundaries:fg-gaps}
+\end{table*}
+
+When using the coarse-grained sequences of transformations to refine models, the modeler is responsible for creating input models that do not introduce problems concerning the three gaps that are not addressed by the transformations described above.
+Because these transformations do not introduce objects and cannot be used to reduce the number of objects, the modeler is responsible for creating input models that contain as much objects as can be deployed.
+The transformations described above also do not introduce data types that cannot be used in \NQC.
+If the input model does not use these data types, the transformations will result in a deployable model.
+Because there is no transformation that deals with the problem of identifying the sender of a message that has been broadcasted, only input models with two communicating parties are allowed.
+
+The transformations described in Chapter~\ref{chap:SLCO} are replacements of the transformations described above and can be used to compose more fine-grained sequences of transformations.
+For example, the version of the transformation that ensures lossless communication over a lossy channel described in Section~\ref{subsubsec:slco:ll} no longer adds state machines to existing objects, but connects these objects to fresh objects that implement the ABP.
+After adding these objects, another transformation, described in Section~\ref{subsubsec:slco:merge}, must be applied to merge the new and the existing objects, to reduce the total number of objects again and obtain a model that contains as many objects as can be deployed.
+Also the transformation that ensures exclusive use of ports is replaced by another transformation, which is described in Section~\ref{subsubsec:slco:endogenous:ex}.
+The transformation that adds acknowledgements for synchronization, however, is not replaced.
+This transformation has been expanded to improve its applicability, but this extension is irrelevant for the experiments described~below. 

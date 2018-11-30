@@ -1,0 +1,34 @@
+\section{Conclusions and Future Work}
+\label{sec:exploring-boundaries:Conclusions_and_Future_Work}
+In this chapter, we proposed an approach using model checking to increase the reliability of code generated from models specified in a DSML called \SLCO.
+A model transformation from \SLCO to a language suitable for model checking has been defined to enable model checking of domain-specific models.
+Using this model transformation, model checking can be applied on the domain-specific models in every stage of the refinement process.
+This chapter addresses research question~\RQ{2} and investigates how the size and complexity of model transformations affects the verifiability of intermediate models produced by sequences of model transformations.
+Our experiments show that using fine-grained sequences of transformations enables automatically generating more concrete models that are still suitable for explicit state-space exploration in comparison to coarse-grained sequences of transformations.
+Furthermore, even more concrete models can be obtained by applying transformations to part of a model only.
+
+We conducted experiments to validate our approach on multiple cases related to \SLCO.
+The results show that it is possible to validate models that are more concrete when fine-grained sequences of transformations are applied.
+In other words, reducing the size and complexity of the refining model transformations improved the verifiability of the intermediate models produced by such sequences.
+Additionally, since the transformations used to compose fine-grained sequences tend to be smaller than those of coarse-grained sequences, it is easier to locate defects in them.
+Another advantage of these transformations is their increased reusability in comparison to the transformations used to form coarse-grained sequences.
+
+As discussed in Section~\ref{sec:exploring-boundaries:Discussion}, reduction techniques such as partial order reduction and state vector compression can be applied to a verification model.
+Additionally, reduction may be applied to domain-specific models.
+Models in our DSML consist of state machines, and therefore, algorithms for state machine composition~\cite{Holzmann1991} may be applicable.
+Additional research is needed to assess whether reducing the number of state machines in a model leads to smaller state-spaces.
+
+We consider applying the approach to larger models and more complex sequences of transformation to be an interesting direction for future work.
+The cases on which we applied our technique are rather small, and so are the sequences of transformations.
+However, we believe that these small examples already show the advantages of the proposed approach.
+Although the systems under investigation might be larger and more complex in practise, their size and complexity does not bound the verifiability of intermediate models.
+Instead, the verifiability of these models is bounded by the practical limitations of the hardware used to perform state-space exploration, which determines when state-space explosion causes problems.
+Thus, our approach of generating the most concrete models whose state space is still suited for state-space exploration is also applicable on larger and more complex problems.
+
+Model checking is one way of increasing the reliability of systems created in an MDSE process.
+Another way to do this is using formal correctness proofs.
+When correctness of model transformations can be formally proven, model checking is no longer required to validate intermediate results.
+It would then suffice to validate the initial model only.
+Formally proving model transformations requires that the semantics of source and target language are formally defined.
+Since a lot of DSMLs have an informal semantics only, the correctness of model transformations related to such DSMLs cannot be proven.
+Therefore, model checking intermediate models may still be required. 

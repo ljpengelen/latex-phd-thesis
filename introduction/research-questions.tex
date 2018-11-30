@@ -1,0 +1,76 @@
+\section{Research Questions}
+\label{sec:introduction:research-questions}
+
+We formulated a number of research questions aimed at resolving the problems described in Section~\ref{sec:introduction:problem-statement}.
+The central research question is as follows.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Main research question
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RQMain
+
+\noindent
+This central research question is split into a number of more specific research questions.
+Each of these questions is addressed in the remainder of this thesis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Integrating textual and graphical modeling languages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To generate software from high-level descriptions, we first need to be able to produce models that form these descriptions.
+During the Ideals project, we noticed that it was cumbersome to create large UML models using only graphical editors.
+In search of a practical solution to this problem, we formulated the following research question.
+
+\RQOne
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Exploring the boundaries... Fine-Grained Transformations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this thesis, we describe how software is generated from models on a high level of abstraction by first refining these models and then generating an implementation from the resulting model.
+The original model is refined by applying a sequence of model transformations, where the application of each transformation leads to an intermediate model.
+To be able to apply techniques for verification to as many of these intermediate models as possible, we formulated the following research question.
+
+\RQTwo
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Prototyping semantics
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+We developed a domain-specific modeling language, called the Simple Language of Communicating Objects~(\SLCO), and implemented a number of transformations that refine \SLCO models.
+To be able to prove that these transformations preserve certain desirable properties of the source model, we first need to define the formal semantics of \SLCO.
+Before giving a formal definition of the semantics of \SLCO, we wanted to experiment with a number of variations of the semantics.
+To do so, we implemented an executable prototype of the semantics of \SLCO.
+The following research question is related to this prototype.
+
+\RQThree
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Reusable and correct transformations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Generating reliable software by refining models is only possible if the model transformations used for the refinement preserve certain desirable properties of these models.
+After formally defining the semantics of \SLCO, based on the aforementioned prototype, we investigated proving the correctness of a number of model transformations.
+This led to the following research question.
+
+\RQFour
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% Evolution of a DSML
+%%%%%%%%%%%%%%%%%%%%%%
+
+Although we aimed at designing a DSML that is platform independent from the start, our DSML evolved over time.
+To learn from our experiences in developing \SLCO and to be able to apply this knowledge while designing other DSMLs, we posed the following research question.
+
+\RQFive
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% LTS transformations
+%%%%%%%%%%%%%%%%%%%%%%
+
+Research question~\RQ{4} deals with a fixed set of model transformations.
+We investigated how to prove the correctness of these transformations by means of proofs performed manually.
+In contrast, the following research question is aimed at automated verification of model transformations.
+
+\RQSix 

@@ -1,0 +1,26 @@
+\section{Conclusions and Future Work}
+\label{sec:iterative-dsl-evolution:Conclusions}
+This chapter addresses research question~\RQ{5} and identifies four main influences on the evolution of our DSML: the problem domain, the target platforms, model quality, and model transformation quality.
+The problem domain, model quality, and transformation quality continuously influence the evolution of a language throughout the design process.
+The problem domain should always be taken into consideration when adapting the language to ensure that the abstractions provided by the language fit the domain.
+Opportunities to adapt the language in order to improve the quality of models and transformations become apparent as experience with the language grows, while designing and also while using the language.
+Because quality is a subjective concept, quality attributes can be in conflict.
+In our case, we added local variables to state machines to increase understandability, which had a negative effect on~modifiability.
+
+If the purpose of a DSML changes, transformations to platforms that suit this purpose may be required.
+However, there may be mismatches between the DSML and the target platform that preclude straightforward transformation.
+In our experience, the restrictions imposed by the target platform caused the DSML to change in two ways.
+First, to increase the expressiveness of the language and simplify the definition of its semantics, general forms of missing constructs are added to the language.
+These general constructs may not have a counterpart on all of the target platforms.
+Second, to simplify the transformations, additional constructs are added that are less expressive than the aforementioned general constructs, but that have a direct counterpart on all target platforms.
+The general and restricted form of conditional signal reception form an example of such a change.
+The general form of conditional signal reception has a counterpart on all platforms except for \Spin, and its semantics can be defined straightforwardly.
+The restricted form of conditional signal reception, however, can be transformed to all platforms, but expressing its semantics is much less straightforward.
+To facilitate changes like these, \SLCO has been divided into two parts.
+The core of the language is used to concisely define its semantics, whereas the extended version leads to simpler models and transformations.
+
+
+The main threat to the validity of our research is the scale.
+The language provides only a limited amount of modeling constructs and we implemented only a limited number of model transformations.
+Since we find conclusions similar to our own in literature, we expect that our conclusions will also hold for larger scale DSML projects.
+However, researching the evolution of a more extensive DSML to experience whether different evolution issues arise is relevant future work. 

@@ -1,0 +1,63 @@
+\section{Future Work}
+\label{sec:conclusions:future-work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1) grammars and metamodels
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The integration of surface language fragments into the \UML as described in Chapter~\ref{chap:grammars-and-metamodels} showed to be a useful way of reducing the number of graphical diagrams describing trivial behavior without hampering the understandability of the involved models.
+However, both of the approaches we describe that enable this integration have their disadvantages.
+An interesting direction for future research would be to investigate whether the flexibility offered by the language definition formalisms of the grammarware tools can be achieved in the context of modelware.
+
+We identified a number of differences between \SLCO and its target languages, as discussed in Chapters~\ref{chap:SLCO} and~\ref{chap:exploring-boundaries}.
+For each of these differences, we developed one or more endogenous model transformations, which are used to bridge the gaps between \SLCO and its target languages.
+However, there are additional differences between the languages, which could be addressed by additional refining model transformations.
+For instance, the number of state machines describing the behavior of the instances of a single class is unlimited in \SLCO, whereas \NQC offers a limited amount of tasks per controller.
+Because each state machine in \SLCO is transformed into a task in \NQC, this discrepancy could lead to problems.
+Fortunately, these problems could be prevented with a transformation that merges multiple state machines into a single state machine.
+This transformation might also be reused by the transformation that merges objects, to replace the protocol that is currently employed to simulate synchronous communication between state machines by means of shared variables.
+This change would reduce the number of possible interleavings of actions performed by the objects, which in turn improves the verifiability of intermediate models as discussed in Chapter~\ref{chap:exploring-boundaries}.
+
+%%%%%%%
+%% SLCO
+%%%%%%%
+
+% - Merging state machines
+% - Replacing hard-wired conversion of signals to NQC statements
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2) Exploring the boundaries of model checking
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%Models in our DSML consist of state machines.
+%%%Therefore, algorithms for state machine composition may be applicable.
+%%%Reducing the number of state machines in a model may lead to smaller state-spaces.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4) Reusability and correctness of endogenous model transformations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In Chapter~\ref{chap:reusable-correct-transformations}, we mention that a large number of the correctness proofs for the transformations related to \SLCO are relatively straightforward.
+Therefore, the application of automated theorem proving to the work presented in this chapter is considered a promising direction for future research.
+Additionally, successful termination and time are not yet taken into account.
+Finding an appropriate equivalence relation that matches the notion of time discussed in Chapter~\ref{chap:prototype-semantics} and extending the formal semantics are two of the challenges regarding the latter extension.
+Finally, we chose to extend \SLCO with a number of features related to asynchronous communication over unreliable channels, to be able to refine models using endogenous transformations only, and to be able to limit ourselves to dealing with the formal semantics of one language only for the correctness proofs of these transformations.
+Alternatively, an approach could be taken that involves a larger number of languages, where each of these languages is a variant of \SLCO that differs slightly from the others.
+In that way, a variant of \SLCO in which objects can only communicate synchronously would be transformed into an implementation in \NQC via a number of intermediate languages.
+In each of these languages, a particular language feature is replaced by another feature, such that each consecutive language variant has more features in common with the implementation language than the previous variant.
+For this approach, a more modular way of defining semantics is needed~\cite{Mosses:2009:CS:1596486.1596489, Johnstone2010AAL}, to avoid repetition in the definitions of the semantics of these language variants.
+This is also considered a valuable direction for future work.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 6) Automated verification of model transformations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The technique to check property preservation of model transformations discussed in Chapter~\ref{chap:lts-transformations} can be extended in a number of ways.
+For example, the concept of networks of LTSs could be extended to support features offered by modeling languages such as \SLCO.
+Currently, networks of LTSs offer no direct support for time, data, and asynchronous communication.
+The model transformations described in Chapter~\ref{chap:SLCO} have been implemented in \Xtend and \ATL.
+The relation between languages used in practice for the implementation of model transformations, such as these two, and the formal notion of rule systems needs further study.
+Some of the changes applied to models by the transformations of Chapter~\ref{chap:SLCO} cannot be expressed in terms of a rule system.
+For instance, adding and removing processes is not supported.
+Furthermore, the proposed technique for checking property preservation is also not able to deal with this type of modification.
+Therefore, enabling support for adding and removing processes is another valuable direction for future research. 

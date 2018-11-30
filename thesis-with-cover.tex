@@ -1,0 +1,85 @@
+\input{preamble}
+
+\usepackage{pdfpages}
+
+\input{macros}
+
+\begin{document}
+
+ \frontmatter
+
+ \pagenumbering{Alph}
+
+ \includepdf{cover/pdf-cover.pdf}
+
+ \cleardoublepage
+
+ \pagenumbering{alph}
+
+ \input{titlepages/titlepage}
+
+ \input{titlepages/titlepage-plain}
+
+ \input{bibinfo/bibinfo}
+
+ \input{acknowledgements/acknowledgements}
+
+ \renewcommand{\contentsname}{Table of Contents}
+
+ \tableofcontents
+
+ \cleardoublepage
+
+ \mainmatter
+
+ \input{introduction/main}
+
+ \input{grammars-and-metamodels/embedding}
+
+ \input{slco/main}
+
+ \input{exploring-boundaries/exploring-boundaries}
+
+ \input{prototype-semantics/prototype}
+
+ \input{reusable-correct-transformations/main}
+
+ \input{iterative-dsl-evolution/language-evolution}
+
+ \input{lts-transformation/main}
+
+ \input{conclusions/main}
+
+ \bibliography{bibliography/bibliography}
+
+ \begin{appendix}
+
+  \input{tools/main}
+
+  \input{sos-slco/main}
+
+  \input{transformations-slco/transformations-slco}
+
+  \input{proof/main}
+
+  \input{prop-pres-case-studies/main}
+
+  \cleardoublepage
+
+ \end{appendix}
+
+ \backmatter
+
+ \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+
+ \input{summary/summary}
+
+ \cleardoublepage
+
+ \input{curriculum-vitae/curriculum_vitae}
+
+ \cleardoublepage
+
+ \input{ipa/IPA}
+
+\end{document} 

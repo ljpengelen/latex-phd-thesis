@@ -1,0 +1,193 @@
+\section{Mapping to Different Formalisms}
+\label{sec:Intended_Use}
+We want to simulate, verify and execute SLCO models.
+Therefore, we have implemented a number of model transformations that transform an SLCO model into models on different platforms to enable simulation, verification, and execution.
+Each of these target platforms has different characteristics.
+Table~\ref{tab:platform_characteristics} shows the characteristics of the different platforms.
+\begin{table}[hbt]
+\centering
+\begin{tabular}{l||c|c|c}
+              & Synchronous/asynchronous channels & Lossless/lossy channels & Concurrent objects \\
+\hline\hline
+ SLCO         &   synchronous and asynchronous    &   lossless and lossy    &     unlimited      \\
+\hline
+ Simulation   &            synchronous            &        lossless         &     unlimited      \\
+\hline
+ Verification &   synchronous and asynchronous    &        lossless         &     unlimited      \\
+\hline
+ Execution    &           asynchronous            &          lossy          &      limited       \\
+\end{tabular}
+\caption{Platform characteristics}
+\label{tab:platform_characteristics}
+\end{table}
+The first column lists the different platforms.
+The second column indicates whether communication over channels is synchronous or asynchronous on the corresponding platform.
+In case communication is synchronous, both sender and receiver need to be available for message exchange to occur.
+In this way, sender and receiver synchronize on message exchange.
+In case communication is asynchronous, a sender can send a message even though the receiver is not yet ready to receive it.
+The third column indicates whether channels are lossless or lossy.
+In case a channel is lossless, a message that is sent will always arrive at the receiver.
+In case a channel is lossy, a message that is sent may get lost.
+We assume that not all messages get lost.
+We also assume that messages, if they arrive, arrive as they are sent, i.e., undamaged.
+The fourth column lists the amount of controllers that are available on the platform.
+A controller is a device on which an (implementation of) an SLCO object can be deployed.
+For SLCO (specification), simulation, and verification this number is unlimited since these controllers are virtual.
+On the implementation platform, actual controllers need to be available.
+Therefore, this number is limited.
+We have also implemented a number of model transformations that transform SLCO models to bridge the semantic platform gaps.
+An overview of the model transformations is given in Figure~\ref{fig:trafo_overview}.
+\begin{figure}[hbt]
+ \centering
+ \includegraphics[width=.8\textwidth]{figs/trafo_overview}
+ \caption{Overview of the transformations}
+ \label{fig:trafo_overview}
+\end{figure}
+In the remainder of this section, we explain how an SLCO model can be transformed into models for simulation, verification, and execution.
+We also explain in detail how we dealt with the differences in platform characteristics.
+
+\subsection{Simulation}
+The Parallel Object-Oriented Specification Language (POOSL) is a formal modeling language for simulation and performance analysis~\cite{Theelen2007}.
+The syntax of POOSL is based on the syntax of the formal language CCS~\cite{Milner1989}.
+The main constructs of POOSL are cluster classes, process classes and data classes.
+Each of these classes can be instantiated and the resulting objects can be combined to specify a system.
+A cluster class consists of a number of process classes that are connected by channels.
+A process class consists of variables, ports, process methods and instantiation parameters.
+The ports of a process class can be connected to the ports of other process classes by means of channels.
+A pair of process classes connected by a channel can communicate by sending synchronous signals over the channel.
+The variables are instances of data classes and are used to store data.
+Instantiation parameters are special kinds of variables, whose initial value can be specified.
+The behavior of process classes is specified using process methods.
+A process method takes a number of parameters as input and can pass output through output parameters.
+The behavior of a process method is defined using a number of statements, each of which can be guarded by an expression.
+Among others, there are statements for sending and receiving signals, assigning values to variables or parameters, and calling methods of data objects.
+These statements can be composed both sequentially and in parallel.
+POOSL also has a statement for conditional iteration, a statement for conditional execution, and a statement for non-deterministic execution of a number of statements.
+
+The language is supported by two tools: SHESim and Rotalumis.
+SHESim offers a graphical user interface for defining the structure of models as well as editors for editing of the textual definitions of process classes and data classes.
+Models can be interactively simulated using the built-in POOSL interpreter of SHESim.
+Rotalumis is a command-line tool that can simulate POOSL models at high speed, by compiling them to byte code that is executed on a virtual machine implemented in C++.
+
+Transformation~$T_s$ depicted in Figure~\ref{fig:trafo_overview} transforms SLCO models containing synchronous, lossless channels only to POOSL models.
+This transformation transforms each class to a process class.
+The state machines of each class are transformed to a number of process methods.
+Each process method represents a state.
+It contains a number of guarded statements that are executed non-deterministically.
+The guards of the statements represent the guards and triggers of outgoing transitions, and the statements represent the effects of those transitions.
+Each guarded group of statements ends with a process method call that calls the method representing the target state of the transition represented by this guarded group of statements.
+
+\begin{figure}[hbt]
+\centering
+\subfloat[Partial state machine]
+         {
+          \label{subfig:slco_poosl_slco}
+          \includegraphics[scale=.2]{figs/slco_poosl_slco}
+         }
+\hspace{.2\textwidth}
+\subfloat[Corresponding \textsc{Promela} code]
+         {
+          \label{subfig:slco_poosl_poosl}
+          \includegraphics[scale=.3]{figs/slco_poosl_poosl}
+         }
+\caption{Transforming state machines into \textsc{POOSL}}
+\label{fig:slco_poosl}
+\end{figure}
+
+To transform SLCO models containing asynchronous channels into POOSL, the SLCO model should be transformed such that it contains synchronous channels only.
+This is done by transformation~$T_1^\prime$ depicted in Figure~\ref{fig:trafo_overview}.
+In this transformation buffers are added, such that asynchronous communication is simulated using synchronous channels.
+To transform SLCO models containing lossy channels into POOSL, the SLCO model should be transformed such that it contains lossless channels.
+This is done by transformation~$T_2^\prime$ depicted in Figure~\ref{fig:trafo_overview}.
+In this transformation, an object is added that represents a lossy channel.
+Messages are no longer sent over a channel directly, but via this object.
+Upon reception of a message, the object either sends the message to its destination, or it disposes of it.
+In this way, a lossy channel is simulated.
+An SLCO model with a limited number of controllers can be transformed into POOSL without any problems, since it allows an unlimited number of (virtual) controllers.
+Therefore, in transformation~$T_3^\prime$ nothing is changed.
+
+\subsection{Verification}
+\label{subsec:verification}
+Model checking is an automated verification technique that checks whether a formally specified property holds for a model of a system~\cite{Clarke1999}.
+An exhaustive state space search is performed by an automated model checker to determine whether a property holds in a finite state model of a system.
+Model checking is commonly used for verifying concurrent systems.
+Before automated model checking can be applied, two tasks need to be performed.
+First, the system to be verified needs to be specified in a formalism that is accepted by an automated model checker.
+Second, the properties that the system should satisfy have to be formulated in a logical formalism that is accepted by an automated model checker.
+Usually a form of temporal logic is used for this.
+Hereafter, an automated model checker can be used to verify whether the property holds in the model.
+If this is not the case, a counterexample in the form of a trace violating the property is often provided.
+
+In order to enable verification of SLCO models, we implemented a model transformation that transforms SLCO models into \textsc{Promela}.
+This is transformation~$T_v$ in Figure~\ref{fig:trafo_overview}.
+\textsc{Promela} is the input formalism for the model checker \textsc{Spin}~\cite{Holzmann2003}.
+\textsc{Spin} can check a model for deadlocks, unreachable code, or determine whether it satisfies an LTL property.
+
+The \textsc{Promela} language has constructs for modeling selections and loops.
+These are based on Dijkstra's guarded commands.
+\textsc{Promela} has primitives for message passing between processes over channels either using queues, or handshaking.
+This enables the modeling of both asynchronous and synchronous communication respectively.
+The syntax of expressions and assignments in the \textsc{Promela} language is inherited from \textsf{C}.
+
+Channels in \textsc{Promela} are lossless and can be either synchronous (handshake) or asynchronous (queue).
+Therefore, our transformation can transform SLCO models that do not contain lossy channels into \textsc{Promela} code.
+Every state machine contained in a class instantiated as an object in an SLCO model is transformed into a \textsc{Promela} process.
+State machines can be implemented using an imperative programming style in multiple ways.
+We chose to implement them as jump tables using goto-statements.
+An example of part of the transformation is shown in Figure~\ref{fig:sm2pomela}.
+State~$S_0$ depicted in Figure~\ref{subfig:sm} is transformed into the code depicted in Figure~\ref{subfig:code}.
+\begin{figure}[hbt]
+\centering
+\subfloat[Partial state machine]
+         {
+          \label{subfig:sm}
+          \includegraphics[scale=.2]{figs/sm2promela_1}
+         }
+\hspace{.2\textwidth}
+\subfloat[Corresponding \textsc{Promela} code]
+         {
+          \label{subfig:code}
+          \includegraphics[scale=.3]{figs/sm2promela_2}
+         }
+\caption{Transforming state machines into \textsc{Promela}}
+\label{fig:sm2pomela}
+\end{figure}
+A state is transformed into an if-statement with a label and a goto-statement that jumps to that label.
+Every outgoing transition of state~$S_0$ is transformed into an alternative of the if-statement.
+The guard and statements of a transition are transformed into \textsc{Promela} code in a straightforward way.
+When the guard condition holds and the statements are executed, the transition to state~$S_1$ has been completed and the state machine is \emph{in} state~$S_1$.
+Therefore, the goto-statement that jumps to the label representing state~$S_1$ is added after the transformed statements in the code.
+
+To verify an SLCO model that contains lossy channels, transformation~$T_2^\prime$ should be performed such that messages may be disposed of.
+Note that verification of models with lossy channels requires extra care since traces in which all messages are disposed of should be avoided.
+
+\subsection{Execution}
+To execute the SLCO models, an implementation platform is required.
+We chose to use the Lego Mindstorms platform for this~\cite{Lego}.
+The key part of this platform is a programmable Lego brick, called RCX.
+This RCX has an infrared port for communication and is connected to sensors and motors for interacting with its environment.
+The language used to program an RCX is Not Quite C (NQC)~\cite{Baum2003}.
+To enable execution, we implemented a model transformation that transforms SLCO models into NQC code.
+
+NQC, as the name suggests, resembles \textsf{C}.
+NQC is severely restricted to fit the Lego Mindstorms platform.
+However, there is also an API consisting of a set of constants, functions, values, and macros that provide access to various capabilities of the Lego Mindstorms platform such as sensors, outputs, timers, and communication.
+
+Every state machine contained in a class instantiated as an object in an SLCO model is transformed into an NQC task.
+The transformation from state machines to NQC code strongly resembles the transformation from state machines to \textsc{Promela} described in Section~\ref{subsec:verification}.
+The only difference is the syntax of the if-statement.
+
+An RCX is a controller as listed in Table~\ref{tab:platform_characteristics}.
+RCX's can communicate with each other by sending and receiving messages via an infrared port.
+Communication via the infrared port is asynchronous.
+Since an infrared signal can be interrupted, this communication is lossy.
+This restricts the type of SLCO models that can be transformed.
+In order to enable execution of all SCLO models, a number of model transformations, i.e., $T_1$, $T_2$, and~$T_3$ depicted in Figure~\ref{fig:trafo_overview}, were implemented to overcome the platform differences.
+In model transformation~$T_1$, the synchronous signals are replaced by asynchronous signals.
+In order to maintain semantic equivalence, acknowledgement messages are added for synchronization.
+In model transformation~$T_2$, an implementation of the alternating bit protocol~\cite{Bartlett1969} is added to every class.
+The state machines are adapted in such a way that they do not send a message directly, but instead offer it to the alternating bit protocol for transmission.
+The protocol will ensure that the message will eventually arrive at it destination, under the premise that not all messages get lost.
+In this way, lossless message exchange over a lossy channel is achieved.
+In model transformation~$T_3$, objects are merged to match the number of available controllers.
+Communication between merged objects is implemented using shared variables, since SLCO and NQC do not provide channels internal to objects. 

@@ -1,0 +1,30 @@
+\section{Related Work}
+\label{sec:lts-transformation:related}
+
+%\subsection{Incremental model-checking}
+
+The work presented in this chapter is related to incremental model checking.
+Early papers on this subject propose techniques to reuse model checking results of safety properties for a given LTS to determine whether it still satisfies the same property after some alterations~\cite{sokolsky.smolka.inc,swamy}.
+This work focuses on particular models, whereas our technique deals with property preservation of transformations in general.
+Large speedups are reported compared to complete rechecking, but the memory requirements are at least as high, since all states plus additional bookkeeping per state must reside in memory.
+Our technique does not require such bookkeeping.
+Furthermore, we do not deal with large, flat LTSs directly, but with networks and transformation rules that both consist of relatively small LTSs.
+Finally, we do not recheck a property after transformation, but check bisimilarity~instead.
+
+The work described in this chapter is also related to action refinement~\cite{GoRe01}, which provides a way to describe and study the top-down design of concurrent systems.
+Action refinement allows specifying how a more concrete description of a concurrent system can be obtained from an abstract description of this system by replacing certain actions by more detailed behavior.
+Action refinement deals with replacing single actions, whereas our work deals with replacing patterns that represent more involved behavior.
+
+Saha presents an incremental algorithm for updating bisimulation relations based on changes of a graph that is related to our work, although it is used in a different context~\cite{saha.bisimulation}.
+The goal of this work is efficiently maintaining a bisimulation, whereas the goal of our work essentially is to assess whether a bisimulation exists.
+
+Combemale et al.~\cite{combemale.mde}, H{\"u}lsbusch et al.~\cite{Rensink2010}, and Karsai and Narayanan~\cite{narayanan.karsai.towardsverifyingmt,Karsai:2006:CMT:1785644.1785646} check semantics preservation of model transformations using either strong or weak bisimilarity.
+They consider exogenous, horizontal transformations~\cite{Mens:2006:TMT:1706639.1706924}, which transform models from one language to another without changing their level of abstraction.
+In contrast, our work deals with endogenous, vertical transformations, which have the same input and output language, and change the level of abstraction of models.
+The approach of H{\"u}lsbusch et al.\ and our approach are transformation-dependent and input-independent~\cite{amrani.overview}, whereas the work of Combemale et al.\ and the work of Karsai and Narayanan is transformation-dependent and input-dependent.
+
+Giese et al.\ relate input and output models when specifying a transformation and use a theorem prover to show semantic equivalence between the input and output of the transformation~\cite{Giese06towardsverified}.
+A downside of this approach is that it is not completely automated and thus requires manual labor, whereas our approach is automated.
+Sch{\"a}tz verifies the preservation of properties of a structural nature for model transformations~\cite{Schatz10}, also using a theorem prover.
+Both techniques are transformation-dependent and model-independent, and deal with horizontal transformations.
+Giese et al.\ consider exogenous transformations, and Sch{\"a}tz endogenous ones.

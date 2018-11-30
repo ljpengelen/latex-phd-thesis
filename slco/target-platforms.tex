@@ -1,0 +1,33 @@
+\section{Target Languages}
+\label{sec:slco:target-platforms}
+
+\SLCO models can be simulated, executed, and verified by transforming them to equivalent models and implementations in a number of languages.
+Before describing the transformations from \SLCO to these languages, we discuss the target languages themselves.
+
+\subsection{\POOSL}
+We use the Parallel Object-Oriented Specification Language~(\POOSL)~\cite{Theelen2007}, a formal modeling language for simulation and performance analysis, for simulation of \SLCO models.
+The behavioral part of \POOSL is based on the formal language CCS~\cite{Milner1989}, and the part for modeling data is based on traditional object-oriented languages.
+A \POOSL model consists of a set of concurrent processes connected by channels.
+These processes can communicate by exchanging synchronous messages via these channels.
+\POOSL is supported by two tools: \SHESim and \Rotalumis.
+\SHESim offers interactive simulation of \POOSL models using its built-in \POOSL interpreter.
+\Rotalumis is a command-line tool that can simulate \POOSL models at high speed by compiling them to byte code that can be executed on a virtual machine.
+
+\subsection{\NQC}
+To execute \SLCO models, an implementation platform is required.
+We chose to use the Lego Mindstorms\footnote{\url{http://mindstorms.lego.com/}} platform for this purpose.
+The key part of this platform is a programmable controller called \RCX.
+This \RCX has an infrared port for communication and is connected by wires to sensors and motors for interaction with its environment.
+We deliberately opted for the outdated \RCX controller, instead of the newer and more advanced \NXT controller, to investigate the strength of our transformational approach when dealing with a primitive execution platform.
+The language we use to program these programmable controllers is called Not~Quite~C~(\NQC)~\cite{Baum2003}.
+\NQC is a restricted version of C, combined with an API that provides access to the various capabilities of the Lego Mindstorms platform, such as sensors, outputs, timers, and communication via the infrared ports.
+
+\subsection{\Promela}
+Model checking is an automated verification technique that checks whether a formally specified property holds for a model of a system~\cite{Clarke1999}.
+We use the model checker \Spin~\cite{Holzmann2003} for verifying our models.
+\Spin can, among others, check a model for deadlocks, unreachable code, and determine whether it satisfies a Linear Temporal Logic~(\LTL) property~\cite{Pnueli1977}.
+\LTL is used to express properties of paths in a finite-state representation of the state space of a system.
+The input language for \Spin is \Promela.
+\Promela has constructs for modeling selections and loops, based on Dijkstra's guarded commands, and primitives for message passing between processes over channels, either using queues or handshaking.
+This enables modeling of both asynchronous and synchronous communication, respectively.
+The syntax of expressions and assignments in \Promela is similar to that of C. 

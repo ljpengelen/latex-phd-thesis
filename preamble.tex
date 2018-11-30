@@ -1,0 +1,217 @@
+\listfiles
+
+\documentclass[twoside, openright]{book}
+\usepackage[T1]{fontenc}
+\usepackage[paperwidth=170mm, paperheight=245mm, bindingoffset=0.7cm, margin=1.4cm, top=2.4cm]{geometry}
+\usepackage[USenglish]{babel}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{mdwlist}
+\usepackage{microtype}
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage{hhline}
+\usepackage{multirow}
+\usepackage[chapter]{tocbibind}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{multicol}
+\usepackage{amssymb}
+\usepackage{ifthen}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{mattens}
+\usepackage{mathtools}
+\usepackage{pifont}
+\usepackage{caption}
+\usepackage{subcaption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fancy chapter headings
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[Sonny]{fncychap}
+\ChNameVar{\bfseries\Large}
+\ChNumVar{\bfseries\Huge}
+\ChTitleVar{\bfseries\Large}
+\ChNameAsIs
+
+\usepackage[plainpages=false]{hyperref}
+\hypersetup{
+  pdftitle={From Napkin Sketches to Reliable Software},
+  pdfauthor={Luc Engelen},
+  pdfsubject={PhD Thesis},
+  hyperfootnotes=false,
+  pdfborder=0 0 0
+}
+
+\usepackage{breakurl}
+\usepackage{doi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fancy header style options %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\lhead[\thepage]{\relax\nouppercase\rightmark}
+\rhead[\relax\nouppercase\leftmark]{\thepage}
+\cfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% No fancy header after cleardoublepage %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage
+  {\pagestyle{empty}\origdoublepage}%
+}
+\let\cleardoublepage\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Convert pagestyle plain automatically to empty (e.g. first page of chapter) %%
+%% Result: no pagenumber on those pages                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\let\ps@plain\ps@empty
+\makeatother
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+\setlength{\tabcolsep}{3pt}
+
+\bibliographystyle{plainurl}
+\raggedbottom
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Environments for formal descriptions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+
+%%%%%%%%%%%
+%% Listings
+%%%%%%%%%%%
+
+\floatstyle{plain}
+\newfloat{listing}{hbt}{lst}
+\usepackage{listings}
+
+\lstset{
+    boxpos=b,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries,
+    captionpos=b,
+    frame=single,
+    gobble=4
+}
+
+% Configure the listings package for SLCO.
+\lstdefinelanguage{slco}{
+  morekeywords={
+    model, classes, variables, Integer, ports, machines, initial, state, final, transitions, from, to, send,
+    receive, objects, channels, Boolean, String, sync, true, false, async, lossless, lossy, between, and
+  }
+}
+
+% Configure the listings package for POOSL.
+\lstdefinelanguage{poosl}{
+  morekeywords={
+    process, class, instance, variables, String, Integer, communication, channels, message, interface, initial, method,
+    call, methods, Boolean, skip, sel, or, les, par, and, rap, behaviour, specification, true, false, delay
+  }
+}
+
+% Configure the listings package for NQC.
+\lstdefinelanguage{nqc}{
+  morekeywords={
+    task, int, Message, if, goto, until
+  }
+}
+
+% Configure the listings package for slco2nqc.
+\lstdefinelanguage{slco2nqc}{
+  morekeywords={
+    class, port2motor, port2sensor, signal2motor, signal2sensor
+  }
+}
+
+% Configure the listings package for CS.
+\lstdefinelanguage{cs}{
+  morekeywords={
+    initial, false, true, receive, ms, passed
+  }
+}
+
+% Configure the listings package for XMI.
+\lstdefinelanguage{xmi}{
+  morekeywords={
+  },
+  morestring=[b]"
+}
+
+% Configure the listings package for the surface language.
+\lstdefinelanguage{sl}{
+  morekeywords={
+    behavior, return, self
+  }
+}
+
+% Configure the listings package for Xtend.
+\lstdefinelanguage{xtend}{
+  morekeywords={
+    Void, let
+  }
+}
+
+% Configure the listings package for ASF.
+\lstdefinelanguage{asf}{
+  morekeywords={
+    send, to, true, from, effect, trigger, xor, false
+  },
+  emph={
+    variableExists, getVariableId, newId, statementWithResult2Action, xmi\colon type,
+    getStatements, processAssignmentStatement, takeStepPartialTransition, takeStepTransition,
+    getTransitionNumber, processSignalReception, takeStepsFromConfiguration,
+    takeTimeStepsFromConfiguration, getActiveStates, takeStepsActiveStates,
+    canTakeTimeStepFromConfiguration, getSmallestTimeStepFromConfiguration, natCon2StrCon,
+    getSignalReception, getObjectId, getStateMachineId, getNextState, getStatement,
+    getStateId, createActiveState, addTimeStamp, evaluateExpression,
+    constantExpression2Value, updateActiveState, updateNameValue, idCon2StrCon, value2StrCon,
+    eval0, eval1, eval2, defaultEval, eval
+  },
+  emph={
+    [2] $VariableName, $ReadVariableAction, $Var,
+    $Context, $Id1, $Id2, $Context1, $Context2, $ObjectContent,
+    $IdCon0, $IdCon1, $IdCon2, $IdCon3, $IdCon4,
+    $Transition, $NatCon0, $NatCon1, $Trigger, $Guard, $Statement, $AssignmentStatement,
+    $ActiveState, $Configuration0, $Step0, $Configuration, $Model, $ActiveState0,
+    $SignalReception, $NatCon, $Step, $StrCon, $Expression, $ConstantExpression, $StrCon0,
+    $StrCon1, $StrCon2, $Configuration1, $BoolCon, $BoolCon1, $BoolCon2
+  }
+}
+\lstdefinestyle{asf}{
+  emphstyle={\bfseries},
+  emphstyle={[2]\itshape}
+}
+
+% Configure the listings package for SDF.
+\lstdefinelanguage{sdf}{
+  morekeywords={
+    sorts, variables, syntax
+  },
+  otherkeywords={context-free}
+}
+
+% Configure the listings package for LTS.
+\lstdefinelanguage{lts}{
+  morekeywords={
+    initial, states, deadlock, final, transitions
+  }
+} 

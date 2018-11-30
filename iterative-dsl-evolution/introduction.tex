@@ -1,0 +1,40 @@
+\section{Introduction}
+\label{sec:iterative-dsl-evolution:Introduction}
+
+The Simple Language of Communicating Objects (\SLCO) gradually evolved from a slightly modified subset of the \UML suited for performance analysis to a domain-specific modeling language (DSML) that offers simulation, verification, and execution of models.
+In this chapter, we describe our experiences with the process of developing this DSML and the corresponding model transformations.
+By studying the development of a small and easily changeable language and documenting its evolution, we started to investigate the feasibility of a development process for DSMLs in which changes to one artifact have less influence on other artifacts.
+
+The literature provides guidelines for developing domain-specific languages (DSLs)~\cite{Mernik2005,Deursen1998,Deursen2000} and tools that support DSL evolution~\cite{Geest2008,Sprinkle2004}.
+There have been numerous reports on evolution of DSLs.
+For example, the changes to the SDF language, a DSL used for syntax definition, are described by Visser~\cite{Vis97.thesis}.
+Van Beek et al.\ describe the evolution of Chi, a language for modeling and simulating hybrid systems~\cite{Beek2008}.
+The evolution of a language used for interchanging models of hybrid systems is described by Van Beek et al.~\cite{Beek2009}.
+In most of these publications, however, only the changes themselves are described, and the reasons for these changes are only hinted upon.
+On the underlying reasons for DSL evolution literature is scarce and conclusions are scattered.
+Additionally, most analysis of DSL evolution provide an a posteriori report only.
+In this chapter, we discuss our experiences with an evolving DSML during its iterative design and address research question~\RQ{5}.
+
+\RQFive
+
+As described in Chapter~\ref{chap:SLCO}, we designed a DSML for modeling systems consisting of concurrent, communicating objects.
+The structure of a system is modeled using classes, and their behavior is modeled by state machines.
+Simultaneously to the development of the DSML, we implemented a number of model transformation to different formalisms: one for simulation, one for execution, and one for verification.
+These model transformations were developed consecutively.
+Each time a transformation to a new target platform was added, the functionality offered by the existing transformations remained intact.
+
+Furthermore, the way in which the semantics of \SLCO were defined changed over time, which also had its influence on the rest of the definition of the language and its transformations.
+At first, the semantics of \SLCO were defined by means of a transformation to the Parallel Object-Oriented Specification Language (\POOSL)~\cite{Theelen2007}.
+This transformational description was then replaced with another transformational description based on labeled transition systems.
+Later, a formal definition of the operational semantics of \SLCO was given, to enable formal reasoning about the correctness of the model transformations.
+
+We describe the development process and indicate how our DSML has evolved during this process.
+We focus on language evolution only and not on the co-evolution of models specified in the DSML such as described in~\cite{Cicchetti2008}.
+Even though our DSML is small in terms of the provided number of modeling constructs, we expect that the lessons learned are applicable to projects involving larger DSMLs as well.
+In our discussion of related work in Section~\ref{sec:iterative-dsl-evolution:Related_Work}, we show that the conclusions drawn by others overlap with our own.
+
+The remainder of this chapter is structured as follows.
+In Section~\ref{sec:iterative-dsl-evolution:Development_Process}, we describe the development process of our DSML and the accompanying model transformations.
+Section~\ref{sec:iterative-dsl-evolution:SLCO_Evolution} describes the evolution the language has undergone.
+Related work is discussed in Section~\ref{sec:iterative-dsl-evolution:Related_Work}.
+In Section~\ref{sec:iterative-dsl-evolution:Conclusions}, we draw conclusions and give directions for further research. 

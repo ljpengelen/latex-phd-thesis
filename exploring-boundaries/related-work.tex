@@ -1,0 +1,14 @@
+\section{Related Work}
+\label{sec:exploring-boundaries:Related_Work}
+Multiple proposals are presented in literature to enable model checking of huge specifications.
+Clarke et al.\ suggest four different abstraction techniques and demonstrate their practicality on a number of examples~\cite{Clarke1994}.
+Another possibility, applied by Chan et al., is to model check only a part of the system~\cite{Chan1998}.
+They also applied simplifications to the model to avoid constructs that could not be handled properly by their model checker.
+Wing and Vaziri-Farahani enabled quick verification in a case study by applying abstractions to both the model and the verification properties~\cite{Wing1995}.
+They state that the choice of what abstractions to apply takes some `good' judgment.
+All of the aforementioned approaches work by applying abstraction and simplification to concrete models.
+Our approach works the other way around; we refine an abstract model to a more refined one.
+Our approach does not preclude the use of abstractions and simplifications on the (intermediate) models.
+The B-method~\cite{Abrial1991} is developed as a means to refine abstract specifications into implementations.
+By fulfilling a number of proof obligations and thus proving that each refinement step is sound, it can be proven that an implementation adheres to the corresponding initial specification.
+Using the B-method, reliable code is derived starting from one initial specification, whereas our approach focuses on automatically generating reliable code from every possible model that can be described using our DSML. 

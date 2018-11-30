@@ -1,0 +1,76 @@
+\section{Related Work}
+\label{sec:iterative-dsl-evolution:Related_Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Het stukje over Deursen2000 gaat niet over evolutie,          %%
+%% daarom is het niet nodig dit op te nemen in gerelateerd werk. %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%In~\cite{Deursen2000}, a survey is given of key publications in the area of domain-specific languages.
+%The authors also provide some terminology and list some advantages and disadvantages of DSLs.
+%They also give some basic DSL design and implementation guidelines.
+
+Freeman and Pryce describe their experiences with the evolution of a DSL~\cite{Freeman2006}.
+Their language has evolved from a library on top of Java to an embedded language.
+We observed that our DSL has evolved because new target platforms were added.
+Their language is an embedded language that does not need target platforms.
+Because the language is embedded, it is highly influenced by the host language, Java in this case.
+One of the reasons for the evolution of their language is to improve user-friendliness.
+This is related to our observation that language evolution is influenced by  model quality.
+
+The evolution of a visual programming language for writing real-time control programs for distributed environments and supporting tools is described by Karaila~\cite{Karaila2009}.
+The main goal of this language is to make programs understandable.
+The author shows that Lehman's eight laws~\cite{Lehman1997} for characterizing the way software systems tend to evolve are not restricted to software systems, but apply to language evolution as well.
+The main difference between this language and SLCO is the scale.
+The language studied by the author has been under development since 1988 and the last major development step dates from 2003.
+Also the approach of the study is different.
+Karaila tries to fit his experiences within a framework, whereas we try to distill general lessons from our own experience.
+
+An analysis of over twenty cases where domain-specific languages were designed to implement a model-driven engineering approach is presented by Luoma et al.~\cite{Luoma2004}.
+The data for the analysis was gathered by means of interviews and discussions with people involved in constructing the DSLs.
+They identified and categorized four influences on defining DSLs: domain concepts, generated output, look and feel of the system built, and expression of variability.
+One of the differences with our work is, again, the scope of the study.
+They studied the definition of over twenty languages, of which some have been used for several years already.
+We defined only one language, but our focus is on the evolution of the language.
+Another important difference is that in their case the target platform for the applications developed with the DSL was already chosen, whereas we added multiple target platforms on the fly.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Is het stukje over Arango1989 wel zo'n sterke observatie?                             %%
+%%                                                                                       %%
+%% Wellicht is het zo dat het initieel ontwerp van een DSL sterk beïnvloed wordt         %%
+%% door het domein en dat de evolutie het juist verder daar vanaf brengt.                %%
+%% Dat zou dan dus veroorzaakt kunnen worden door het relatief stabiele probleem domein. %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%In~\cite{Arango1989}, a conceptual framework for domain analysis is described.
+%One of the author's observations is that problem domains evolve gradually.
+%This is in line with our observation that the evolution of a domain-specific language is influenced by (the evolution of) the problem domain.
+
+A domain-specific visual language that aims at expressing the evolution of domain-specific visual languages is developed by Sprinkle and Karsai~\cite{Sprinkle2004}.
+This language and accompanying tools assist in the co-evolution of domain, DSL and models created using the DSL.
+They claim that what sets the evolution of domain-specific languages apart is that its primary aim is not backward compatibility but domain specificity.
+This is in line with our observation that the evolution of a domain-specific language is influenced by the evolution of the problem domain.
+They focus on tools for supporting DSL evolution, rather than researching the causes for language evolution as we do.
+
+Another framework aimed at supporting DSL evolution is described by De Geest~\cite{Geest2008}.
+The primary influence on DSL evolution mentioned by the author is use of the DSL.
+He claims that by using a DSL, more domain knowledge is gathered, which requires adaptation of the DSL.
+Also, new features may be requested to ease the modeling process.
+This is in line with our observation that evolution of a language is influenced by model~quality.
+
+Van Deursen and Klint discuss experiences from industrial practice regarding the development of domain-specific languages~\cite{Deursen1998}.
+The focus of the article is on the development of a DSL for describing financial products.
+They provide guidelines and considerations that should be taken into account when developing a DSL.
+Issues as maintainability factors and risks involved in the use of DSLs are also addressed.
+The DSL they developed has been used for a few years and during those years it has been concluded that the language needed some changes to increase user friendliness.
+This is in line with our observation that evolution of a language is influenced by  model quality.
+
+Karsai et al.\ provide 26 design guidelines for domain-specific languages~\cite{KarsaiDSLGuidelines2009}.
+During the development of \SLCO, we noticed that the guideline that advocates the reuse of existing language definitions can be in conflict with the guideline that advocates simplicity.
+Reusing a part of the graphical syntax of the \UML and adopting the corresponding distinction between guards, triggers, and statements hampered the understandability of \SLCO and complicated the definition of its semantics.
+Additionally, they advise against conceptual redundancy, whereas we introduced multiple versions of conditional signal reception to simplify the definition of the semantics and some of the model transformations.
+
+Paige et al.\ provide 9 principles for the design of modeling languages~\cite{PaigePrinciples2000}.
+The principle of uniqueness is related to the concept of conceptual redundancy mentioned above and also advises to avoid duplication of features.
+This suggests that conditional signal reception should be revisited during the next redesign of \SLCO.
+Our experience concurs with the provided principles, although seamlessness and reversibility are not applicable for our language.
+Seamlessness is not applicable because of the variety of target platforms, and reversibility is not applicable because modification of generated code is in conflict with our approach to MDSE.
+We aim at generating implementations by refining models using model transformations that are provably correct according to some correctness criterion.
+Modifying the resulting code is not supported, because it could hamper its correctness.

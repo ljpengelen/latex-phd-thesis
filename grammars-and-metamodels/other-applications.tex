@@ -1,0 +1,14 @@
+\section{Other Applications of our Approach}
+\label{sec:grammars-and-metamodels:Other-Applications-of}
+
+Our approach is not only suitable for the embedding of our textual surface language in \Activities.
+The concept of \OpaqueBehavior described in Section~\ref{sub:grammars-and-metamodels:UML-embedding} can, for instance, also be used to embed textual languages describing behavior in other parts of the \UML.
+Similar concepts, like \OpaqueExpression and \OpaqueAction, can be used to embed textual languages for other purposes than describing behavior.
+It is possible, for instance, to use a subset of \Java as an expression language for \UML \StateMachines.
+
+Thus far, we described how UML models combined with our surface language can be transformed to equivalent \UML models.
+The result of the transformation described in Section \ref{sub:grammars-and-metamodels:SL-Transformation}, however, is only defined if the names used in the fragments of surface language of an input model correspond with elements that exist in the rest of the model.
+To check whether models meet this condition, we have implemented another version of our transformation, which performs a simple form of checking.
+This transformation takes a \UML model containing fragments of surface language as input and transforms this into a list of error messages.
+The transformation traverses the model and the fragments of surface language and checks whether the names used in the statements of the surface language correspond to elements that exist in other parts of the model.
+If the behavior shown in the note in Figure~\ref{fig:grammars-and-metamodels:UML-diagram-comparison} would refer to an attribute $\it{self.b}$, for instance, the transformation would produce a message stating that class $A$ does not have an attribute named $b$. 

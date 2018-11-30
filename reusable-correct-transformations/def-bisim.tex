@@ -1,0 +1,39 @@
+
+\section{Branching Bisimulation relation between LTSs}
+\label{app:A}
+\begin{definition}
+ \label{branching_bisimulation}
+For two LTSs $L_1 = (S_1, \Lambda\cup\{\tau\}, \rightarrow_1, i_1)$, $L_2 = (S_2, \Lambda, \rightarrow_2, i_2)$ a  relation $R \subseteq S_1 \times S_2$ is called a branching   bisimulation relation if for all $s \in S_1$ and $t \in S_2$ such that $R(s,t)$, the following conditions are met, for $a\in \Lambda\cup\{\tau\}$:
+  \begin{itemize}
+  \item[1.] if $s \arrow{}{a} s'$ in~$L_1$, then either
+    \begin{itemize}
+    \item [--] $a = \tau$ and $R(s',t)$, or
+    \item [--] for some $n \geq 0$, there exist $t_1, \ldots, t_n$ and~$t'$ in~$S_2$ such that \\
+     $t \arrow{}{\tau} t_1 \arrow{}{\tau}\ldots \arrow{}{\tau} t_{n}
+      \arrow{}{a} t'$ in~$L_2$, $R(s,t_n)$ and~$R(s',t')$;
+    \end{itemize}
+  \item[2.] if $t \arrow{}{a} t'$ in~$L_2$, then either
+    \begin{itemize}
+    \item [--] $a = \tau$ and $R(s,t')$, or
+    \item [--] for some $n \geq 0$, there exist $s_1, \ldots, s_n$
+      and~$s'$ in~$S_2$ such that \\
+      $s \arrow{}{\tau} s_1
+      \arrow{}{\tau} \ldots \arrow{}{\tau} s_{n}
+      \arrow{}{a} s'$ in~$L_1$, $R(s_n,t)$ and~$R(s',t')$;
+    \end{itemize}
+%  \item[3.] if $s\downarrow$ in~$Z$, then, for some $n\geq 0$, %there
+%    exist $t_1, \ldots, t_n$ in~$\ST'$ such that $t %\xrightarrow{\tau}
+%    t_1 \xrightarrow{\tau} \ldots \xrightarrow{\tau} t_{n}$ %in~$Z'$,
+%    $R(s,t_n)$ and $t_n \downarrow$;
+%  \item[4.] if $t\downarrow$ in~$Z'$, then, for some $n\geq 0$, %there
+%    exist $s_1, \ldots, s_n$ in~$\ST$ such that $s %\xrightarrow{\tau}
+%    s_1 \xrightarrow{\tau} \ldots \xrightarrow{\tau} s_{n}$ %in~$Z$,
+%    $R(s_n,t)$ and $s_n \downarrow$.
+  \end{itemize}
+$L_1$ and~$L_2$
+%two states $s$ and~$t$
+are branching bisimilar,
+%notation $L_1 \bisim_{\!b\ } L_2$,
+if there exists a   branching bisimulation relation~$R$ for $L_1$ and~$L_2$ such that~$R(i_1,i_2)$.
+\end{definition}
+

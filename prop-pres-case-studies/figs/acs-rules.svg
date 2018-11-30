@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="773.10126"
+   height="513.745"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="acs-rules.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path4840"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="99.072402"
+     inkscape:cy="315.49053"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="998"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid5281"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-744.44722,-191.39331)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:7;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 1073.5756,395.12518 1073.5756,428.25018 913.57553,428.25018 913.57553,468.25018 1073.5756,468.25018 1073.5756,501.40643 1126.7006,448.25018 1073.5756,395.12518 z"
+       id="rect5283"
+       inkscape:connector-curvature="0" />
+    <ellipse
+       id="ellipse3967"
+       ry="39.598"
+       rx="39.096699"
+       cy="-204"
+       cx="39"
+       sodipodi:cx="39"
+       sodipodi:cy="-204"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       d="M 78.096699,-204 C 78.096699,-182.13063 60.59251,-164.402 39,-164.402 17.40749,-164.402 -0.09669876,-182.13063 -0.09669876,-204 -0.09669876,-225.86937 17.40749,-243.598 39,-243.598 60.59251,-243.598 78.096699,-225.86937 78.096699,-204 z"
+       transform="matrix(1.25,0,0,1.25,746.44309,600.76581)" />
+    <text
+       id="text3969"
+       font-size="40.00"
+       y="365.80878"
+       x="795.2478"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial">i</text>
+    <ellipse
+       id="ellipse3974"
+       ry="39.598"
+       rx="39.096699"
+       cy="-40"
+       cx="39"
+       sodipodi:cx="39"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       d="M 78.096699,-40 C 78.096699,-18.130629 60.59251,-0.40200043 39,-0.40200043 17.40749,-0.40200043 -0.09669876,-18.130629 -0.09669876,-40 -0.09669876,-61.869371 17.40749,-79.598 39,-79.598 60.59251,-79.598 78.096699,-61.869371 78.096699,-40 z"
+       transform="matrix(1.25,0,0,1.25,746.44309,600.76581)" />
+    <text
+       id="text3976"
+       font-size="40.00"
+       y="570.80878"
+       x="795.2478"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial">ii</text>
+    <path
+       id="path3981"
+       d="M 795.19309,395.39081 C 795.19309,419.60081 795.19309,449.22956 795.19309,476.09843"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75" />
+    <polygon
+       id="polygon3983"
+       points="39,-79.6181 32.0001,-99.6182 46.0001,-99.6181 46.0001,-99.6181 "
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.25,0,0,1.25,746.44309,600.76581)" />
+    <text
+       xml:space="preserve"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:justify;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="808.44312"
+       y="455.26581"
+       id="text4430"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4432"
+         x="808.44312"
+         y="455.26581">rcv</tspan></text>
+    <ellipse
+       id="ellipse4126"
+       ry="39.598"
+       rx="39.096699"
+       cy="-40"
+       cx="39"
+       sodipodi:cx="39"
+       sodipodi:cy="-40"
+       sodipodi:rx="39.096699"
+       sodipodi:ry="39.598"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       d="M 78.096699,-40 C 78.096699,-18.130629 60.59251,-0.40200043 39,-0.40200043 17.40749,-0.40200043 -0.09669876,-18.130629 -0.09669876,-40 -0.09669876,-61.869371 17.40749,-79.598 39,-79.598 60.59251,-79.598 78.096699,-61.869371 78.096699,-40 z"
+       transform="matrix(1.25,0,0,1.25,1152.8221,703.76581)" />
+    <text
+       id="text4128"
+       font-size="40.00"
+       y="673.80878"
+       x="1201.6268"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial">ii</text>
+    <path
+       id="path4133"
+       d="M 1201.5721,498.39081 C 1201.5721,522.60081 1201.5721,552.22956 1201.5721,579.09843"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.75" />
+    <polygon
+       id="polygon4135"
+       points="32.0001,-99.6182 46.0001,-99.6181 46.0001,-99.6181 39,-79.6181 "
+       style="fill:#000000;stroke:#000000"
+       transform="matrix(1.25,0,0,1.25,1152.8221,703.76581)" />
+    <text
+       xml:space="preserve"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:justify;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="1214.443"
+       y="557.76581"
+       id="text4426"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4428"
+         x="1214.443"
+         y="557.76581">decompress</tspan></text>
+    <ellipse
+       transform="matrix(1.25,0,0,1.25,1152.8221,497.76581)"
+       d="M 78.096699,-204 C 78.096699,-182.13063 60.59251,-164.402 39,-164.402 17.40749,-164.402 -0.09669876,-182.13063 -0.09669876,-204 -0.09669876,-225.86937 17.40749,-243.598 39,-243.598 60.59251,-243.598 78.096699,-225.86937 78.096699,-204 z"
+       style="fill:#000000;stroke:#000000;stroke-width:3"
+       sodipodi:ry="39.598"
+       sodipodi:rx="39.096699"
+       sodipodi:cy="-204"
+       sodipodi:cx="39"
+       cx="39"
+       cy="-204"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse3089" />
+    <text
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial"
+       x="1201.6268"
+       y="262.80878"
+       font-size="40.00"
+       id="text3091">i</text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:3.75"
+       inkscape:connector-curvature="0"
+       d="M 1201.5721,292.39081 C 1201.5721,316.60081 1201.5721,346.22956 1201.5721,373.09843"
+       id="path3093" />
+    <polygon
+       transform="matrix(1.25,0,0,1.25,1152.8221,497.76581)"
+       style="fill:#000000;stroke:#000000"
+       points="39,-79.6181 32.0001,-99.6182 46.0001,-99.6181 46.0001,-99.6181 "
+       id="polygon3095" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3097"
+       y="351.76581"
+       x="1214.443"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:justify;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       xml:space="preserve"><tspan
+         y="351.76581"
+         x="1214.443"
+         id="tspan3099"
+         sodipodi:role="line">rcv'</tspan></text>
+    <ellipse
+       transform="matrix(1.25,0,0,1.25,1107.9724,907.3516)"
+       d="M 113.8,-368 C 113.8,-346.13063 96.295811,-328.402 74.7033,-328.402 53.11079,-328.402 35.606602,-346.13063 35.606602,-368 35.606602,-389.86937 53.11079,-407.598 74.7033,-407.598 96.295811,-407.598 113.8,-389.86937 113.8,-368 z"
+       style="fill:none;stroke:#000000;stroke-width:3"
+       sodipodi:ry="39.598"
+       sodipodi:rx="39.096699"
+       sodipodi:cy="-368"
+       sodipodi:cx="74.7033"
+       cx="74.7033"
+       cy="-368"
+       rx="39.096699"
+       ry="39.598"
+       id="ellipse3101" />
+    <text
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-anchor:middle;font-family:Arial;-inkscape-font-specification:Arial"
+       x="1201.4063"
+       y="467.39456"
+       font-size="40.00"
+       id="text3103">iii</text>
+  </g>
+</svg>

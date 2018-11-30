@@ -1,0 +1,103 @@
+\section{Outline and Origin of Chapters}
+\label{sec:introduction:outline}
+The remainder of this thesis is structured as follows.
+For each chapter that is based on an earlier publication, the origin of the chapter is given.
+
+\paragraph{Chapter~\ref{chap:grammars-and-metamodels}: Integrating Textual and Graphical Modeling Languages}
+In this chapter, we address research question~\RQ{1}.
+We illustrate how a textual alternative for a particular type of graphical diagrams can be used to make it easier to construct large UML models, and we compare two implementations that integrate this language into the~UML.
+This chapter is based on the following publication.
+
+\publication{\cite{integratingTextual2010}}
+{L.J.P.\ Engelen and M.G.J.\ van den Brand}
+{Integrating Textual and Graphical Modelling Languages}
+{Proceedings of the Ninth Workshop on Language Descriptions Tools and Applications}
+{2010}
+{10.1016/j.entcs.2010.08.035}
+
+\paragraph{Chapter~\ref{chap:SLCO}: Simple Language of Communicating Objects}
+In this chapter, we introduce \SLCO, the DSML that is used in the case study described in Chapter~\ref{chap:exploring-boundaries}.
+The development of this language is discussed in Chapters~\ref{chap:prototype-semantics}, \ref{chap:reusable-correct-transformations}, and~\ref{chap:iterative-dsl-evolution}.
+This chapter is based on the following submission.
+
+\publication{\cite{SLCOinVitro2012}}
+{M.F.\ van Amstel, S.\ Andova, M.G.J.\ van den Brand, and L.J.P.\ Engelen}
+{In Vitro Development of a Domain-Specific Modeling Language}
+{Submitted to Science of Computer Programming}
+{2012}
+{}
+
+\paragraph{Chapter~\ref{chap:exploring-boundaries}: Exploring the Boundaries of Model Verification}
+In this chapter, we address research question~\RQ{2} by discussing experiments we performed to compare coarse-grained and fine-grained sequences of model transformations.
+This chapter is based on the following publication.
+
+\publication{\cite{SLCOexploring2011}}
+{M.F.\ van Amstel, M.G.J.\ van den Brand, and L.J.P.\ Engelen}
+{Using a DSL and Fine-Grained Model Transformations to Explore the Boundaries of Model Verification}
+{Proceedings of the Third Workshop on Model-Based Verification and Validation}
+{2011}
+{10.1109/SSIRI-C.2011.26}
+
+\paragraph{Chapter~\ref{chap:prototype-semantics}: Prototyping the Semantics of a Domain-Specific Modeling Language}
+In this chapter, we address research question~\RQ{3}.
+We describe the executable prototype that we implemented, and show how such a prototype can aid in the development of domain-specific modeling languages and model transformations.
+This chapter is based on the following publication.
+
+\publication{\cite{SLCOprototype2011}}
+{S.\ Andova, M.G.J.\ van den Brand, and L.J.P.\ Engelen}
+{Prototyping the Semantics of a DSL using ASF+SDF: Link to Formal Verification of DSL Models}
+{Proceedings of the Second International Workshop on Algebraic Methods in Model-based Software Engineering}
+{2011}
+{10.4204/EPTCS.56.5}
+
+\paragraph{Chapter~\ref{chap:reusable-correct-transformations}: Reusability and Correctness of Endogenous Model Transformations}
+In this chapter, we address research question~\RQ{4} by showing how the formal semantics of \SLCO and formal definitions of model transformations can be used to prove the correctness of these transformations.
+This chapter deals with endogenous model transformations, which are transformations for which the input and output language is the same~\cite{Mens:2006:TMT:1706639.1706924}.
+This chapter is based on the following publication.
+
+\publication{\cite{SLCOreusable2012}}
+{S.\ Andova, M.G.J.\ van den Brand, and L.J.P.\ Engelen}
+{Reusable and Correct Endogenous Model Transformations}
+{Proceedings of the 5th International Conference on Model Transformation}
+{2012}
+{10.1007/978-3-642-30476-7\_5}
+
+\paragraph{Chapter~\ref{chap:iterative-dsl-evolution}: Evolution of a Domain-Specific Modeling Language}
+In this chapter, we address research question~\RQ{5}.
+We show how \SLCO has evolved over time and discuss the main influences on the design of the language.
+This chapter is based on the following publication.
+
+\publication{\cite{SLCOiterative2010}}
+{M.F.\ van Amstel, M.G.J.\ van den Brand, and L.J.P.\ Engelen}
+{An Exercise in Iterative Domain-Specific Language Design}
+{Proceedings of the Joint ERCIM Workshop on Software Evolution and International Workshop on Principles of Software Evolution}
+{2010}
+{10.1145/1862372.1862386}
+
+\paragraph{Chapter~\ref{chap:lts-transformations}: Checking Property Preservation of Refining Transformations}
+In this chapter, we address research question~\RQ{6}.
+We describe a technique that makes it possible to check whether model transformations preserve certain properties.
+In contrast to Chapter~\ref{chap:reusable-correct-transformations}, the technique described in Chapter~\ref{chap:lts-transformations} is fully automated.
+This chapter is based on the following publication.
+
+\publication{\cite{EngelenWijsPropPres2012}}
+{L.J.P.\ Engelen and A.J.\ Wijs}
+{Checking Property Preservation of Refining Transformations for Model-Driven Development}
+{Technical Report, Department of Mathematics and Computer Science, Eindhoven University of Technology}
+{2012}
+{}
+
+\paragraph{Chapter~\ref{chap:conclusions}: Conclusions}
+This final chapter concludes this thesis.
+It revisits the research questions and gives directions for future research.
+
+\paragraph{}
+The research for the publications that form the basis of Chapters~\ref{chap:grammars-and-metamodels}, \ref{chap:prototype-semantics}, and~\ref{chap:reusable-correct-transformations} was conducted by Luc Engelen and his supervisors,
+and the research for the publications that form the basis of Chapters~\ref{chap:SLCO}, \ref{chap:exploring-boundaries}, \ref{chap:iterative-dsl-evolution}, and~\ref{chap:lts-transformations} was conducted by Luc and researchers of the Software Engineering and Technology group of the Eindhoven University of Technology.
+Luc served as the first author of the publications that form the basis of Chapters~\ref{chap:grammars-and-metamodels}, \ref{chap:SLCO}, \ref{chap:prototype-semantics}, and~\ref{chap:reusable-correct-transformations} and as the second author of the publication that forms the basis of Chapter~\ref{chap:lts-transformations}.
+The publications that form the basis of Chapters~\ref{chap:exploring-boundaries} and~\ref{chap:iterative-dsl-evolution} were written in close cooperation between Luc and Marcel van Amstel.
+Luc started the development of \SLCO and is responsible for its initial design.
+He collaborated with his supervisors and Marcel van Amstel to improve and extend the language.
+Luc has developed the metamodels, grammars, transformations, and the proprietary tools mentioned in this thesis, except for the metamodels of \NQC and \Promela, and the transformation from \SLCO to \Promela, which were originally implemented by Marcel van Amstel and updated by Luc at a later stage.
+Furthermore, Luc developed the formal semantics of \SLCO.
+All of the original work has been revised for this thesis to reflect our growing insight. 

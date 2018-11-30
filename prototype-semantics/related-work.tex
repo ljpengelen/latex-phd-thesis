@@ -1,0 +1,27 @@
+\section{Related Work}
+\label{sec:prototype-semantics:Related_Work}
+Hooman and Van der Zwaag~\cite{Hooman2006} used the interactive theorem prover \PVS to define the semantics of a subset of the \UML.
+In this subset, the behavior of objects is specified using state machines that communicate with each other both synchronously and asynchronously.
+Proving properties of models in this approach is done manually using \PVS.
+This is a complex task that requires expertise in \PVS, which can be simplified using certain predefined strategies.
+A disadvantage of this approach is that is does not offer the reusability of other existing tools that our approach offers.
+An advantage of this approach is that it does not suffer from the state-space explosion problem, because the complete state space of models does not have to be generated for property verification.
+
+Di Ruscio~\cite{Ruscio06apractical} et al.\ define the semantics of a DSML for the development of telephony services using Abstract State Machines (ASMs).
+Because ASMs can be executed, this definition can be used to simulate models specified in their DSML.
+The approach is meant for the specification of the behavioral semantics of the DSML only and does not offer verification of models.
+Proving properties for all models in general or any specific model is not investigated.
+In theory, however, properties of models could be verified in the domain of ASMs.
+
+Sadilek and Wachsmuth~\cite{Sadilek:2008:PVI:1426334.1426341} propose a technique for defining the semantics of DSMLs that uses model instances as configurations and \QVT relations to define steps between configurations.
+Configurations, representing model instances, can be visualized using the same editors used to create models.
+By reusing the existing editors, visual interpreters and visual debuggers can be created with relatively little effort.
+Although this technique is suited for simulation of models, it is not efficient enough for state-space generation.
+Because each configuration is represented by a model, a lot of memory is needed to store all possible configurations.
+
+A number of approaches use \Maude to specify the operational semantics of DSMLs~\cite{Rusu:2011:EDM:1921532.1921557, Rivera:2009:FSA:1631662.1631666}.
+Given the operational semantics of a DSML in \Maude, other techniques can be applied to verify properties of models specified in such a DSML.
+Both an LTL model checker~\cite{wrla2002:mmc} and a $\mu$-calculus model checker~\cite{Wang:2005:9MC:1705545.1705992} are available for rewrite systems specified in \Maude.
+Although it is clear that model checking techniques can be implemented in \Maude and applied to specifications of the semantics of DSMLs, not all techniques applicable to labeled transition systems that we aim to exploit, such as reduction and visualization, have been implemented in \Maude.
+It might be the case, therefore, that a given technique must first be implemented in \Maude before it can be used in combination with a specification of the semantics of a DSML.
+With our approach, we can connect to various tools and apply existing techniques only by adapting the representation of labeled transition systems, if~needed. 

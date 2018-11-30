@@ -1,0 +1,53 @@
+\section{The Simple Language of Communicating Objects}
+\label{sec:prototype-semantics:dsl}
+\begin{address}
+An example of two objects connected by three channels is shown in Figure~XX.
+The objects~$XXX$ and~$XXX$, which are instances of classes $P$ and~$Q$, can communicate over channels~$XXX1\_XXX$, $XXX2\_XXX2$, and~$XXX3\_XXX3$.
+Channel~$XXX1\_XXX1$, for instance, can only be used to send and receive signals with a boolean argument, and channel~$XXX2\_XXX2$ only allows signals without any arguments.
+
+%%%%\begin{figure}[hbt]
+%%%%  \begin{minipage}[b]{.45\textwidth}
+%%%%    \centering
+%%%%\includegraphics[scale=0.5]{prototype-semantics/figs/slco_example_communication}
+%%%%\caption{Objects, ports and channels in \SLCO}
+%%%%\label{fig:prototype-semantics:slco_example_communication}
+%%%%  \end{minipage}
+%%%%  \hspace{0.5cm}
+%%%%  \begin{minipage}[b]{.45\textwidth}
+%%%%    \centering
+%%%%\includegraphics[scale=0.3]{prototype-semantics/figs/slco_example_sms}
+%%%%\caption{Two \SLCO state machines}
+%%%%\label{fig:prototype-semantics:slco_example_sms}
+%%%%  \end{minipage}
+%%%%\end{figure}
+
+%\begin{figure}[hbt]
+%\centering
+%\includegraphics[width=.3\columnwidth]{figs/slco_example_communication}
+%\caption{Objects, ports and channels in \SLCO}
+%\label{fig:prototype-semantics:slco_example_communication}
+%\end{figure}
+
+Figure~XX shows that object~$XXX$ has ports $\it{P1}$, $\it{P2}$, and~$\it{P3}$, connecting it to channels~$XXX1\_XXX1$, $XXX2\_XXX2$, and~$XXX3\_XXX3$, and that object $XXX$ has ports $\it{Q1}$, $\it{Q2}$, and~$\it{Q3}$, connecting it to the same channels.
+
+Figure~XX shows an example of an \SLCO model consisting of two state machines, whose initial states, $XXX$, are indicated by a black dot-and-arrow, and whose final states are denoted as circled black dots.
+As explained below, the left state machine specifies the behavior of object~$XXX$ and the right state machine specifies the behavior of object~$XXX$, both already introduced  in~Figure~XX.
+
+For instance, $\texttt{[n >= 2]}$ is the guard of the transition with the source $XXX$ and the final state as the target state in the state machine of $XXX$.
+Take for instance the transition in $XXX$ from $XXX$ to the final state, with trigger $XXX$.
+It is only taken if the value of the argument sent with the signal $XXX$ is smaller than 2, specified as $[m \texttt{<} 2]$.
+Thus, $XXX$ in state $XXX$  accepts only signals whose argument equals \emph{true}.
+
+The state machines in Figure~XXX specify the  following communication between $XXX$ and $XXX$.
+The two objects first communicate synchronously over channel~$XXX1$, after which $XXX$ repeatedly sends signals to $XXX$ over the lossy channel~$XXX2$. As soon as $XXX$ receives $2$ of the signals sent by $XXX$, it sends a signal over channel~$XXX3\_XXX3$ and terminates.
+After receiving this signal, $XXX$ terminates as well.
+
+%\begin{figure}[hbt]
+%\centering
+%\includegraphics[width=.5\columnwidth]{figs/slco_example_sms}
+%\caption{Two \SLCO state machines}
+%\label{fig:prototype-semantics:slco_example_sms}
+%\end{figure}
+
+In addition to the graphical concrete syntax shown above, \SLCO has a textual concrete syntax, which is used by the tools described in Section~\ref{sec:prototype-semantics:prototyping_semantics} to perform transformations of \SLCO models.
+\end{address} 

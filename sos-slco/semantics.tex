@@ -1,0 +1,532 @@
+\section{Semantics}
+We use a variant of structural operational semantics~\cite{SOS2004Plotkin, HennessySemantics90} that relies heavily on valuation functions to define the semantics of \SLCO.
+These valuation functions enable a compositional definition of the semantics.
+The potential behavior of an \SLCO model is defined in terms of the potential behavior of the objects that constitute this model.
+In turn, the potential behavior of the objects is defined in terms of the potential behavior of their classes, which is defined in terms of the potential behavior of the state machines that constitute the classes.
+Finally, the potential behavior of a state machine is defined in terms of the potential behavior of the transitions of the state machine.
+
+\subsection{Transitions}
+The potential behavior of a transition is defined by the relation
+%
+\[
+\TransitionsRelation{} ~ \subseteq (\Transitions \times \StateNames \times \VVARS \times \VVARS) \times \TransitionLabels \times (\StateNames \times \VVARS \times \VVARS),
+\]
+
+\noindent
+where each function~$\vvars$ from the set of partial functions~$\VVARS = \VariableNames \pfun \ConstantExpressions$ maps variable names to constant expressions, and the syntax of transition labels~$l \in \TransitionLabels$ is defined as follows.
+%
+\[
+\begin{array}{lcl}
+\it{l} & ::= & \epsilon \\
+        & |   & ``\textbf{send}"~\it{sgn}~``("~\it{ce^*}~``)"~``\textbf{to}"~\it{pn} \\
+        & |   & ``\textbf{receive}"~\it{sgn}~``("~\it{ce^*}~``)"~``\textbf{from}"~\it{pn} \\
+        & |   & ``\textbf{send}"~\it{sgn}~``("~\it{ce^*}~``)" \\
+        & |   & ``\textbf{receive}"~\it{sgn}~``("~\it{ce^*}~``)" \\
+        & |   & ``\textbf{lost}"~\it{sgn}~``("~\it{ce^*}~``)" \\
+        & |   & \it{sgn}~``("~\it{ce^*}~``)" \\
+        & |   & \it{vn}~``\assignop"~\it{ce} \\
+\end{array}
+\]
+
+\noindent
+The relation~\TransitionsRelation{} is the least relation satisfying the following rules.
+%
+\begin{equation*}
+\langle \it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}, \it{sn}, \vvars, \vvars' \rangle
+\TransitionsRelation{\epsilon}
+\langle \it{sn'}, \vvars, \vvars' \rangle
+\tag{T1}
+\label{eq:sos-slco:trans-empty}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\langle \it{e}, \vvars, \vvars' \rangle
+\ExpressionRelation{}
+\textbf{true}
+}{
+\langle \it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}~\it{e}, \it{sn}, \vvars, \vvars' \rangle
+\TransitionsRelation{\epsilon}
+\langle \it{sn'}, \vvars, \vvars' \rangle
+}
+\tag{T2}
+\label{eq:sos-slco:trans-expression}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\langle \it{assign}, \vvars, \vvars' \rangle
+\AssignmentRelation{l}
+\langle \vvars'', \vvars''' \rangle
+}{
+\langle \it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}~\it{assign}, \it{sn}, \vvars, \vvars' \rangle
+\TransitionsRelation{\it{l}}
+\langle \it{sn'}, \vvars'', \vvars''' \rangle
+}
+\tag{T3}
+\label{eq:sos-slco:trans-assignment}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\langle \it{e^*}, \vvars, \vvars' \rangle
+\ExpressionsRelation{}
+\it{ce^*}
+}{
+\langle \it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}~\textbf{send}~\it{sign}(\it{e^*})~\textbf{to}~\it{pn}, \it{sn}, \vvars, \vvars' \rangle \\
+\TransitionsRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn}}
+\langle \it{sn'}, \vvars, \vvars' \rangle
+}
+\tag{T4}
+\label{eq:sos-slco:trans-send}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\langle \it{ce^*}, \it{vn^*}, \vvars, \vvars' \rangle
+\MultipleSubstitutionRelation{}
+\langle \vvars'', \vvars''' \rangle, \quad
+\langle \it{e}, \vvars'', \vvars''' \rangle
+\ExpressionRelation{}
+\textbf{true}
+}{
+\langle \it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}~\textbf{receive}~\it{sgn}(\it{vn^*}~|~\it{e})~\textbf{from}~\it{pn}, \it{sn}, \vvars, \vvars' \rangle \\
+\TransitionsRelation{\textbf{receive}~\it{sgn}(\it{ce^*})~\textbf{from}~\it{pn}}
+\langle \it{sn'}, \vvars'', \vvars''' \rangle
+}
+\tag{T5}
+\label{eq:sos-slco:trans-reception}
+\end{equation*}
+
+Rule~\eqref{eq:sos-slco:trans-empty} defines that a transition specification~$\it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}$ leads to a transition from state~$\it{sn}$ to state~$\it{sn'}$, leaving the valuation functions~\vvars and~$\vvars'$ unchanged.
+
+Rule~\eqref{eq:sos-slco:trans-expression} defines that such a transition is also possible given a transition specification~$\it{tn}~\textbf{from}~\it{sn}~\textbf{to}~\it{sn'}~\it{e}$, provided that the expression~$e$ evaluates to~$\textbf{true}$.
+This rule refers to a relation~$\ExpressionRelation{} ~ \subseteq (\Expressions \times \VVARS \times \VVARS) \times \ConstantExpressions$, which defines how expressions~$e \in \Expressions$ evaluate to constant expressions~$\it{ce} \in \ConstantExpressions$, given two valuation functions~$\vvars \in \VVARS$ and~$\vvars' \in \VVARS$.
+We do not specify the syntax of expressions, as mentioned above, and leave their semantics unspecified as well.
+We use a standard semantics for the evaluation of expressions, where two valuation functions are used to distinguish between the local variables of state machines and the global variables of objects.
+This distinction is discussed in further detail below.
+
+Rule~\eqref{eq:sos-slco:trans-assignment} defines that the execution of an assignment statement as part of a transition leads to an update of the valuation functions~$\vvars$ and $\vvars'$.
+The rule refers to the relation~$\AssignmentRelation{} ~ \subseteq (\Expressions \times \VVARS \times \VVARS) \times \TransitionLabels \times (\VVARS \times \VVARS)$, which defines the details of this update.
+The relation~\AssignmentRelation{} is the least relation satisfying the following rules.
+%
+\begin{equation*}
+\sosrule{
+\langle \it{e}, \vvars, \vvars' \rangle
+\ExpressionRelation{}
+\it{ce}, \quad
+\it{vn} \in \operatorname{dom}(\vvars'), \quad
+\vvars'' = \vvars'[\it{ce}/\it{vn}]
+}{
+\langle \it{vn}~\assignop~\it{e}, \vvars, \vvars' \rangle
+\AssignmentRelation{\it{vn} \assignop \it{ce}}
+\langle \vvars, \vvars'' \rangle
+}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\langle \it{e}, \vvars, \vvars' \rangle
+\ExpressionRelation{}
+\it{ce}, \\
+\it{vn} \notin \operatorname{dom}(\vvars'), \quad
+\it{vn} \in \operatorname{dom}(\vvars), \quad
+\vvars'' = \vvars[\it{ce}/\it{vn}]
+}{
+\langle \it{vn}~\assignop~\it{e}, \vvars, \vvars' \rangle
+\AssignmentRelation{\it{vn} \assignop \it{ce}}
+\langle \vvars'', \vvars' \rangle
+}
+\end{equation*}
+
+\noindent
+In these rules, the distinction between local and global variables becomes apparent.
+In both rules, valuation function~\vvars maps the global variables to their values, and function~$\vvars'$ maps the local variables to their values.
+If a local variable named~$\it{vn}$ exists, denoted by~$\it{vn} \in \operatorname{dom}(\vvars')$, then the valuation function~$\vvars'$ is updated by mapping~$\it{vn}$ to~$\it{ce}$.
+Otherwise, if a global variable named~$\it{vn}$ exists, the valuation function~$\vvars$ is updated.
+We use~$f[\it{v}/\it{x}]$ to denote the updated function~$f$, where~$f[\it{v}/\it{x}](x)=\it{v}$ and $f[\it{v}/\it{x}](y)=f(y)$ for all~$y \not = x$.
+
+Rule~\eqref{eq:sos-slco:trans-send} defines the semantics of transitions with statements that send signals.
+It refers to the relation~$\ExpressionsRelation{} ~ \subseteq (\it{SEQ}(\Expressions) \times \VVARS \times \VVARS) \times \it{SEQ}(\ConstantExpressions)$, which defines how a sequence of expressions is evaluated to a sequence of constant expressions, given two valuation functions.
+The relation~$\ExpressionsRelation{}$ is the least relation that satisfies the following rules.
+%
+\begin{equation*}
+\langle \epsilon, \vvars, \vvars' \rangle
+\ExpressionsRelation{}
+\epsilon
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\langle \it{e}, \vvars, \vvars' \rangle
+\ExpressionRelation{}
+\it{ce}, \quad
+\langle \it{e^*}, \vvars, \vvars' \rangle
+\ExpressionsRelation{}
+\it{ce^*}
+}{
+\langle \it{e}~\it{e^*}, \vvars, \vvars' \rangle
+\ExpressionsRelation{}
+\it{ce}~\it{ce^*}
+}
+\end{equation*}
+
+Finally, an instance of rule~\eqref{eq:sos-slco:trans-reception} exists for all~$\it{ce^*} \in \it{SEQ}(\ConstantExpressions)$.
+These instances define the semantics of transitions with signal reception statements.
+It refers to the relation~$\MultipleSubstitutionRelation{} ~ \subseteq (\ConstantExpressions \times \VariableNames \times \VVARS \times \VVARS) \times (\VVARS \times \VVARS)$, which defines sequential updates of the values of a set of variables.
+The relation~\MultipleSubstitutionRelation{} is the least relation satisfying the following rules.
+%
+\begin{equation*}
+\langle \epsilon, \epsilon, \vvars, \vvars' \rangle
+\MultipleSubstitutionRelation{}
+\langle \vvars, \vvars' \rangle
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\it{vn} \in \operatorname{dom}(\vvars'), \quad
+\vvars'' = \vvars'[\it{ce}/\it{vn}], \quad
+\langle \it{ce^*}, \it{vn^*}, \vvars, \vvars'' \rangle
+\MultipleSubstitutionRelation{}
+\langle \vvars''', \vvars'''' \rangle
+}{
+\langle \it{ce}~\it{ce^*}, \it{vn}~\it{vn^*}, \vvars, \vvars' \rangle
+\MultipleSubstitutionRelation{}
+\langle \vvars''', \vvars'''' \rangle
+}
+\end{equation*}
+
+\begin{equation*}
+\sosrule{
+\it{vn} \notin \operatorname{dom}(\vvars'), \quad
+\it{vn} \in \operatorname{dom}(\vvars), \quad
+\vvars'' = \vvars[\it{ce}/\it{vn}], \\
+\langle \it{ce^*}, \it{vn^*}, \vvars'', \vvars' \rangle
+\MultipleSubstitutionRelation{}
+\langle \vvars''', \vvars'''' \rangle
+}{
+\langle \it{ce}~\it{ce^*}, \it{vn}~\it{vn^*}, \vvars, \vvars' \rangle
+\MultipleSubstitutionRelation{}
+\langle \vvars''', \vvars'''' \rangle
+}
+\end{equation*}
+
+\noindent
+Each instance of rule~\eqref{eq:sos-slco:trans-reception} specifies that a statement~$\textbf{receive}~\it{sgn}(\it{vn^*}~|~\it{e})~\textbf{from}~\it{pn}$ is only enabled if expression~$e$ evaluates to~$\textbf{true}$ after updating the values of the variables~$\it{vn^*}$ to the constant expressions~$\it{ce^*}$.
+This sequence of constant expressions represents the possible values of the arguments of signals sent by other objects.
+
+\section{State Machines}
+The potential behavior of a state machine is defined by the relation
+%
+\[
+\StateMachineRelation{} ~ \subseteq (\StateMachines \times \SSMS \times \VVARS \times \VSMS) \times \TransitionLabels \times (\SSMS \times \VVARS \times \VSMS),
+\]
+
+\noindent
+where each function~$\ssms$ from the set of partial functions~$\SSMS = \StateMachineNames \pfun \StateNames$ maps state machine names to state names, and each function~$\vsms$ from the set of partial functions~$\VSMS = \StateMachineNames \pfun (\VariableNames \pfun \ConstantExpressions)$ maps state machine names to functions that map variable names to constant expression.
+The fact that state machine~$\it{smn}$ is in state~$\it{sn}$ is encoded as~$\ssms(\it{smn}) = \it{sn}$ using a function~$\ssms \in \SSMS$.
+Furthermore, the fact that variable~$\it{vn}$ of state machine~$\it{smn}$ has the value~$\it{ce}$ is encoded as~$\vsms(\it{smn})(\it{vn}) = \it{ce}$ using a function~$\vsms \in \VSMS$.
+The relation~\StateMachineRelation{} is the least relation satisfying the following rule.
+%
+\begin{equation*}
+\sosrule{
+\it{trans} \in \it{trans^*}, \\
+\langle \it{trans}, \ssms(\it{smn}), \vvars, \vsms(\it{smn}) \rangle
+\TransitionsRelation{l}
+\langle \it{sn}, \vvars', \vvars'' \rangle, \\
+\ssms' = \ssms[\it{sn}/\it{smn}], \quad
+\vsms' = \vsms[\vvars''/\it{smn}]
+}{
+\langle \it{smn}~\it{var^*}~\it{states}~\it{trans^*}, \ssms, \vvars, \vsms \rangle
+\StateMachineRelation{l}
+\langle \ssms', \vvars', \vsms' \rangle
+}
+\tag{SM}
+\label{eq:sos-slco:sm}
+\end{equation*}
+
+\noindent
+We use~$\it{e} \in \it{e^*}$ to denote~$\exists e', e'' ~ . ~ e^* \equiv e'~e~e''$, for each element~$e$ of a syntactic category.
+
+Rule~\eqref{eq:sos-slco:sm} defines that if one of the transitions of a state machine can go from state~$\ssms(\it{smn})$ to state~$\it{sn}$ while performing an action represented by~$l$, then this state machine can make a transition to the same state from state~$\ssms(\it{smn})$ while performing the same action.
+
+\subsection{Classes}
+The potential behavior of a class is defined by the relation
+%
+\[
+\ClassRelation{} ~ \subseteq (\Classes \times \SSMS \times \VVARS \times \VSMS) \times \TransitionLabels \times (\SSMS \times \VVARS \times \VSMS).
+\]
+
+\noindent
+The relation~\ClassRelation{} is the least relation satisfying the following rule.
+%
+\begin{equation*}
+\sosrule{
+\it{sm} \in \it{sm^*}, \quad
+\langle \it{sm}, \ssms, \vvars, \vsms \rangle
+\StateMachineRelation{l}
+\langle \ssms', \vvars', \vsms' \rangle
+}{
+\langle \it{cn}~\it{var^*}~\it{port^*}~\it{sm^*}, \ssms, \vvars, \vsms \rangle
+\ClassRelation{l}
+\langle \ssms', \vvars', \vsms' \rangle
+}
+\tag{C}
+\label{eq:sos-slco:class}
+\end{equation*}
+
+\noindent
+Rule~\eqref{eq:sos-slco:class} defines that the potential behavior of a class is derived from the potential behavior of the state machines of that class.
+
+\subsection{Objects}
+The potential behavior of a set of objects is defined by the relation
+%
+\begin{align*}
+\ObjectsRelation{} ~ \subseteq & ~ (\Objects \times \Classes \times \Channels \times \SOBJS \times \VGLOB \times \VLOC \times \Buf)\\
+ & ~ \times \TransitionLabels \times (\SOBJS \times \VGLOB \times \VLOC \times \Buf),
+\end{align*}
+
+\noindent
+where each function~$\vglob$ from the set of partial functions~$\VGLOB = \ObjectNames \pfun (\VariableNames \pfun \ConstantExpressions)$ maps object names to functions that map variable names to constant expressions,
+each function~$\vloc$ from the set of partial functions~$\VLOC = \ObjectNames \pfun (\StateMachineNames \pfun (\VariableNames \pfun \ConstantExpressions))$ maps object names to functions that map state machine names to functions that map variable names to constant expressions,
+each function~$\sobjs$ from the set of partial functions~$\SOBJS = \ObjectNames \pfun (\StateMachineNames \pfun \StateNames)$ maps object names to functions that map state machine names to state names,
+and each function~$\buf$ from the set of partial functions~$\Buf = (\ChannelNames \times \ObjectNames \times \ObjectNames) \pfun (\SignalNames \times {\it SEQ}(\ConstantExpressions)) \cup \{\nil\}$ maps tuples consisting of a channel name and two object names to the constant nil or a tuple consisting of a signal name and a sequence of constant expressions.
+The functions in~\VGLOB encode valuations of global variables, and the functions in~\VLOC encode valuations of local variables.
+The set of functions~\SOBJS is an extension of the set~\SSMS.
+The fact that state machine~$\it{smn}$ of object~$\it{on}$ is in state~$\it{sn}$ is encoded as~$\sobjs(\it{on})(\it{smn}) = \it{sn}$ using a function~$\sobjs \in \SOBJS$.
+The functions in~$\Buf$ are used to encode the content of a set of buffers.
+The fact that the buffer corresponding to the channel~$\it{chn}$ that connects objects~$\it{on_1}$ and~$\it{on_2}$ is empty is encoded as~$\buf(\it{chn}, \it{on_1}, \it{on_2}) = \nil$ using a function~$\buf \in \Buf$.
+In the remainder of this section, we discuss a number of the rules that define this relation.
+
+The following rule defines the part of the semantics of sequences of objects related to assignment statements.
+%
+\begin{equation*}
+\sosrule{
+\it{on}:\it{cn} \in \it{obj^*}, \quad
+\it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*} \in \it{class^*}, \\
+\langle \it{cn}~\it{var^*}~\it{pn^*}~\it{sm^*}, \sobjs(\it{on}), \vglob(\it{on}), \vloc(\it{on}) \rangle \\
+\ClassRelation{\it{vn} \assignop \it{ce}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on}], \quad
+\vglob' = \vglob[\vvars/\it{on}], \quad
+\vloc' = \vloc[\vsms/\it{on}]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\it{vn} \assignop \it{ce}}
+\langle \sobjs', \vglob', \vloc', \buf \rangle
+}
+\tag{O1}
+\label{eq:sos-slco:object-assign}
+\end{equation*}
+
+\noindent
+Rule~\eqref{eq:sos-slco:object-assign} specifies that a sequence of objects can perform an assignment~$\it{vn} \assignop \it{ce}$ if one of the objects in the sequence is an instance of a class that can perform this assignment.
+
+The following rules defines the part of the semantics of sequences of objects related to synchronous communication.
+%
+\begin{equation*}
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{on_2}:\it{cn_2} \in \it{obj^*}, \\
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \quad
+\it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{sync}~\textbf{from}~\it{on_1}.\it{pn_1}~\textbf{to}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle \\
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\langle \it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2}, \sobjs(\it{on_2}), \vglob(\it{on_2}), \vloc(\it{on_2}) \rangle \\
+\ClassRelation{\textbf{receive}~\it{sgn}(\it{ce^*})~\textbf{from}~\it{pn_2}}
+\langle \ssms', \vvars', \vsms' \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}][\ssms'/\it{on_2}], \\
+\vglob' = \vglob[\vvars'/\it{on_2}], \quad
+\vloc' = \vloc[\vsms'/\it{on_2}]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\it{sn}(\it{ce^*})}
+\langle \sobjs', \vglob', \vloc', \buf \rangle
+}
+\tag{O2}
+\label{eq:sos-slco:object-syncuni}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{on_2}:\it{cn_2} \in \it{obj^*}, \\
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \quad
+\it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{sync}~\textbf{between}~\it{on_1}.\it{pn_1}~\textbf{and}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle \\
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\langle \it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2}, \sobjs(\it{on_2}), \vglob(\it{on_2}), \vloc(\it{on_2}) \rangle \\
+\ClassRelation{\textbf{receive}~\it{sgn}(\it{ce^*})~\textbf{from}~\it{pn_2}}
+\langle \ssms', \vvars', \vsms' \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}][\ssms'/\it{on_2}], \\
+\vglob' = \vglob[\vvars'/\it{on_2}], \quad
+\vloc' = \vloc[\vsms'/\it{on_2}]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\it{sn}(\it{ce^*})}
+\langle \sobjs', \vglob', \vloc', \buf \rangle
+}
+\tag{O3}
+\label{eq:sos-slco:object-syncbi1}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{on_2}:\it{cn_2} \in \it{obj^*}, \\
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \quad
+\it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{sync}~\textbf{between}~\it{on_2}.\it{pn_2}~\textbf{and}~\it{on_1}.\it{pn_1} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle \\
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\langle \it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2}, \sobjs(\it{on_2}), \vglob(\it{on_2}), \vloc(\it{on_2}) \rangle \\
+\ClassRelation{\textbf{receive}~\it{sgn}(\it{ce^*})~\textbf{from}~\it{pn_2}}
+\langle \ssms', \vvars', \vsms' \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}][\ssms'/\it{on_2}], \\
+\vglob' = \vglob[\vvars'/\it{on_2}], \quad
+\vloc' = \vloc[\vsms'/\it{on_2}]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\it{sn}(\it{ce^*})}
+\langle \sobjs', \vglob', \vloc', \buf \rangle
+}
+\tag{O4}
+\label{eq:sos-slco:object-syncbi2}
+\end{equation*}
+
+\noindent
+Rule~\eqref{eq:sos-slco:object-syncuni} specifies synchronous communication between two objects over a unidirectional channel, and Rules~\eqref{eq:sos-slco:object-syncbi1} and~\eqref{eq:sos-slco:object-syncbi2} specify synchronous communication over bidirectional channels.
+Because sending a signal does not affect the valuation of variables, the updates of~\vglob and~\vloc do not take object~$\it{on_1}$ into account.
+
+The following rules define asynchronous communication over a lossless channel.
+%
+\begin{equation*}
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{async lossless}~\textbf{from}~\it{on_1}.\it{pn_1}~\textbf{to}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle \\
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}], \\
+\buf(\langle \it{chn}, \it{on_1}, \it{on_2} \rangle) = \textbf{nil}, \quad
+\buf' = \buf[\langle \it{sgn}, \it{ce^*} \rangle/\langle \it{chn}, \it{on_1}, \it{on_2} \rangle]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\textbf{send}~\it{sgn}(\it{ce^*})}
+\langle \sobjs', \vglob, \vloc, \buf' \rangle
+}
+\tag{O5}
+\label{eq:sos-slco:object-async1}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\it{on_2}:\it{cn_2} \in \it{obj^*}, \quad
+\it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{async lossless}~\textbf{from}~\it{on_1}.\it{pn_1}~\textbf{to}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_2}~\it{var^*_2}~\it{pn^*_2}~\it{sm^*_2}, \sobjs(\it{on_2}), \vglob(\it{on_2}), \vloc(\it{on_2}) \rangle \\
+\ClassRelation{\textbf{receive}~\it{sgn}(\it{ce^*})~\textbf{from}~\it{pn_2}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_2}], \\
+\vglob' = \vglob[\vvars/\it{on_2}], \quad
+\vloc' = \vloc[\vsms/\it{on_2}], \\
+\buf(\langle \it{chn}, \it{on_1}, \it{on_2} \rangle) = \langle \it{sgn}, \it{ce^*} \rangle, \quad
+\buf' = \buf[\textbf{nil}/\langle \it{chn}, \it{on_1}, \it{on_2} \rangle]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle \\
+\ObjectsRelation{\textbf{receive}~\it{sgn}(\it{ce^*})}
+\langle \sobjs', \vglob', \vloc', \buf' \rangle
+}
+\tag{O6}
+\label{eq:sos-slco:object-async2}
+\end{equation*}
+
+\noindent
+We only give the rules related to unidirectional channels.
+The rules for bidirectional channels are similar, however, and can be derived from the rules given above.
+
+Rule~\eqref{eq:sos-slco:object-async1} specifies that a signal is placed in the buffer that corresponds to an asynchronous channel if an object sends this signal over the channel.
+This is only possible if the buffer is empty when the statement is executed.
+Rule~\eqref{eq:sos-slco:object-async2} specifies that a signal is removed from the buffer that corresponds to an asynchronous channel if an object that is connected to this channel is able to receive this signal.
+
+The following rules define how asynchronous communication over a lossy channel differs from asynchronous communication over a lossless channel.
+%
+\begin{equation*}
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{async lossy}~\textbf{from}~\it{on_1}.\it{pn_1}~\textbf{to}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle \\
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \Buf \rangle
+\ObjectsRelation{\textbf{lost}~\it{sgn}(\it{ce^*})}
+\langle \sobjs', \vglob', \vloc', \Buf \rangle
+}
+\tag{O7}
+\label{eq:sos-slco:object-lossy1}
+\end{equation*}
+%
+\begin{equation*}
+\sosrule{
+\it{on_1}:\it{cn_1} \in \it{obj^*}, \quad
+\it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1} \in \it{class^*}, \\
+\it{chn}(\it{type^*})~\textbf{async lossy}~\textbf{from}~\it{on_1}.\it{pn_1}~\textbf{to}~\it{on_2}.\it{pn_2} \in \it{chan^*}, \\
+\langle \it{cn_1}~\it{var^*_1}~\it{pn^*_1}~\it{sm^*_1}, \sobjs(\it{on_1}), \vglob(\it{on_1}), \vloc(\it{on_1}) \rangle \\
+\ClassRelation{\textbf{send}~\it{sgn}(\it{ce^*})~\textbf{to}~\it{pn_1}}
+\langle \ssms, \vvars, \vsms \rangle, \\
+\sobjs' = \sobjs[\ssms/\it{on_1}], \\
+\buf(\langle \it{chn}, \it{on_1}, \it{on_2} \rangle) = \langle \it{sgn'}, \it{ce^{*\prime}} \rangle, \quad
+\buf' = \buf[\langle \it{sgn}, \it{ce^*} \rangle/\langle \it{chn}, \it{on_1}, \it{on_2} \rangle]
+}{
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{\textbf{lost}~\it{sgn'}(\it{ce^{*\prime}})}
+\langle \sobjs', \vglob', \vloc', \buf' \rangle
+}
+\tag{O8}
+\label{eq:sos-slco:object-lossy2}
+\end{equation*}
+
+\noindent
+Besides the rules shown above, additional rules exist that complete the definition of asynchronous communication over lossy channels.
+These rules are similar to the rules defining communication over asynchronous, lossless channels and can be derived from those rules.
+
+Rule~\eqref{eq:sos-slco:object-lossy1} specifies that a signal sent over a lossy channel may get lost.
+In this rule, the function representing the buffer is unchanged.
+Rule~\eqref{eq:sos-slco:object-lossy2} specifies an alternative way of losing signals.
+It shows that a signal sent over a lossy channel can be placed in the corresponding buffer, even if this buffer already contains a signal.
+The new signal replaces the existing signal, which means that the original signal is lost.
+
+\subsection{Models}
+Finally, the potential behavior of a model is defined by the relation
+%
+\begin{align*}
+\ModelRelation{} ~ \subseteq & ~ (\Models \times \SOBJS \times \VGLOB \times \VLOC \times \Buf) \\
+ & ~ \times \TransitionLabels \times (\Models \times \SOBJS \times \VGLOB \times \VLOC \times \Buf),
+\end{align*}
+
+\noindent
+which is the least relation satisfying the following rule.
+%
+\begin{equation*}
+\sosrule{
+\it{m} \equiv \it{mn}~\it{obj^*}~\it{class^*}~\it{chan^*}, \\
+\langle \it{obj^*}, \it{class^*}, \it{chan^*}, \sobjs, \vglob, \vloc, \buf \rangle
+\ObjectsRelation{l}
+\langle \sobjs', \vglob', \vloc', \buf' \rangle
+}{
+\langle \it{m}, \sobjs, \vglob, \vloc, \buf \rangle
+\ModelRelation{l}
+\langle \it{m}, \sobjs', \vglob', \vloc', \buf' \rangle
+}
+\tag{M}
+\label{eq:sos-slco:model}
+\end{equation*} 

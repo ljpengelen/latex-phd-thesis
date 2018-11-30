@@ -1,0 +1,36 @@
+\section{Simple Language of Communicating Objects}\label{sec:SLCO}
+We designed a DSL called Simple Language of Communicating Objects (SLCO).
+This language provides constructs to specify systems consisting of objects that operate in parallel and communicate over channels.
+An SLCO model consists of a number of classes, instances of these classes, and channels.
+Instances of classes are called objects.
+These objects can be connected to each other by channels. Figure~\ref{fig:slco_ports_example} shows two objects, $\it{a1}$ and $\it{a2}$, that are instances of the same class, $A$, and that can communicate over a channel, $c$.
+
+\begin{figure}[hbt]
+ \centering
+ \includegraphics[width=.8\textwidth]{figs/slco_ports}
+ \caption{Two objects connected by a channel in SLCO}
+ \label{fig:slco_ports_example}
+\end{figure}
+
+A class describes the structure and behavior of its instances.
+A class has ports and variables that define the structure of its instances, and state machines that describe their behavior.
+Figure~\ref{fig:slco_ports_example} shows that both instances of the class $A$ have a port $p$.
+A state machine consists of variables, states, and transitions.
+A transition has a source and a target state, and possibly a guard, a trigger, or an effect.
+A guard is a boolean expression that must hold to make the transition from source state to target state.
+There are two types of triggers: a deadline and the reception of a signal.
+If the amount of time specified by a deadline has passed or a signal is received, the transition that has such a trigger is enabled.
+The effect of a trigger is a number of statements that are executed when the transition is taken.
+There are statements for assigning values to variables and for sending signals.
+Figure~\ref{fig:slco_sm_example} shows an example of a state machine.
+
+\begin{figure}[hbt]
+ \centering
+ \includegraphics[width=.8\textwidth]{figs/Single_SSingle}
+ \caption{State machine in SLCO}
+ \label{fig:slco_sm_example}
+\end{figure}
+
+%%SLCO started as a simplified version of a part of the UML.
+%%The syntax of state machines in SLCO is similar to the graphical syntax of UML's state machine diagrams.
+%%A difference between UML and SLCO in this respect is the fact that we explicitly defined a textual syntax for the guards and effects.

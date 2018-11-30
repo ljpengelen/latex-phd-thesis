@@ -1,0 +1,33 @@
+\section{Verification}
+\label{sec:prototype-semantics:verification}
+
+For small state spaces, like the one in Figure~\ref{fig:prototype-semantics:statespace}, it is easy to verify properties manually by inspecting the graph.
+In case of larger state spaces, reduction techniques can be applied to first reduce the labeled transition system that represents the state space before verifying properties manually.
+The tool \ltsconvert, which is part of the \mCRLTwo toolset~\cite{mcrl2}, takes a labeled transition system in various formats as input and converts it to an equivalent labeled transition system in another format.
+One of the formats that \ltsconvert is able to process is the \DOT format.
+The tool is also capable of reducing labeled transition systems by means of an equivalence relation.
+It supports several of these equivalence relations.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[scale=.4]{prototype-semantics/figs/statespace_reduced}
+  \caption{A reduced LTS visualized using \DOT}
+  \label{fig:prototype-semantics:statespace_reduced}
+\end{figure}
+
+Figure~\ref{fig:prototype-semantics:statespace_reduced} shows the state space obtained after reduction has been applied to the state space in Figure~\ref{fig:prototype-semantics:statespace}.
+In this case, branching bisimilarity~\cite{GlabWeijBisim96} was used as equivalence relation.
+The labeled transition system has been reduced by, first, turning all labels except \SLCOSignal{S}{`a'} and \SLCOSignal{T}{`a'} to internal, unobservable labels and then removing all redundant states and transitions using \ltsconvert.
+A similar procedure can be applied for the other reductions that are supported by this tool.
+
+A number of the transformations described in Section~\ref{sec:slco:endogenous} transform \SLCO models into other \SLCO models with equivalent observable behavior.
+By producing a labeled transition system representing the state space of the input and output model of such a transformation and reducing both labeled transition systems using the technique described above, the correctness of this transformation for the given input model can be verified by comparing the reduced labeled transition systems.
+If both reductions lead to the same labeled transition system, the transformation has indeed preserved the observable~behavior.
+We used this approach to assess the correctness of the transformations described in Sections~\ref{subsubsec:slco:sync2async}, \ref{subsubsec:slco:ll}, and~\ref{subsubsec:slco:merge} by applying these transformations to a number of models and comparing the state spaces of these models before and after transformation.
+
+When labeled transition systems get too large for reduction and manual inspection, other tools can be used for verification.
+One approach is converting labeled transition systems to the \BCG and \AUT file formats that are used by the \CADP toolset~\cite{DBLP:conf/tacas/GaravelLMS11} to represent labeled transition systems.
+The \CADP toolset offers tools that take a labeled transition system and a temporal logic property as input and perform on-the-fly verification of the property on the labeled transition system. Alternatively, the previously mentioned \mCRLTwo toolset can be used for verification too.
+This toolset includes a tool that can transform labeled transition systems to the proprietary format of the toolset as well as tools that can be used to analyze, simulate, manipulate, and visualize models described using this format.
+These two example toolsets clearly show the added benefit of producing labeled transition systems from \SLCO models.
+Transforming models to this common description format makes it possible to verify properties of models using existing tools, without additional effort. 

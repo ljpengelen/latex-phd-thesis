@@ -1,0 +1,19 @@
+\section{Conclusions and Future Work}
+\label{sec:lts-transformation:conclusions}
+
+In this chapter, we addressed research question~\RQ{6} for restricted forms of models and model transformations.
+We presented a technique to check whether refining model transformations preserve properties.
+It is aimed at verifying the correctness of complex models that are the result of iterative refinement through model transformation.
+Models are formally represented by networks of LTSs and model transformations as rule systems.
+We can check whether specific safety, liveness, and fairness properties are preserved by rule systems that are terminating, confluent, and synchronization uniform.
+If a rule system preserves a property that holds for a given input model, construction and exploration of the LTS of a model obtained by transformation can be avoided.
+If, however, the proposed technique cannot establish that a transformation preserves a property for all models, it is still possible that this property is preserved for certain input models.
+In such cases, traditional techniques for model checking can be employed to verify the property for the transformed model.
+Checking multiple properties simply involves performing the required checks for multiple hiding sets.
+Experiments have shown that checking whether a transformation preserves a given property outperforms rechecking the property for transformed models.
+
+There are two main directions for future research, which are aimed at extending the presented approach to more expressive formalism for the description of models and model transformations.
+First, the concept of networks of LTSs could be extended to support additional features such as asynchronous communication and variables for storing information.
+Second, a more expressive formalism to describe model transformations could be introduced.
+Currently, for example, it is not possible to express the addition or removal of processes, which is also not yet supported by the technique for checking property preservation.
+By extending the expressiveness of the formalisms used to describe models and model transformations, and extending the technique for checking property preservation correspondingly, an automated alternative for manual correctness proofs such as those described in Chapter~\ref{chap:reusable-correct-transformations} could be obtained. 

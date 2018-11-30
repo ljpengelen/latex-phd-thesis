@@ -1,0 +1,28 @@
+\section{Correctness of Model Transformations}
+\label{sec:reusable-correct-transformations:correctness_of_transformations}
+To reason about the correctness of a model transformation, we need a description of the behavior of models, a definition of the transformation, the possibility to check the correctness criteria, for instance by comparing the behavior of models, and the possibility to reason at the general language level rather than at the level of model instances.
+To cover all these aspects, a sufficiently expressive and flexible formalism has to be used.
+We decided to use labeled transition systems~(LTSs)~\cite{SOS2004Plotkin} as the underlying formalism to reason about the \SLCO model transformations for several reasons.
+First, the LTS formalism is well-established and often used to describe the dynamic behavior of systems.
+Second, different equivalence relations between LTSs have been defined and used for the comparison of behavior.
+In Section~\ref{subsec:reusable-correct-transformations:correctness_of_simple}, we use such an equivalence relation to relate the behavior of original and transformed models.
+Third, in our earlier work described in Chapter~\ref{chap:prototype-semantics}, an executable prototype of the semantics of \SLCO is used to describe the behavior of models as LTSs.
+To utilize the experience gained by developing this prototype, we use the same formalism for the formal semantics of \SLCO.
+
+To generate an LTS representation of the behavior of a given model, we first formally define the dynamic semantics of \SLCO in the form of structural operational semantics~(SOS)~\cite{SOS2004Plotkin}.
+Then, reasoning at the level of LTS representations of the behavior of models, we define our criterion for correctness of model transformations.
+In the following section, an overview of the formal semantics of \SLCO required for the correctness proofs is given.
+A more detailed description is presented in Appendix~\ref{ap:sos-slco}.
+
+In contrast to the aforementioned prototype, the formal semantics does not take time and successful termination into account.
+We decided not to use the prototype itself as a definition of the semantics of \SLCO, to abstract from the details of its implementation.
+Although the executable prototype and the formal semantics assign equivalent LTSs to a given \SLCO model without delay statements and final states, the rules that define the formal semantics of \SLCO do not correspond directly to the rules used to implement the prototype.
+This is caused by the fact that the formal semantics define the possible behavior of a transition in any context, whereas the executable prototype defines the behavior of transitions in relation to other transitions.
+
+In the sequel, we use the following conventions and notation.
+If $lt$ is a sequence, we abuse the notation and write $lt$ for the set of elements of~$lt$.
+Thus, we write $elt\in lt$ for ``there is an element $elt$ in sequence $lt$''.
+A number of functions are defined and used.
+The update of function~$f$ such that $f(x) = a$ is denoted by $f[a/x]$.
+
+\clearpage

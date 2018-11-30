@@ -1,0 +1,86 @@
+\section{Modelware}
+\label{sec:grammars-and-metamodels:Modelware}
+
+This section describes the implementation of our surface language using tools for model-to-text, text-to-model, and model-to-model transformations.
+In this context, the term ``model'' refers to an instance of an explicit metamodel.
+Tools that can perform transformations related to models are often referred to as \emph{modelware}.
+Section~\ref{sub:grammars-and-metamodels:MW-Approach} describes our approach.
+Section~\ref{sub:grammars-and-metamodels:MW-Implementation} describes the most important aspects of the implementation.
+The tools used for the implementation are described in Appendix~\ref{ap:tools}.
+
+
+\subsection{Approach}
+\label{sub:grammars-and-metamodels:MW-Approach}
+
+The rightmost part of Figure~\ref{fig:grammars-and-metamodels:approaches} gives a schematic overview of the approach using model-to-text (M2T), text-to-model (T2M), and model-to-model (M2M) transformations within a UML modeling tool.
+The process of using modelware to transform a UML model containing fragments of surface language to a plain UML model can be divided into the following steps:
+\begin{enumerate}
+\item The fragments of surface language are extracted from the original model.
+\item The extracted fragments are parsed and converted to a format usable by tools for model-to-model transformations.
+\item The extracted and converted fragments of surface language are translated to equivalent Activities, as described in Section \ref{sub:grammars-and-metamodels:SL-Transformation}.
+\item The fragments of surface language in the original model are replaced by the Activities created in the previous step.
+\end{enumerate}
+An advantage of this approach is that all transformations can be performed from within one and the same modeling environment.
+In contrast to the approach described in Section \ref{sub:grammars-and-metamodels:GW-Approach}, no models have to be imported or exported during the transformation process.
+
+
+\subsection{Implementation}
+\label{sub:grammars-and-metamodels:MW-Implementation}
+We used three tools for model transformation from the openArchitectureWare platform to implement the transformation described in Section \ref{sub:grammars-and-metamodels:SL-Transformation} following the approach described in Section~\ref{sub:grammars-and-metamodels:MW-Approach}.
+These tools are described in Appendix~\ref{ap:tools}, and the implementation is described below.
+
+We use \Xpand to extract fragments of surface language from models by traversing these models.
+For each instance of \OpaqueBehavior in a model, the string describing its behavior is stored in a text file, including the name of the \OpaqueBehavior and the name of the \Class it is contained in.
+Listing~\ref{lst:grammars-and-metamodels:Extracted-SL} shows the fragment of surface language extracted from the \OpaqueBehavior of Listing~\ref{lst:grammars-and-metamodels:Embedding-SL}.
+
+\lstset{
+    language=sl,
+    label=lst:grammars-and-metamodels:Extracted-SL,
+    caption=Extracted fragment of surface language,
+    numbers=none
+}
+
+\begin{listing}
+  \begin{lstlisting}
+    behavior b C {
+      return self
+    }
+  \end{lstlisting}
+\end{listing}
+
+We use \Xtext to parse and convert the extracted fragments of surface language to a format that is readable by \Xtend.
+Because \Xtext uses \ANTLR, the class of textual representations that can be parsed is restricted to those that can be described by an LL(k) grammar.
+A disadvantage of using \Xtext is that we had to modify our grammar for this reason.
+
+One of the advantages of using the tools offered by the \OAW platform is their portability.
+The platform is a collection of plug-ins for \Eclipse, and both \Eclipse and these plug-ins are available on a number of different operating systems.
+
+Listing~\ref{lst:grammars-and-metamodels:Xtend-ex} shows a part of the transformation implemented in \Xtend from behavior modeled using our surface language to \Activities.
+The listing shows that a new \ReadVariableAction, an \OutputPin, and an \ObjectFlow are created by defining local variables using \emph{let expressions}.
+These expressions are followed by a \emph{chain expression}, which denotes the sequential evaluation of the expressions connected by the ``\texttt{->}'' symbols. The last two of these expressions use the \ObjectFlow to connect the \OutputPin of the \ReadVariableAction to the \InputPin of another \Action.
+
+\lstset{
+    language=xtend,
+    label=lst:grammars-and-metamodels:Xtend-ex,
+    caption=\Xtend extension that adds a \ReadVariableAction to an \Activity,
+    numbers=none
+}
+
+\begin{listing}
+  \begin{lstlisting}
+    Void addReadVariableAction(
+       uml::Activity a, uml::Package p, surfacelanguage::Variable v,
+       uml::InputPin ip
+    ) :
+       let act = new uml::ReadVariableAction :
+       let op = new uml::OutputPin :
+       let of = new uml::ObjectFlow :
+       a.node.add(act)
+    -> a.edge.add(of)
+    -> act.setResult(op)
+    -> act.setVariable(v.createVariable(p))
+    -> of.setSource(op)
+    -> of.setTarget(ip)
+    ;
+  \end{lstlisting}
+\end{listing} 
