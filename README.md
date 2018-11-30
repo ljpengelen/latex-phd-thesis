@@ -12,3 +12,6 @@ bibtex thesis
 pdflatex thesis
 pdflatex thesis
 ```
+
+I've used a rather small margin for this thesis, to reduce the total number of pages and spare the environment.
+Most good-looking books use much bigger margins.
